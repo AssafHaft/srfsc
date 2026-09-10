@@ -1,0 +1,14 @@
+{
+  "name": "srfsc",
+  "private": true,
+  "type": "module",
+  "description": "Glanceable schedule board for SRF Park TLV surf sessions",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test",
+    "scrape": "node scraper/scrape.mjs",
+    "serve": "node scripts/serve.mjs"
+  }
+}
