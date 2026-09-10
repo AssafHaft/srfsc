@@ -103,3 +103,25 @@ test('level chips show the saved filter', () => {
   assert.ok(html.includes('data-level="2" aria-pressed="true"'));
   assert.ok(html.includes('data-level="0" aria-pressed="false" aria-label="Bay"'));
 });
+
+test('month: the level filter fades other levels in the day strips', () => {
+  const html = renderMonth(schedule, ctx({ levels: new Set([6]) }));
+  assert.ok(html.includes('<i class="lv6"></i>'));
+  assert.ok(html.includes('<i class="lv5 off"></i>'));
+  assert.doesNotMatch(renderMonth(schedule, ctx()), /\boff\b/);
+});
+
+test('week: simultaneous Bay groups share one wrapping row of numbers', () => {
+  const lesson = (id, side, spotsLeft, name) => ({ id, start: '18:30', end: '20:00', name, level: 0, area: 'bay', side, capacity: 24, booked: 24 - spotsLeft, spotsLeft, available: spotsLeft > 0 });
+  const tiny = {
+    fetchedAt: 'x', publishedThrough: '2026-09-10',
+    days: [{ date: '2026-09-10', open: '18:30', close: '20:00', closed: null, sessions: [
+      lesson(1, 'right', 10, 'שיעור גלישה למתחילים ב Bay - ילדים 11-16'),
+      lesson(2, 'left', 11, 'שיעור גלישה למתחילים ב Bay - ילדים 7-10'),
+      lesson(3, 'right', 24, 'שיעור גלישה למתחילים ב Bay - בוגרים מעל גיל 16'),
+    ] }],
+  };
+  const html = renderWeek(tiny, ctx({ now: '07:00' }));
+  assert.equal(count(html, 'class="bay-spots"'), 1);
+  assert.ok(html.includes('<div class="bay-spots"><div class="sess"><span class="spot num">10</span></div><div class="sess"><span class="spot num">11</span></div><div class="sess"><span class="spot num">24</span></div></div>'));
+});

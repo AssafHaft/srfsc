@@ -89,6 +89,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .col.is-today .gl { border-top-color: var(--deep-2); }
 .blk { position: absolute; display: flex; flex-direction: column; gap: 1px; padding: 3px 5px; overflow: hidden; background: var(--deck); border: 1px solid var(--line); border-radius: 7px; }
 .blk.bay { background: var(--sand-tint); border-color: var(--sand-line); }
+.bay-spots { display: flex; flex-wrap: wrap; column-gap: 3px; }
+.bay-spots .spot { min-width: 0; }
 .blk .bt { font-size: 11px; font-weight: 500; line-height: 15px; }
 .blk .sess { gap: 4px; }
 .blk .chip { min-width: 26px; height: 18px; padding: 0 4px; font-size: 11px; }

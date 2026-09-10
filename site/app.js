@@ -130,6 +130,7 @@ async function startRefresh() {
       onStatus: ({ phase, elapsedMs }) =>
         setButton(phase === 'queued' ? 'ממתין בתור' : phase === 'running' ? `מעדכן… ${clockText(elapsedMs)}` : 'מתחיל…', true),
     });
+    $('#load-error').hidden = true;
     render();
   } catch (err) {
     if (err instanceof RefreshError && err.kind === 'unauthorized') {

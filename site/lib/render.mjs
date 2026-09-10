@@ -53,7 +53,7 @@ function weekBlock(block, date, fromHour, ctx) {
   const position = `inset-inline-start:calc(${block.x0}% + 3px);inset-inline-end:calc(${100 - block.x1}% + 3px)`;
   let lines;
   if (block.area === 'bay') {
-    lines = block.sessions.map(s => `<div class="sess">${spot(s.spotsLeft)}</div>`).join('');
+    lines = `<div class="bay-spots">${block.sessions.map(s => `<div class="sess">${spot(s.spotsLeft)}</div>`).join('')}</div>`;
   } else {
     const { right, left, shared } = reefSides(block);
     lines = shared
@@ -123,7 +123,7 @@ export function renderMonth(schedule, ctx) {
       body = '<span class="meta">טרם פורסם</span>';
     } else if (hasSessions) {
       const { freeSpots, levels } = daySummary(day);
-      body = `<span class="hrs">${range(day.open, day.close)}</span><span class="strip">${levels.map(l => `<i class="lv${l}"></i>`).join('')}</span><span class="free num">${freeSpots} פנויים</span>`;
+      body = `<span class="hrs">${range(day.open, day.close)}</span><span class="strip">${levels.map(l => `<i class="${cls(`lv${l}`, ctx.levels.size > 0 && !ctx.levels.has(l) && 'off')}"></i>`).join('')}</span><span class="free num">${freeSpots} פנויים</span>`;
     } else {
       kind = 'is-empty';
       body = '<span class="meta">אין סשנים</span>';

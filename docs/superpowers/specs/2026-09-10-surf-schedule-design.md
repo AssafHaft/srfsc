@@ -170,7 +170,7 @@ The view lives in the URL hash (`#day`, `#week`, `#month`) so it can be bookmark
 - Rows with the same start, end and area share one block:
   - a right/left reef pair with the same name: one chip, then right number, pier line, left number
   - different sessions on the two sides (e.g. 20:00 on 10/09): one line with a chip and number for each side, split by the pier line
-  - simultaneous Bay groups (e.g. two kids' lessons at 15:30 on 12/09): one number per group, stacked
+  - simultaneous Bay groups (e.g. two kids' lessons at 15:30 on 12/09, three groups at 18:30 on 14/09): one number per group, in a wrapping row under the time
 - Block text is compact (11–12 px) so a reef block fits in about 90 px: time on the first line, chip and spots on the second.
 - Today's column has a "now" line at the current minute with a light "עכשיו" tag. Today's finished blocks are grey.
 - Clicking a day header opens that day's view. A legend under the grid explains the chip, the orange marker, "מלא", and that block height is session length.
