@@ -3,6 +3,7 @@ import { addDays, toParkDate } from '../site/lib/time.mjs';
 
 export const PARK_URL = 'https://www.srfparktlv.co.il/products/sessions-react/';
 export const RETRY_WAITS_MS = [2000, 4000, 8000];
+export const REQUEST_TIMEOUT_MS = 20000;
 
 // Without X-Requested-With the park answers with a redirect to an "abuse" page.
 const HEADERS = {
@@ -16,7 +17,7 @@ const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 export const windowUrl = fromIso => `${PARK_URL}?ajax=1&from_date=${encodeURIComponent(toParkDate(fromIso))}`;
 
 async function fetchOnce(url, fetchImpl) {
-  const res = await fetchImpl(url, { headers: HEADERS });
+  const res = await fetchImpl(url, { headers: HEADERS, signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const text = await res.text();
   let body;

@@ -21,6 +21,8 @@ npm run serve     # preview the site at http://localhost:8000/
 
 ## One-time setup
 
+Do steps 1 and 2 before merging into `main` — the merge runs the workflow, and it fails at the Pages step if Pages isn't enabled yet.
+
 1. Make the repo public: Settings → General → Danger Zone → Change visibility.
 2. Settings → Pages → Build and deployment → Source: **GitHub Actions**.
 3. Actions tab → **Update schedule** → **Run workflow** (or wait for the next hourly run).

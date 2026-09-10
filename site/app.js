@@ -26,7 +26,7 @@ const store = {
 function initialView() {
   const fromHash = location.hash.slice(1);
   if (VIEWS.includes(fromHash)) return fromHash;
-  return window.matchMedia('(max-width: 720px)').matches ? 'day' : 'week';
+  return window.matchMedia('(max-width: 719px)').matches ? 'day' : 'week';
 }
 
 function savedLevels() {
@@ -110,7 +110,7 @@ function showMessage(text, url = null) {
 const HINTS = {
   forbidden: 'בדקו שהטוקן מוגבל למאגר srfsc עם ההרשאות Actions: Read and write ו־Contents: Read-only.',
   network: 'נסו שוב בעוד רגע.',
-  timeout: 'הלוח יתעדכן כשהריצה תסתיים.',
+  timeout: 'אפשר ללחוץ שוב על ״עדכון עכשיו״ בעוד כמה דקות.',
 };
 
 async function startRefresh() {
@@ -208,5 +208,12 @@ window.addEventListener('hashchange', () => {
   }
 });
 
-setInterval(render, 60000); // keeps "now", finished sessions and "updated N minutes ago" current
+function tick() {
+  const scrollLeft = document.querySelector('.week-scroll')?.scrollLeft;
+  render();
+  const scroller = document.querySelector('.week-scroll');
+  if (scrollLeft !== undefined && scroller) scroller.scrollLeft = scrollLeft;
+}
+
+setInterval(tick, 60000); // keeps "now", finished sessions and "updated N minutes ago" current
 load();

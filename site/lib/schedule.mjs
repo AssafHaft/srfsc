@@ -89,9 +89,12 @@ export function monthDates(today, publishedThrough) {
 export function monthTitle(dates) {
   const first = dates[0];
   const last = dates.at(-1);
+  const y1 = first.slice(0, 4);
+  const y2 = last.slice(0, 4);
   const m1 = HE_MONTHS[Number(first.slice(5, 7)) - 1];
   const m2 = HE_MONTHS[Number(last.slice(5, 7)) - 1];
-  return m1 === m2 ? `${m1} ${last.slice(0, 4)}` : `${m1}–${m2} ${last.slice(0, 4)}`;
+  if (m1 === m2) return `${m1} ${y2}`;
+  return y1 === y2 ? `${m1}–${m2} ${y2}` : `${m1} ${y1}–${m2} ${y2}`;
 }
 
 /** Finished today (`now` is Israel "HH:MM"). */

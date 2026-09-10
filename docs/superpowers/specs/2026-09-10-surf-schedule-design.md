@@ -113,7 +113,7 @@ Node 22 (as on the Actions runner; works on Node 20+), ES modules, **no dependen
 
 **Retries:** each request is retried up to 3 times (waits of 2 s, 4 s, 8 s) on network errors, non-200 responses, non-JSON bodies or `success !== true`. If a window still fails, the scraper exits non-zero without writing anything.
 
-**Refuse to overwrite with nothing:** if the scrape returns zero sessions in total while the existing file has sessions dated today or later, exit non-zero (most likely blocked) and keep the existing file.
+**Refuse to overwrite with nothing:** if the scrape returns zero sessions and no close days while the existing file has sessions dated today or later, exit non-zero (most likely blocked) and keep the existing file.
 
 **Validation:** every kept row must have a valid date, `HH:MM` times with end after start, and non-negative integer counts. Rows failing validation are skipped and logged.
 
@@ -226,10 +226,10 @@ Chip text is Deep on Bay, L1, L2 and L4, and white on L3, L5 and L6 (for contras
 ### Refresh button
 
 1. **No token saved:** open a panel explaining the one-time setup (section 10), with a link to GitHub's new-token page and a field to paste the token. Saved in `localStorage` under `srfsc.githubToken`.
-2. **Start:** `POST /repos/AssafHaft/srfsc/actions/workflows/update.yml/dispatches` with `{ "ref": "main" }`.
+2. **Start:** `POST /repos/AssafHaft/srfsc/actions/workflows/update.yml/dispatches` with `{ "ref": "main", "return_run_details": true }`.
    - `200` with `workflow_run_id` → follow that run.
-   - `204` with no body (older behavior) → `GET .../actions/workflows/update.yml/runs?event=workflow_dispatch&per_page=5` and take the newest run created after the click (retry the lookup for up to 30 s).
-3. **Wait:** poll `GET .../actions/runs/{id}` every 5 s. Button text: "ממתין בתור" while `queued`, "מעדכן…" plus elapsed time while `in_progress`.
+   - `204` with no body (its default without `return_run_details: true`) → `GET .../actions/workflows/update.yml/runs?event=workflow_dispatch&per_page=5` and take the newest run created after the click (retry the lookup for up to 30 s).
+3. **Wait:** poll `GET .../actions/runs/{id}` every 5 s. Button text: "ממתין בתור" while `queued`, "מעדכן…" plus elapsed time while `in_progress`. All GitHub API calls use `cache: "no-store"`, because GitHub API responses carry `max-age=60`.
 4. **Success** (`completed` + `success`): fetch `GET .../contents/site/data/schedule.json?ref=main` with `Accept: application/vnd.github.raw+json`, re-render, show "עודכן עכשיו". Reading from the API matters: GitHub Pages' CDN caches files for 10 minutes and ignores `?t=` query strings (verified 2026-09-10).
 5. **Outcomes:**
 

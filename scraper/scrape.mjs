@@ -19,7 +19,7 @@ export async function scrape({ now = new Date(), existing = null, log = console.
   const windows = await fetchHorizon(today, { log, ...fetchOptions });
   const { schedule, warnings } = normalize(windows, { today, fetchedAt: israelIso(now) });
   for (const w of warnings) log(`warning: ${w}`);
-  if (countSessions(schedule, today) === 0 && countSessions(existing, today) > 0) {
+  if (countSessions(schedule, today) === 0 && !schedule.days.some(d => d.closed) && countSessions(existing, today) > 0) {
     throw new Error('the park returned no sessions but the current file has upcoming ones (blocked?); keeping the current file');
   }
   return schedule;

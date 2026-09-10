@@ -47,10 +47,11 @@ test('follows the returned run id, reports progress, then reads the file from th
   assert.equal(dispatch.url, `${REPO}/actions/workflows/update.yml/dispatches`);
   assert.equal(dispatch.init.method, 'POST');
   assert.equal(dispatch.init.headers.Authorization, 'Bearer tok');
-  assert.deepEqual(JSON.parse(dispatch.init.body), { ref: 'main' });
+  assert.deepEqual(JSON.parse(dispatch.init.body), { ref: 'main', return_run_details: true });
   const read = fetchImpl.calls.at(-1);
   assert.equal(read.url, `${REPO}/contents/site/data/schedule.json?ref=main`);
   assert.equal(read.init.headers.Accept, 'application/vnd.github.raw+json');
+  assert.ok(fetchImpl.calls.every(c => c.init.cache === 'no-store'));
 });
 
 test('with a 204 dispatch, finds the new run in the run list', async () => {
@@ -75,6 +76,17 @@ test('a failed run links to its log', async () => {
   await assert.rejects(refresh({ token: 'tok', config, fetchImpl, ...clock() }), e => {
     assert.ok(e instanceof RefreshError);
     assert.equal(e.kind, 'failed');
+    assert.equal(e.url, 'https://github.com/run/42');
+    return true;
+  });
+});
+
+test('a cancelled run (superseded by a newer one) is reported as such', async () => {
+  const fetchImpl = fakeGitHub({ runs: [run('in_progress'), run('completed', 'cancelled')] });
+  await assert.rejects(refresh({ token: 'tok', config, fetchImpl, ...clock() }), e => {
+    assert.ok(e instanceof RefreshError);
+    assert.equal(e.kind, 'failed');
+    assert.equal(e.message, 'העדכון בוטל כי התחיל עדכון אחר');
     assert.equal(e.url, 'https://github.com/run/42');
     return true;
   });

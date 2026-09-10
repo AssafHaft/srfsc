@@ -14,6 +14,7 @@ test('fetchWindow sends the XHR header the park requires', async () => {
   const body = await fetchWindow('2026-09-10', { fetchImpl });
   assert.equal(body.scheduler.length, 88);
   assert.equal(fetchImpl.calls[0].init.headers['X-Requested-With'], 'XMLHttpRequest');
+  assert.ok(fetchImpl.calls[0].init.signal instanceof AbortSignal);
 });
 
 test('fetchWindow retries with 2 s, 4 s waits and then succeeds', async () => {

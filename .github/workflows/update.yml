@@ -22,6 +22,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
@@ -41,6 +42,8 @@ jobs:
       - name: Scrape the park
         if: vars.SCRAPE_IN_ACTIONS != 'false'
         run: node scraper/scrape.mjs
+        # a push should still deploy code (with the existing data) when the park is unreachable
+        continue-on-error: ${{ github.event_name == 'push' }}
 
       - name: Commit new data
         if: vars.SCRAPE_IN_ACTIONS != 'false'

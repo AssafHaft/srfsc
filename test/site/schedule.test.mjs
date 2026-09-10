@@ -92,6 +92,7 @@ test('monthDates starts on this week\'s Sunday and adds one week past the last p
 test('monthTitle names one or two months', () => {
   assert.equal(monthTitle(['2026-09-06', '2026-10-03']), 'ספטמבר–אוקטובר 2026');
   assert.equal(monthTitle(['2026-09-06', '2026-09-26']), 'ספטמבר 2026');
+  assert.equal(monthTitle(['2026-12-27', '2027-01-23']), 'דצמבר 2026–ינואר 2027');
 });
 
 test('isPast and isNow only apply to today', () => {

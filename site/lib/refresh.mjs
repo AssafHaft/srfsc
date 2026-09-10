@@ -38,6 +38,7 @@ export async function refresh({
     try {
       res = await fetchImpl(url, {
         ...init,
+        cache: 'no-store', // GitHub API responses carry Cache-Control: max-age=60; we need the latest state every call
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: 'application/vnd.github+json',
@@ -60,9 +61,9 @@ export async function refresh({
   const dispatched = await call(`${repo}/actions/workflows/${config.workflow}/dispatches`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ ref: config.branch }),
+    body: JSON.stringify({ ref: config.branch, return_run_details: true }),
   });
-  // Newer API versions answer 200 with the run id; older ones 204 with no body.
+  // With return_run_details: true, GitHub answers 200 with the run id; without it, 204 with no body.
   let runId = dispatched.status === 200 ? (await dispatched.json().catch(() => null))?.workflow_run_id ?? null : null;
 
   while (!runId) {
@@ -78,6 +79,7 @@ export async function refresh({
   for (;;) {
     const run = await (await call(`${repo}/actions/runs/${runId}`)).json();
     if (run.status === 'completed') {
+      if (run.conclusion === 'cancelled') throw new RefreshError('failed', 'העדכון בוטל כי התחיל עדכון אחר', run.html_url);
       if (run.conclusion !== 'success') throw new RefreshError('failed', 'העדכון נכשל', run.html_url);
       break;
     }

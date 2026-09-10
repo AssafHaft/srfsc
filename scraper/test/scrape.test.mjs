@@ -23,6 +23,14 @@ test('scrape refuses to replace upcoming sessions with nothing', async () => {
   await assert.rejects(scrape({ now: NOW, existing, fetchImpl, log: quiet }), /returned no sessions/);
 });
 
+test('scrape accepts a park that publishes only closures', async () => {
+  const existing = { days: [{ date: '2026-09-10', sessions: [{ id: 1 }] }] };
+  const closures = { ...EMPTY_WINDOW, close_days: [{ date: '2026-09-11', text: 'סגור לתחזוקה' }] };
+  const schedule = await scrape({ now: NOW, existing, fetchImpl: scriptedFetch([response(closures), response(EMPTY_WINDOW)]), log: quiet });
+  assert.equal(schedule.publishedThrough, '2026-09-11');
+  assert.equal(schedule.days.at(-1).closed, 'סגור לתחזוקה');
+});
+
 test('scrape accepts an empty park when there was nothing upcoming anyway', async () => {
   const existing = { days: [{ date: '2026-09-09', sessions: [{ id: 1 }] }] };
   const schedule = await scrape({ now: NOW, existing, fetchImpl: scriptedFetch([response(EMPTY_WINDOW)]), log: quiet });
