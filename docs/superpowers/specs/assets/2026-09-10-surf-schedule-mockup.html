@@ -13,14 +13,18 @@
   --deck: #FFFFFF;
   --deep: #0F2B35;
   --deep-2: #244652;
+  --deep-3: #17394A;
   --mist: #5F7A83;
   --mist-2: #9DB4BA;
   --line: #D8E3E2;
   --rescue: #FF5A1F;
+  --sand-tint: #FBF5E6;
+  --sand-line: #EBD9A8;
   --l0: #E2B860; --l1: #91C36B; --l2: #6F9B5C; --l3: #487037;
   --l4: #81ABCA; --l5: #225A8C; --l6: #8A71B2;
   --display: "Secular One", "IBM Plex Sans Hebrew", system-ui, sans-serif;
   --text: "IBM Plex Sans Hebrew", system-ui, sans-serif;
+  --hpx: 56px;
 }
 * { box-sizing: border-box; }
 html { background: var(--foam); }
@@ -65,30 +69,40 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .spot.none { color: var(--mist-2); font-weight: 400; }
 .pier { display: inline-flex; align-items: center; }
 .pier-line { width: 1px; height: 14px; background: var(--line); margin: 0 5px; }
-.sess { position: relative; z-index: 2; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
-.past { opacity: .38; }
+.sess { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.past { opacity: .38; filter: grayscale(1); }
 .off { opacity: .16; }
 
-/* week */
+/* week: calendar blocks */
 .week-scroll { overflow-x: auto; }
-.week { display: grid; grid-template-columns: 40px repeat(7, minmax(118px, 1fr)); min-width: 880px; }
-.corner { position: sticky; right: 0; background: var(--foam); z-index: 3; }
-.dh { display: flex; flex-direction: column; align-items: flex-start; padding: 10px 12px; border-radius: 12px 12px 0 0; }
+.week { display: grid; grid-template-columns: 48px repeat(7, minmax(140px, 1fr)); min-width: 1028px; }
+.corner { position: sticky; right: 0; background: var(--foam); z-index: 5; }
+.dh { display: flex; flex-direction: column; align-items: flex-start; padding: 10px 10px 10px; border-radius: 12px 12px 0 0; border-bottom: 1px solid var(--line); }
 .dh:hover .dd { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
 .dh .dn { font-size: 13px; color: var(--mist); }
 .dh .dd { font-family: var(--display); font-size: 26px; line-height: 1.1; }
-.dh .hrs { font-size: 12px; color: var(--mist); }
-.hr { position: sticky; right: 0; z-index: 3; background: var(--foam); padding-top: 7px; font-size: 12px; color: var(--mist); border-top: 1px solid var(--line); }
-.cell { position: relative; border-top: 1px solid var(--line); padding: 6px 12px; min-height: 38px; display: flex; flex-direction: column; justify-content: flex-start; gap: 4px; }
-.past { filter: grayscale(1); }
+.dh .hrs { font-size: 13px; font-weight: 500; }
+.hours { position: sticky; right: 0; z-index: 5; background: var(--foam); }
+.hours div { height: var(--hpx); border-top: 1px solid var(--line); font-size: 12px; color: var(--mist); padding-top: 2px; }
+.col { position: relative; }
+.gl { position: absolute; inset-inline: 0; border-top: 1px solid var(--line); }
 .is-today { background: var(--deep); color: var(--foam); }
-.cell.is-today { border-top-color: var(--deep-2); }
+.dh.is-today { border-bottom-color: var(--deep-2); }
 .dh.is-today .dn { color: var(--foam); font-weight: 600; }
-.dh.is-today .hrs { color: var(--mist-2); }
-.cell.is-today.last { border-radius: 0 0 12px 12px; }
+.col.is-today { border-radius: 0 0 12px 12px; }
+.col.is-today .gl { border-top-color: var(--deep-2); }
+.blk { position: absolute; display: flex; flex-direction: column; gap: 1px; padding: 3px 5px; overflow: hidden; background: var(--deck); border: 1px solid var(--line); border-radius: 7px; }
+.blk.bay { background: var(--sand-tint); border-color: var(--sand-line); }
+.blk .bt { font-size: 11px; font-weight: 500; line-height: 15px; }
+.blk .sess { gap: 4px; }
+.blk .chip { min-width: 26px; height: 18px; padding: 0 4px; font-size: 11px; }
+.blk .spot { min-width: 16px; font-size: 12px; line-height: 18px; }
+.blk .spot.full { font-size: 11px; }
+.blk .pier-line { margin: 0 3px; }
+.is-today .blk { background: var(--deep-3); border-color: var(--deep-2); }
 .is-today .spot.full { color: var(--mist-2); }
 .is-today .pier-line { background: var(--deep-2); }
-.now { position: absolute; inset-inline: 0; height: 0; border-top: 2px solid var(--foam); pointer-events: none; z-index: 1; }
+.now { position: absolute; inset-inline: 0; height: 0; border-top: 2px solid var(--foam); pointer-events: none; z-index: 4; }
 .now::before { content: ""; position: absolute; inset-inline-start: -1px; top: -5px; width: 8px; height: 8px; border-radius: 50%; background: var(--foam); }
 .now span { position: absolute; inset-inline-end: 4px; top: -9px; font-size: 11px; font-weight: 600; line-height: 16px; background: var(--foam); color: var(--deep); padding: 0 6px; border-radius: 4px; }
 .legend { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 18px; font-size: 13px; color: var(--mist); }
@@ -105,6 +119,7 @@ button.mc:hover { border-color: var(--deep); }
 .mc .dd { font-family: var(--display); font-size: 22px; line-height: 1; }
 .mc .tag { font-size: 12px; font-weight: 600; }
 .mc .meta { font-size: 12px; color: var(--mist); }
+.mc .hrs { font-size: 13px; font-weight: 500; }
 .mc .free { font-size: 13px; font-weight: 500; margin-top: auto; }
 .strip { display: flex; gap: 2px; height: 8px; }
 .strip i { flex: 1; border-radius: 2px; }
@@ -119,20 +134,23 @@ button.mc:hover { border-color: var(--deep); }
 .day-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin: 4px 0 16px; }
 .day-head .kicker { font-size: 14px; font-weight: 600; }
 .day-head .dd { font-family: var(--display); font-size: 32px; line-height: 1.05; }
-.day-head .sub { font-size: 14px; color: var(--mist); margin-top: 4px; }
+.day-head .open { font-size: 16px; font-weight: 500; margin-top: 6px; }
+.day-head .sub { font-size: 14px; color: var(--mist); }
 .nav { display: flex; gap: 8px; }
 .nav button { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: var(--deck); display: inline-grid; place-items: center; }
 .nav button:hover { border-color: var(--deep); }
 .nav svg { width: 18px; height: 18px; }
 .list { background: var(--deck); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
-.row { display: grid; grid-template-columns: 150px 36px minmax(0, 1fr) minmax(250px, 320px); gap: 14px; align-items: center; padding: 11px 18px; border-top: 1px solid var(--line); }
+.row { display: grid; grid-template-columns: 110px 36px minmax(0, 1fr) minmax(250px, 320px); gap: 14px; align-items: center; padding: 11px 18px; border-top: 1px solid var(--line); }
 .row:first-child { border-top: 0; }
 .row.head { padding-block: 9px; font-size: 12px; color: var(--mist); }
-.row .time { font-size: 14px; color: var(--mist); }
+.row .time { display: flex; flex-direction: column; line-height: 1.25; }
+.row .st { font-size: 18px; font-weight: 600; }
+.row .en { font-size: 12px; color: var(--mist); }
 .row .name { font-size: 15px; font-weight: 500; line-height: 1.35; }
 .row .name small { display: block; font-size: 12px; font-weight: 400; color: var(--mist); }
 .row.is-now { background: #E6F0EF; }
-.now-tag { margin-inline-start: 8px; font-size: 11px; font-weight: 600; background: var(--deep); color: var(--foam); padding: 1px 6px; border-radius: 4px; }
+.now-tag { align-self: flex-start; margin-top: 3px; font-size: 11px; font-weight: 600; background: var(--deep); color: var(--foam); padding: 1px 6px; border-radius: 4px; }
 .sides { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .sides.bay { grid-template-columns: 1fr; }
 .side { display: flex; align-items: center; gap: 8px; }
@@ -140,6 +158,7 @@ button.mc:hover { border-color: var(--deep); }
 .bar { flex: 1; height: 6px; border-radius: 3px; background: #E4ECEB; overflow: hidden; }
 .bar i { display: block; height: 100%; border-radius: 3px; }
 .empty { padding: 28px; text-align: center; color: var(--mist); background: var(--deck); border: 1px solid var(--line); border-radius: 14px; }
+.past-toggle { display: block; margin-top: 6px; font-size: 13px; font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
 
 @media (max-width: 720px) {
   .wrap { padding: 20px 14px 44px; }
@@ -147,7 +166,8 @@ button.mc:hover { border-color: var(--deep); }
   .fresh { width: 100%; justify-content: space-between; }
   .fresh-text { text-align: start; }
   .row { grid-template-columns: 36px minmax(0, 1fr); gap: 6px 10px; padding: 12px 14px; }
-  .row .time { grid-column: 1 / -1; font-size: 13px; }
+  .row .time { grid-column: 1 / -1; flex-direction: row; align-items: baseline; gap: 8px; }
+  .row .now-tag { align-self: center; margin-top: 0; }
   .row .sides { grid-column: 1 / -1; }
   .row.head { display: none; }
   .side-l { display: inline; }
@@ -156,7 +176,7 @@ button.mc:hover { border-color: var(--deep); }
   .month { gap: 4px; }
   .mc { min-height: 76px; padding: 6px 6px 7px; border-radius: 9px; }
   .mc .dd { font-size: 18px; }
-  .mc .meta, .mc .tag { display: none; }
+  .mc .meta, .mc .tag, .mc .hrs { display: none; }
   .mc.is-closed .meta, .mc.is-unpub .meta, .mc.is-empty .meta { display: block; font-size: 11px; }
   .mc .free { font-size: 11px; }
   .day-head .dd { font-size: 28px; }
@@ -192,12 +212,15 @@ const D = window.D;
 const T = '2026-09-10', NOW = '16:20', LAST = '2026-09-24';
 const HEL = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
 const HES = ['א׳', 'ב׳', 'ג׳', 'ד׳', 'ה׳', 'ו׳', 'ש׳'];
+const HEM = ['ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר'];
+const HPX = 56;
 const hashView = location.hash.slice(1);
-const state = { view: ['day', 'week', 'month'].includes(hashView) ? hashView : window.innerWidth < 720 ? 'day' : 'week', day: T, levels: new Set() };
+const state = { view: ['day', 'week', 'month'].includes(hashView) ? hashView : window.innerWidth < 720 ? 'day' : 'week', day: T, levels: new Set(), showPast: false };
 const $ = s => document.querySelector(s);
 const add = (iso, n) => { const d = new Date(iso + 'T12:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
 const dow = iso => new Date(iso + 'T12:00:00Z').getUTCDay();
 const dd = iso => `${+iso.slice(8)}.${+iso.slice(5, 7)}`;
+const mins = t => +t.slice(0, 2) * 60 + +t.slice(3, 5);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 const range = (a, b) => `<span class="ltr num">${a}–${b}</span>`;
 const chip = (lv, bay) => `<span class="chip lv${lv}">${bay || lv === 0 ? 'Bay' : 'L' + lv}</span>`;
@@ -209,6 +232,7 @@ const isPast = (s, d) => d === T && s[1] <= NOW;
 const isNow = (s, d) => d === T && s[0] <= NOW && NOW < s[1];
 const isOff = s => state.levels.size > 0 && !state.levels.has(s[2]);
 const cls = (...c) => c.filter(Boolean).join(' ');
+const openLine = d => D.closed[d] ? 'סגור' : D.summary[d] ? `פתוח ${range(D.summary[d][0], D.summary[d][1])}` : 'אין סשנים';
 
 function label(name) {
   if (name.includes('Bay')) return { title: 'שיעור מתחילים ב־Bay', note: name.split(' - ').pop() };
@@ -218,8 +242,58 @@ function label(name) {
   };
 }
 
-function sess(s, d) {
-  return `<div class="${cls('sess', isPast(s, d) && 'past', isOff(s) && 'off')}" title="${esc(`${s[0]}–${s[1]}  ${D.names[s[3]]}`)}">${chip(s[2], s[7])}${s[7] ? spot(s[4]) : pier(s[4], s[5])}</div>`;
+// Rows sharing start, end and area form one block. Blocks use the full column width
+// unless they overlap: within a cluster of overlapping blocks, reef gets 64% and Bay 36%
+// (when both are present), and same-area blocks that overlap split their share.
+function blocksFor(list) {
+  const groups = [];
+  for (const s of list) {
+    const area = s[7] ? 'bay' : 'reef';
+    let g = groups.find(x => x.start === s[0] && x.end === s[1] && x.area === area);
+    if (!g) groups.push(g = { start: s[0], end: s[1], area, rows: [] });
+    g.rows.push(s);
+  }
+  groups.sort((a, b) => a.start.localeCompare(b.start) || (a.area === 'reef' ? -1 : 1));
+  let cluster = [], clusterEnd = '';
+  const flush = () => {
+    const lanes = { reef: [], bay: [] };
+    for (const g of cluster) {
+      const ends = lanes[g.area];
+      let i = ends.findIndex(end => end <= g.start);
+      if (i < 0) { i = ends.length; ends.push(g.end); } else ends[i] = g.end;
+      g.sub = i;
+    }
+    const both = lanes.reef.length > 0 && lanes.bay.length > 0;
+    for (const g of cluster) {
+      const [a0, a1] = !both ? [0, 100] : g.area === 'reef' ? [0, 64] : [64, 100];
+      const w = (a1 - a0) / lanes[g.area].length;
+      g.x0 = a0 + g.sub * w;
+      g.x1 = g.x0 + w;
+    }
+    cluster = [];
+  };
+  for (const g of groups) {
+    if (cluster.length && g.start >= clusterEnd) flush();
+    clusterEnd = cluster.length && clusterEnd > g.end ? clusterEnd : g.end;
+    cluster.push(g);
+  }
+  if (cluster.length) flush();
+  return groups;
+}
+
+function block(g, d, h0) {
+  const top = (mins(g.start) - h0 * 60) / 60 * HPX + 2;
+  const height = (mins(g.end) - mins(g.start)) / 60 * HPX - 4;
+  const pos = `inset-inline-start:calc(${g.x0}% + 3px);inset-inline-end:calc(${100 - g.x1}% + 3px)`;
+  let lines;
+  if (g.area === 'bay') lines = g.rows.map(s => `<div class="sess">${spot(s[4])}</div>`).join('');
+  else if (g.rows.length === 1) lines = `<div class="sess">${chip(g.rows[0][2])}${pier(g.rows[0][4], g.rows[0][5])}</div>`;
+  else {
+    const r = g.rows.find(s => s[4] != null) || g.rows[0], l = g.rows.find(s => s[5] != null) || g.rows[1];
+    lines = `<div class="sess">${chip(r[2])}${spot(r[4])}<i class="pier-line"></i>${chip(l[2])}${spot(l[5])}</div>`;
+  }
+  const title = g.rows.map(s => D.names[s[3]]).join(' / ');
+  return `<div class="${cls('blk', g.area === 'bay' && 'bay', g.rows.every(s => isPast(s, d)) && 'past', g.rows.every(isOff) && 'off')}" style="top:${top}px;height:${height}px;${pos}" title="${esc(`${g.start}–${g.end}  ${title}`)}"><span class="bt">${range(g.start, g.end)}</span>${lines}</div>`;
 }
 
 function legend() {
@@ -227,31 +301,33 @@ function legend() {
     <span><span class="sess">${chip(5)}${pier(8, 6)}</span>מקומות פנויים בריף ימין ובריף שמאל</span>
     <span>${spot(2)}נותרו מקומות אחרונים</span>
     <span><span class="spot full">מלא</span>אין מקומות פנויים</span>
+    <span><span style="display:inline-block;width:22px;height:14px;border-radius:4px;background:var(--sand-tint);border:1px solid var(--sand-line)"></span>בלוק חולי הוא שיעור ב־Bay</span>
+    <span>גובה הבלוק הוא משך הסשן</span>
   </div>`;
 }
 
 function week() {
   const days = Array.from({ length: 7 }, (_, i) => add(T, i));
-  let h = '<div class="week-scroll"><div class="week"><div class="corner"></div>';
+  const all = days.flatMap(d => D.detail[d] || []);
+  const h0 = Math.min(...all.map(s => Math.floor(mins(s[0]) / 60)));
+  const h1 = Math.max(...all.map(s => Math.ceil(mins(s[1]) / 60)));
+  const n = h1 - h0;
+  let h = `<div class="week-scroll"><div class="week"><div class="corner"></div>`;
   for (const d of days) {
-    const s = D.summary[d], t = d === T;
-    const hrs = D.closed[d] ? 'סגור' : s ? range(s[0].slice(0, 2), s[1].slice(0, 2)) : 'אין סשנים';
-    h += `<button class="${cls('dh', t && 'is-today')}" data-day="${d}"><span class="dn">${t ? 'היום' : HEL[dow(d)]}</span><span class="dd num">${dd(d)}</span><span class="hrs">${hrs}</span></button>`;
+    const t = d === T;
+    h += `<button class="${cls('dh', t && 'is-today')}" data-day="${d}"><span class="dn">${t ? 'היום' : HEL[dow(d)]}</span><span class="dd num">${dd(d)}</span><span class="hrs">${openLine(d)}</span></button>`;
   }
-  for (let hr = 6; hr <= 22; hr++) {
-    const hh = String(hr).padStart(2, '0');
-    h += `<div class="hr num">${hh}</div>`;
-    for (const d of days) {
-      const t = d === T;
-      let inner = (D.detail[d] || []).filter(s => s[0].startsWith(hh)).map(s => sess(s, d)).join('');
-      if (t && NOW.startsWith(hh)) inner += `<div class="now" style="top:${Math.round(+NOW.slice(3) / 60 * 100)}%"><span>עכשיו</span></div>`;
-      h += `<div class="${cls('cell', t && 'is-today', t && hr === 22 && 'last')}">${inner}</div>`;
-    }
+  h += '<div class="hours">' + Array.from({ length: n }, (_, i) => `<div class="num">${String(h0 + i).padStart(2, '0')}:00</div>`).join('') + '</div>';
+  for (const d of days) {
+    const t = d === T;
+    let col = Array.from({ length: n }, (_, i) => `<i class="gl" style="top:${i * HPX}px"></i>`).join('');
+    col += blocksFor(D.detail[d] || []).map(g => block(g, d, h0)).join('');
+    if (t) col += `<div class="now" style="top:${(mins(NOW) - h0 * 60) / 60 * HPX}px"><span>עכשיו</span></div>`;
+    h += `<div class="${cls('col', t && 'is-today')}" style="height:${n * HPX}px">${col}</div>`;
   }
   return h + '</div></div>' + legend();
 }
 
-const HEM = ['ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר'];
 function month() {
   // This week through the week holding the last published day, plus one "not published yet" week.
   const start = add(T, -dow(T));
@@ -268,7 +344,7 @@ function month() {
     if (gone) kind = 'is-past';
     else if (closed) { kind = 'is-closed'; body = `<span class="closed">סגור</span><span class="meta">${closed}</span>`; }
     else if (d > LAST) { kind = 'is-unpub'; body = '<span class="meta">טרם פורסם</span>'; }
-    else if (s) body = `<span class="meta">${range(s[0].slice(0, 2), s[1].slice(0, 2))}</span><span class="strip">${[...s[5]].map(x => `<i class="lv${x}"></i>`).join('')}</span><span class="free num">${s[3]} פנויים</span>`;
+    else if (s) body = `<span class="hrs">${range(s[0], s[1])}</span><span class="strip">${[...s[5]].map(x => `<i class="lv${x}"></i>`).join('')}</span><span class="free num">${s[3]} פנויים</span>`;
     else { kind = 'is-empty'; body = '<span class="meta">אין סשנים</span>'; }
     const top = `<span class="mc-top"><span class="dd num">${d.endsWith('-01') ? dd(d) : +d.slice(8)}</span>${t ? '<span class="tag">היום</span>' : ''}</span>`;
     h += gone || !s
@@ -283,9 +359,10 @@ function day(d) {
   // Today: sessions that already ended sit behind a toggle, so the list opens at "now".
   const pastCount = all ? all.filter(x => isPast(x, d)).length : 0;
   const list = all && (state.showPast ? all : all.filter(x => !isPast(x, d)));
-  const pastToggle = pastCount ? `<button onclick="state.showPast = !state.showPast; render()" style="display:block;margin-top:6px;font-size:13px;font-weight:500;color:var(--deep);text-decoration:underline;text-underline-offset:3px">${state.showPast ? 'הסתרת' : 'הצגת'} ${pastCount} סשנים שכבר הסתיימו</button>` : '';
-  const sub = (closed ? `סגור: ${closed}` : s ? `פתוח ${range(s[0], s[1])}, ${s[3]} מקומות פנויים` : d > LAST ? 'הלוח עוד לא פורסם' : 'אין סשנים ביום הזה') + pastToggle;
-  let h = `<div class="day-head"><div>${t ? '<div class="kicker">היום</div>' : ''}<div class="dd">${HEL[dow(d)]} <span class="num">${dd(d)}</span></div><div class="sub">${sub}</div></div>
+  const open = closed ? `סגור: ${closed}` : s ? openLine(d) : d > LAST ? 'הלוח עוד לא פורסם' : 'אין סשנים ביום הזה';
+  const sub = s && !closed ? `<div class="sub num">${s[3]} מקומות פנויים</div>` : '';
+  const toggle = pastCount ? `<button class="past-toggle" onclick="state.showPast = !state.showPast; render()">${state.showPast ? 'הסתרת' : 'הצגת'} ${pastCount} סשנים שכבר הסתיימו</button>` : '';
+  let h = `<div class="day-head"><div>${t ? '<div class="kicker">היום</div>' : ''}<div class="dd">${HEL[dow(d)]} <span class="num">${dd(d)}</span></div><div class="open">${open}</div>${sub}${toggle}</div>
     <div class="nav"><button data-step="-1" aria-label="היום הקודם"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button><button data-step="1" aria-label="היום הבא"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button></div></div>`;
   if (!list) return h + `<p class="empty">${s ? 'בהדגמה יש פירוט שעתי עד 16.9. באתר עצמו יופיע כאן כל היום.' : closed ? 'הפארק סגור ביום הזה.' : 'אין סשנים ביום הזה.'}</p>`;
   h += '<div class="list"><div class="row head"><span></span><span></span><span></span><span class="sides"><span>ריף ימין</span><span>ריף שמאל</span></span></div>';
@@ -295,7 +372,8 @@ function day(d) {
       ? `<span class="side"><span class="side-l">${name}</span><span class="spot none">–</span></span>`
       : `<span class="side"><span class="side-l">${name}</span><span class="bar"><i class="lv${x[2]}" style="width:${Math.max(0, Math.min(100, Math.round((x[6] - v) / x[6] * 100)))}%"></i></span>${spot(v)}</span>`;
     const sides = x[7] ? `<span class="sides bay">${side(x[4], 'Bay')}</span>` : `<span class="sides">${side(x[4], 'ימין')}${side(x[5], 'שמאל')}</span>`;
-    h += `<div class="${cls('row', isPast(x, d) && 'past', isNow(x, d) && 'is-now', isOff(x) && 'off')}"><span class="time">${range(x[0], x[1])}${isNow(x, d) ? '<span class="now-tag">עכשיו</span>' : ''}</span>${chip(x[2], x[7])}<span class="name">${esc(lb.title)}${lb.note ? `<small>${esc(lb.note)}</small>` : ''}</span>${sides}</div>`;
+    const time = `<span class="time"><span class="st num">${x[0]}</span><span class="en">עד <span class="num">${x[1]}</span></span>${isNow(x, d) ? '<span class="now-tag">עכשיו</span>' : ''}</span>`;
+    h += `<div class="${cls('row', isPast(x, d) && 'past', isNow(x, d) && 'is-now', isOff(x) && 'off')}">${time}${chip(x[2], x[7])}<span class="name">${esc(lb.title)}${lb.note ? `<small>${esc(lb.note)}</small>` : ''}</span>${sides}</div>`;
   }
   return h + '</div>';
 }

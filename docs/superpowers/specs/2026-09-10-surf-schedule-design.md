@@ -161,22 +161,29 @@ Static HTML, CSS and plain JavaScript modules. No build step, no dependencies.
 
 The view lives in the URL hash (`#day`, `#week`, `#month`) so it can be bookmarked. With no hash, the default is `#week` at 720 px wide or more and `#day` below that.
 
-**Week:** the 7 days starting today; today is the first column (rightmost), next to the hour column.
-- Rows are hours, from the earliest start to the latest end across those 7 days.
-- Each day header shows the day name ("היום" for today), the date (`10.9`) and the opening hours (`06–22`), or "סגור" / "אין סשנים".
-- Each session is a level chip plus spots left: right reef number, pier line, left reef number. A reef right/left pair with the same start and name shares one chip; different sessions on each side (e.g. 20:00 on 10/09) show as two chips with `–` for the missing side. Bay shows a single number.
-- Today's column has a "now" line at the current minute with a light "עכשיו" tag. Today's finished sessions are grey.
-- Clicking a day header opens that day's view. A legend under the grid explains the chip, the orange marker and "מלא".
+**Week:** the 7 days starting today, drawn as a calendar. Today is the first column (rightmost), next to the hour column.
+- The hour column shows full times (`15:00`) from the earliest start to the latest end across the 7 days, at a fixed 56 px per hour. Day columns are at least 140 px wide.
+- Each day header shows the day name ("היום" for today), the date (`10.9`) and the opening hours in full ("פתוח 06:00–22:00"), or "סגור" / "אין סשנים".
+- Each session is a **block** placed at its start time, with height equal to its length, so a 90-minute Bay lesson visibly spans an hour and a half. Every block shows its start–end time on top (`17:30–19:00`), then the level chip and spots left.
+- Blocks use the full column width unless they overlap (standard calendar overlap layout, worked out per cluster of overlapping blocks). Where reef and Bay overlap, reef takes the right 64% and Bay the left 36%. Blocks of the same area that overlap at different times split their share side by side.
+- Bay blocks have a light sand tint and no chip, since the tint marks them as Bay. Their time may wrap onto two lines (they're 90 minutes tall).
+- Rows with the same start, end and area share one block:
+  - a right/left reef pair with the same name: one chip, then right number, pier line, left number
+  - different sessions on the two sides (e.g. 20:00 on 10/09): one line with a chip and number for each side, split by the pier line
+  - simultaneous Bay groups (e.g. two kids' lessons at 15:30 on 12/09): one number per group, stacked
+- Block text is compact (11–12 px) so a reef block fits in about 90 px: time on the first line, chip and spots on the second.
+- Today's column has a "now" line at the current minute with a light "עכשיו" tag. Today's finished blocks are grey.
+- Clicking a day header opens that day's view. A legend under the grid explains the chip, the orange marker, "מלא", and that block height is session length.
 - On narrow screens the grid scrolls sideways inside its box, hour column pinned, opening with today in view.
 
 **Month:** from the Sunday of the current week through the week containing `publishedThrough`, plus one more week (6.9–3.10 on 10/09).
 - Title names the month or months covered ("ספטמבר–אוקטובר 2026"). The first day of a new month shows as `1.10`.
-- Each day cell shows the date, opening hours, a strip of that day's reef levels in time order, and total spots left.
+- Each day cell shows the date, opening hours in full (`06:00–22:00`, hidden on phones), a strip of that day's reef levels in time order, and total spots left.
 - Past days are dimmed (number only). Today is dark. Closed days show "סגור" and the reason. Days with no sessions show "אין סשנים". Days after `publishedThrough` have a dashed outline and "טרם פורסם".
 - Clicking a day with sessions opens its day view.
 
-**Day:** a list of sessions, each row with time range, level chip, session name (level prefix and "כולל גלשן סופט" suffix stripped into a small note), and a capacity bar plus spots left for each side (one bar for Bay).
-- The header shows "היום" (for today), day name and date, opening hours and total spots left. Previous/next buttons move within today through `publishedThrough`.
+**Day:** a list of sessions. Each row is led by the start time in large dark type (`16:00`) with the end time under it ("עד 17:00"; beside it on phones), then the level chip, session name (level prefix and "כולל גלשן סופט" suffix stripped into a small note), and a capacity bar plus spots left for each side (one bar for Bay).
+- The header shows "היום" (for today), day name and date, the opening hours in full on their own line ("פתוח 06:00–22:00"), then total spots left. Previous/next buttons move within today through `publishedThrough`.
 - For today, finished sessions are hidden behind a "הצגת N סשנים שכבר הסתיימו" button, so the list opens at what's happening now; the current session is highlighted with an "עכשיו" tag.
 
 **Header:** title "לוח סשנים", subtitle "ריף ימין, ריף שמאל ו־Bay ב־SRF Park TLV", freshness ("עודכן לפני 12 דקות", "הלוח פורסם עד יום חמישי, 24.9"), the refresh button, the view switch, and the level filter chips (Bay, L1–L6).
@@ -198,7 +205,9 @@ The view lives in the URL hash (`#day`, `#week`, `#month`) so it can be bookmark
 | Foam | `#F1F6F5` | Page background |
 | Deck | `#FFFFFF` | Cards (month cells, day list) |
 | Deep | `#0F2B35` | Text; today's column and cell |
-| Deep 2 | `#244652` | Lines inside today's column |
+| Deep 2 | `#244652` | Lines and block borders inside today's column |
+| Deep 3 | `#17394A` | Session blocks inside today's column |
+| Sand tint | `#FBF5E6` (border `#EBD9A8`) | Bay session blocks |
 | Mist | `#5F7A83` | Secondary text |
 | Mist 2 | `#9DB4BA` | Faded text, dashed outlines |
 | Line | `#D8E3E2` | Hairlines, pier line |
@@ -267,7 +276,13 @@ This catches failing runs, a blocked scraper, and GitHub pausing the schedule.
 
 **Page logic (`site/lib/*.mjs`):**
 - Week and month ranges, including month boundaries.
-- Right/left pairing, past and now detection, stale rule.
+- Right/left pairing and block grouping (same start, end and area).
+- Week block layout:
+  - full width when a block overlaps nothing
+  - 64/36 reef/Bay split inside an overlapping cluster
+  - side-by-side sub-lanes for same-area overlaps
+  - blocks that only touch (one ends as the next starts) don't overlap
+- Past and now detection, stale rule.
 - **Refresh state machine** against a fake GitHub API:
   - `200` with a run id
   - `204` then run lookup
