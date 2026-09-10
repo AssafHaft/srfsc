@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>לוח סשנים – SRF Park TLV</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%8A%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;500;600&family=Secular+One&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script type="module" src="app.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1>לוח סשנים</h1>
+      <p>ריף ימין, ריף שמאל ו־Bay ב־SRF Park TLV</p>
+    </div>
+    <div class="fresh">
+      <div class="fresh-text"><strong id="fresh-main">טוען…</strong><span id="fresh-sub"></span></div>
+      <button class="btn-refresh" id="refresh" data-action="refresh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 0 0-14.9-4M4 4v4h4"/><path d="M4 13a8 8 0 0 0 14.9 4M20 20v-4h-4"/></svg><span>עדכון עכשיו</span></button>
+    </div>
+  </header>
+
+  <p class="notice" id="refresh-msg" role="status" hidden></p>
+  <p class="notice" id="stale" hidden>הלוח לא התעדכן כבר כמה שעות, אז ייתכן שהמספרים לא עדכניים. אפשר ללחוץ על ״עדכון עכשיו״.</p>
+  <p class="notice" id="load-error" hidden>לא הצלחנו לטעון את הלוח. <button data-action="reload">נסו שוב</button></p>
+
+  <div class="controls">
+    <div class="seg" role="group" aria-label="תצוגה">
+      <button data-view="day" aria-pressed="false">יום</button>
+      <button data-view="week" aria-pressed="false">שבוע</button>
+      <button data-view="month" aria-pressed="false">חודש</button>
+    </div>
+    <div class="levels" id="levels"></div>
+  </div>
+
+  <main id="view"><p class="empty">טוען את הלוח…</p></main>
+</div>
+
+<dialog id="token-panel" aria-labelledby="token-title">
+  <h2 id="token-title">חיבור ל־GitHub</h2>
+  <p>כדי שהכפתור יפעיל עדכון צריך טוקן של GitHub, פעם אחת. הוא נשמר רק בדפדפן הזה.</p>
+  <ol>
+    <li><a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">פתחו את יצירת הטוקן ב־GitHub</a></li>
+    <li>ב־Repository access בחרו <b dir="ltr">Only select repositories</b> ואז <b dir="ltr">srfsc</b></li>
+    <li>ב־Permissions: <b dir="ltr">Actions: Read and write</b> ו־<b dir="ltr">Contents: Read-only</b></li>
+    <li>צרו את הטוקן והדביקו אותו כאן</li>
+  </ol>
+  <p class="token-error" id="token-error" hidden></p>
+  <label for="token-input">טוקן</label>
+  <input id="token-input" type="password" autocomplete="off" spellcheck="false" dir="ltr" placeholder="github_pat_…">
+  <div class="dialog-actions">
+    <button class="btn-primary" data-action="save-token">שמירה ועדכון</button>
+    <button data-action="close-token">ביטול</button>
+  </div>
+</dialog>
+</body>
+</html>
