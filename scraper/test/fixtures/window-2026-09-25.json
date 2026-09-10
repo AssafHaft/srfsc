@@ -1,0 +1,27 @@
+{
+  "success": true,
+  "scheduler": [],
+  "close_days": [],
+  "dateArray": [
+    {
+      "day_name": "שישי",
+      "date": "25/09",
+      "full_date": "2026-09-25",
+      "day_number": 6
+    },
+    {
+      "day_name": "שבת",
+      "date": "26/09",
+      "full_date": "2026-09-26",
+      "day_number": 7
+    },
+    {
+      "day_name": "ראשון",
+      "date": "27/09",
+      "full_date": "2026-09-27",
+      "day_number": 1
+    }
+  ],
+  "from_date": "25/09/26",
+  "to_date": "27/09/26"
+}
