@@ -9,6 +9,8 @@
   "scripts": {
     "test": "node --test",
     "scrape": "node scraper/scrape.mjs",
+    "update-history": "node scraper/update-history.mjs",
+    "update": "node scraper/scrape.mjs && node scraper/update-history.mjs",
     "serve": "node scripts/serve.mjs"
   }
 }
