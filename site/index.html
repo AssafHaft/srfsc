@@ -24,18 +24,26 @@
     </div>
   </header>
 
+  <nav class="tabs" role="tablist" aria-label="לשוניות">
+    <button role="tab" data-tab="schedule" aria-selected="true">לוח</button>
+    <button role="tab" data-tab="analysis" aria-selected="false">ניתוח</button>
+  </nav>
+
   <p class="notice" id="refresh-msg" role="status" hidden></p>
   <p class="notice" id="stale" hidden>הלוח לא התעדכן כבר כמה שעות, אז ייתכן שהמספרים לא עדכניים. אפשר ללחוץ על ״עדכון עכשיו״.</p>
   <p class="notice" id="load-error" hidden>לא הצלחנו לטעון את הלוח. <button data-action="reload">נסו שוב</button></p>
+  <p class="notice" id="history-error" hidden>לא הצלחנו לטעון את ההיסטוריה. <button data-action="reload-history">נסו שוב</button></p>
 
   <div class="controls">
-    <div class="seg" role="group" aria-label="תצוגה">
+    <div class="seg" role="group" aria-label="תצוגה" id="view-seg">
       <button data-view="day" aria-pressed="false">יום</button>
       <button data-view="week" aria-pressed="false">שבוע</button>
       <button data-view="month" aria-pressed="false">חודש</button>
     </div>
+    <div class="seg" role="group" aria-label="תקופה" id="period-seg" hidden></div>
     <div class="levels" id="levels"></div>
   </div>
+  <p class="compare-note" id="compare-note" hidden></p>
 
   <main id="view"><p class="empty">טוען את הלוח…</p></main>
 </div>
