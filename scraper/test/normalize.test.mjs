@@ -40,7 +40,7 @@ test('normalizeRow takes capacity and bookings from its own side', () => {
     date: '2026-09-10',
     session: {
       id: 1, start: '08:00', end: '09:00', name: 'L3 - Intermediate (M3)', level: 3,
-      area: 'reef', side: 'right', capacity: 18, booked: 5, spotsLeft: 13, available: true,
+      area: 'reef', side: 'right', capacity: 18, booked: 5, spotsLeft: 13, available: true, blocked: false,
     },
   });
   assert.equal(normalizeRow(row({ area_number: 'left' })).session.spotsLeft, 9);
@@ -51,6 +51,7 @@ test('normalizeRow: Bay is level 0; disabled and overbooked rows have no spots',
   const disabled = normalizeRow(row({ disabled: true })).session;
   assert.equal(disabled.spotsLeft, 0);
   assert.equal(disabled.available, false);
+  assert.equal(disabled.blocked, true);
   assert.equal(normalizeRow(row({ right_max_users: 2, right_count_users: 8 })).session.spotsLeft, 0);
 });
 

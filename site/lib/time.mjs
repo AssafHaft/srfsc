@@ -75,3 +75,23 @@ export function formatAge(fromIso, now = new Date()) {
   if (days === 2) return 'לפני יומיים';
   return `לפני ${days} ימים`;
 }
+
+/** Every month touched by from..to: monthsBetween("2025-11-20", "2026-01-03") → ["2025-11", "2025-12", "2026-01"]. */
+export function monthsBetween(from, to) {
+  const months = [];
+  let [y, m] = from.split('-').map(Number);
+  const [ty, tm] = to.split('-').map(Number);
+  while (y < ty || (y === ty && m <= tm)) {
+    months.push(`${y}-${String(m).padStart(2, '0')}`);
+    [y, m] = m === 12 ? [y + 1, 1] : [y, m + 1];
+  }
+  return months;
+}
+
+/** Epoch milliseconds of an Israel wall-clock date and time, e.g. ("2026-09-10", "16:17"). */
+export function israelInstant(date, hhmm) {
+  const at = offset => Date.parse(`${date}T${hhmm}:00${offset}`);
+  const guess = israelParts(new Date(Date.parse(`${date}T${hhmm}:00Z`))).offset;
+  const exact = israelParts(new Date(at(guess))).offset; // the guess can be off by an hour next to a DST change
+  return at(exact);
+}

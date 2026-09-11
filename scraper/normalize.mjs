@@ -58,6 +58,7 @@ export function normalizeRow(row) {
       booked,
       spotsLeft,
       available: spotsLeft > 0,
+      blocked: isDisabled(row.disabled),
     },
   };
 }
