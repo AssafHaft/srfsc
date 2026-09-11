@@ -1,0 +1,69 @@
+# Scrape the park's schedule, commit site/data/schedule.json, deploy site/ to GitHub Pages.
+# Spec: docs/superpowers/specs/2026-09-10-surf-schedule-design.md, section 5.
+name: Update schedule
+
+on:
+  schedule:
+    - cron: '17 3-20 * * *' # hourly at :17, 06:17–23:17 Israel summer time (05:17–22:17 in winter)
+  workflow_dispatch: # the page's "עדכון עכשיו" button
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# One run at a time; a button press waits behind a running hourly run.
+concurrency:
+  group: update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 # full history so `git pull --rebase` below always finds the merge base
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Test
+        run: node --test
+
+      # Set the repository variable SCRAPE_IN_ACTIONS=false to scrape from your own computer instead.
+      - name: Scrape the park
+        if: vars.SCRAPE_IN_ACTIONS != 'false'
+        run: node scraper/scrape.mjs
+        # a push should still deploy code (with the existing data) when the park is unreachable
+        continue-on-error: ${{ github.event_name == 'push' }}
+
+      - name: Commit new data
+        if: vars.SCRAPE_IN_ACTIONS != 'false'
+        run: |
+          if git diff --quiet -- site/data/schedule.json; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/data/schedule.json
+          git commit -m "data: update schedule"
+          git pull --rebase
+          git push
+
+      - uses: actions/configure-pages@v6
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+
+      - id: deploy
+        uses: actions/deploy-pages@v5
