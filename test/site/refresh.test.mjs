@@ -18,7 +18,7 @@ function clock(start = Date.parse('2026-09-10T13:30:00Z')) {
  * Fake GitHub API. `runs` is the sequence of run states returned by GET /actions/runs/:id
  * (the last one repeats). `dispatch` is the dispatch response.
  */
-function fakeGitHub({ dispatch = json({ workflow_run_id: 42, run_url: 'x', html_url: 'https://github.com/run/42' }), runs, lists = [], content = json(SCHEDULE) }) {
+function fakeGitHub({ dispatch = json({ workflow_run_id: 42, run_url: 'x', html_url: 'https://github.com/run/42' }), runs, lists = [], content = json(SCHEDULE), contents = {} }) {
   const calls = [];
   let runPoll = 0;
   let listPoll = 0;
@@ -27,7 +27,10 @@ function fakeGitHub({ dispatch = json({ workflow_run_id: 42, run_url: 'x', html_
     if (url.endsWith('/dispatches')) return dispatch;
     if (url.includes('/runs?')) return json(lists[Math.min(listPoll++, lists.length - 1)]);
     if (url.startsWith(`${REPO}/actions/runs/`)) return json(runs[Math.min(runPoll++, runs.length - 1)]);
-    if (url.startsWith(`${REPO}/contents/`)) return content;
+    if (url.startsWith(`${REPO}/contents/`)) {
+      const path = url.slice(`${REPO}/contents/`.length).split('?')[0];
+      return contents[path] ?? content;
+    }
     throw new Error(`unexpected ${url}`);
   };
   impl.calls = calls;
@@ -41,7 +44,7 @@ test('follows the returned run id, reports progress, then reads the file from th
   const phases = [];
   const result = await refresh({ token: 'tok', config, fetchImpl, ...clock(), onStatus: s => phases.push(s.phase) });
 
-  assert.deepEqual(result, SCHEDULE);
+  assert.deepEqual(result, { schedule: SCHEDULE, extras: {} });
   assert.deepEqual(phases, ['starting', 'queued', 'running']);
   const [dispatch] = fetchImpl.calls;
   assert.equal(dispatch.url, `${REPO}/actions/workflows/update.yml/dispatches`);
@@ -104,4 +107,16 @@ test('token and network problems have their own kinds', async () => {
   await assert.rejects(refresh({ token: 'x', config, fetchImpl: fakeGitHub({ dispatch: json({}, 403), runs: [] }), ...c }), e => e.kind === 'forbidden');
   const offline = async () => { throw new TypeError('Failed to fetch'); };
   await assert.rejects(refresh({ token: 'x', config, fetchImpl: offline, ...c }), e => e.kind === 'network');
+});
+
+test('reads the extra paths too; one that fails comes back as null without failing the refresh', async () => {
+  const INDEX = { snapshots: 3 };
+  const fetchImpl = fakeGitHub({
+    runs: [run('completed', 'success')],
+    contents: { 'site/data/history/index.json': json(INDEX), 'site/data/history/2026-09.json': json({}, 500) },
+  });
+  const result = await refresh({ token: 'tok', config, fetchImpl, ...clock(), extraPaths: ['site/data/history/index.json', 'site/data/history/2026-09.json'] });
+  assert.deepEqual(result, { schedule: SCHEDULE, extras: { 'site/data/history/index.json': INDEX, 'site/data/history/2026-09.json': null } });
+  const reads = fetchImpl.calls.filter(c => c.url.includes('/contents/'));
+  assert.ok(reads.every(c => c.init.headers.Accept === 'application/vnd.github.raw+json' && c.url.endsWith('?ref=main')));
 });
