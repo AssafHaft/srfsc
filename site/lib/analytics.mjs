@@ -123,6 +123,9 @@ export function slotRanking(rows, prices, size = 10) {
 
 const monthEnd = month => addDays(`${addDays(`${month}-28`, 4).slice(0, 7)}-01`, -1);
 
+/** The same calendar date a year earlier; 29 February becomes 28 February. */
+const yearEarlier = iso => `${Number(iso.slice(0, 4)) - 1}${iso.slice(4)}`.replace(/-02-29$/, '-02-28');
+
 /** Weekly buckets up to 92 days, monthly above; each with the comparison range's matching bucket. */
 export function trend(cur, cmp, range, closed, prices) {
   const weekly = daysBetween(range.from, range.to) + 1 <= WEEKLY_MAX_DAYS;
@@ -139,12 +142,18 @@ export function trend(cur, cmp, range, closed, prices) {
       buckets.push({ from, to: end < range.to ? end : range.to });
     }
   }
+  // weekly: the comparison's day offset (−364 for last year keeps weekdays aligned);
+  // monthly: the same calendar month a year earlier (spec 6.6), whole months stay whole across 29 February
   const offset = range.compare ? daysBetween(range.compare.from, range.from) : 0;
+  const back = (from, to) => (weekly
+    ? [addDays(from, -offset), addDays(to, -offset)]
+    : [yearEarlier(from), to === monthEnd(to.slice(0, 7)) ? monthEnd(yearEarlier(to).slice(0, 7)) : yearEarlier(to)]);
   return {
     unit: weekly ? 'week' : 'month',
     buckets: buckets.map(({ from, to }) => {
       const a = aggregate(cur.filter(r => inRange(r, from, to)), prices);
-      const c = range.compare ? aggregate(cmp.filter(r => inRange(r, addDays(from, -offset), addDays(to, -offset))), prices) : null;
+      const [cmpFrom, cmpTo] = back(from, to);
+      const c = range.compare ? aggregate(cmp.filter(r => inRange(r, cmpFrom, cmpTo)), prices) : null;
       return {
         from, to,
         occupancy: a.occupancy, revenue: a.revenue,

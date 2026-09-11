@@ -107,6 +107,15 @@ test('trend: monthly above 92 days, first and last months clipped to the range',
   assert.deepEqual([t.buckets.at(-1).from, t.buckets.at(-1).to], ['2026-09-01', '2026-09-10']);
 });
 
+test('trend: monthly comparison is the same calendar month a year earlier, across 29 February', () => {
+  const range = { from: '2025-01-01', to: '2025-12-31', compare: { kind: 'previous', from: '2024-01-01', to: '2024-12-31' } };
+  const cmp = [row({ date: '2024-01-31', booked: 10 }), row({ date: '2024-02-29', booked: 5 })];
+  const t = trend([], cmp, range, [], PRICES);
+  assert.deepEqual([t.buckets[0].cmpOccupancy, t.buckets[1].cmpOccupancy], [1, 0.5]);
+  const lastYear = trend([], [row({ date: '2026-03-01', booked: 10 })], { from: '2026-09-11', to: '2027-09-10', compare: { kind: 'lastYear', from: '2025-09-12', to: '2026-09-11' } }, [], PRICES);
+  assert.equal(lastYear.buckets.find(b => b.from === '2027-03-01').cmpOccupancy, 1);
+});
+
 test('bookedAt reads the pace log as of a lead time; curveAt interpolates between lead points', () => {
   const log = [[20000, 1], [10000, 3], [1500, 6], [30, 8]];
   assert.equal(bookedAt(log, 7 * 1440), 1);
