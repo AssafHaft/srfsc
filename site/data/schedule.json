@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-09-11T19:47:21+03:00",
+  "fetchedAt": "2026-09-11T20:01:19+03:00",
   "publishedThrough": "2026-09-25",
   "days": [
     {
@@ -610,8 +610,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 20,
-          "booked": 6,
-          "spotsLeft": 14,
+          "booked": 7,
+          "spotsLeft": 13,
           "available": true
         },
         {
@@ -675,8 +675,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 11,
-          "spotsLeft": 7,
+          "booked": 10,
+          "spotsLeft": 8,
           "available": true
         },
         {
@@ -891,8 +891,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 20,
-          "booked": 2,
-          "spotsLeft": 18,
+          "booked": 3,
+          "spotsLeft": 17,
           "available": true
         },
         {
@@ -1112,8 +1112,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 13,
-          "spotsLeft": 2,
+          "booked": 14,
+          "spotsLeft": 1,
           "available": true
         },
         {
@@ -1856,8 +1856,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 15,
-          "booked": 0,
-          "spotsLeft": 15,
+          "booked": 2,
+          "spotsLeft": 13,
           "available": true
         },
         {
