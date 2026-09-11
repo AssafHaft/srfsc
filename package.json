@@ -11,6 +11,7 @@
     "scrape": "node scraper/scrape.mjs",
     "update-history": "node scraper/update-history.mjs",
     "update": "node scraper/scrape.mjs && node scraper/update-history.mjs",
+    "backfill": "node scraper/backfill.mjs",
     "serve": "node scripts/serve.mjs"
   }
 }
