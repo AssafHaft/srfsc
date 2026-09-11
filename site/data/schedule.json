@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-09-11T15:49:55+03:00",
+  "fetchedAt": "2026-09-11T19:47:21+03:00",
   "publishedThrough": "2026-09-25",
   "days": [
     {
@@ -376,9 +376,9 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 15,
-          "spotsLeft": 3,
-          "available": true
+          "booked": 18,
+          "spotsLeft": 0,
+          "available": false
         },
         {
           "id": 37349,
@@ -454,8 +454,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 20,
-          "booked": 17,
-          "spotsLeft": 3,
+          "booked": 18,
+          "spotsLeft": 2,
           "available": true
         },
         {
@@ -558,9 +558,9 @@
           "area": "reef",
           "side": "left",
           "capacity": 15,
-          "booked": 11,
-          "spotsLeft": 4,
-          "available": true
+          "booked": 15,
+          "spotsLeft": 0,
+          "available": false
         },
         {
           "id": 37662,
@@ -636,7 +636,7 @@
           "area": "reef",
           "side": "left",
           "capacity": 15,
-          "booked": 16,
+          "booked": 15,
           "spotsLeft": 0,
           "available": false
         },
@@ -675,8 +675,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 5,
-          "spotsLeft": 13,
+          "booked": 11,
+          "spotsLeft": 7,
           "available": true
         },
         {
@@ -688,9 +688,9 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 10,
-          "spotsLeft": 5,
-          "available": true
+          "booked": 15,
+          "spotsLeft": 0,
+          "available": false
         },
         {
           "id": 37364,
@@ -748,8 +748,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 11,
-          "spotsLeft": 4,
+          "booked": 12,
+          "spotsLeft": 3,
           "available": true
         },
         {
@@ -826,9 +826,9 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 17,
-          "spotsLeft": 1,
-          "available": true
+          "booked": 18,
+          "spotsLeft": 0,
+          "available": false
         },
         {
           "id": 39406,
@@ -865,8 +865,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 11,
-          "spotsLeft": 7,
+          "booked": 14,
+          "spotsLeft": 4,
           "available": true
         },
         {
@@ -878,8 +878,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 20,
-          "booked": 9,
-          "spotsLeft": 11,
+          "booked": 10,
+          "spotsLeft": 10,
           "available": true
         },
         {
@@ -930,8 +930,8 @@
           "area": "bay",
           "side": "right",
           "capacity": 24,
-          "booked": 3,
-          "spotsLeft": 21,
+          "booked": 5,
+          "spotsLeft": 19,
           "available": true
         },
         {
@@ -1008,8 +1008,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 8,
-          "spotsLeft": 10,
+          "booked": 15,
+          "spotsLeft": 3,
           "available": true
         },
         {
@@ -1021,8 +1021,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 7,
-          "spotsLeft": 11,
+          "booked": 12,
+          "spotsLeft": 6,
           "available": true
         },
         {
@@ -1047,9 +1047,9 @@
           "area": "reef",
           "side": "left",
           "capacity": 12,
-          "booked": 11,
-          "spotsLeft": 1,
-          "available": true
+          "booked": 12,
+          "spotsLeft": 0,
+          "available": false
         },
         {
           "id": 39409,
@@ -1086,8 +1086,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 20,
-          "booked": 6,
-          "spotsLeft": 14,
+          "booked": 8,
+          "spotsLeft": 12,
           "available": true
         },
         {
@@ -1099,8 +1099,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 20,
-          "booked": 3,
-          "spotsLeft": 17,
+          "booked": 7,
+          "spotsLeft": 13,
           "available": true
         },
         {
@@ -1112,8 +1112,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 11,
-          "spotsLeft": 4,
+          "booked": 13,
+          "spotsLeft": 2,
           "available": true
         },
         {
@@ -1125,8 +1125,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 15,
-          "booked": 6,
-          "spotsLeft": 9,
+          "booked": 10,
+          "spotsLeft": 5,
           "available": true
         },
         {
@@ -1151,8 +1151,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 0,
-          "spotsLeft": 18,
+          "booked": 1,
+          "spotsLeft": 17,
           "available": true
         }
       ]
@@ -1211,8 +1211,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 3,
-          "spotsLeft": 15,
+          "booked": 4,
+          "spotsLeft": 14,
           "available": true
         },
         {
@@ -1315,8 +1315,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 4,
-          "spotsLeft": 14,
+          "booked": 5,
+          "spotsLeft": 13,
           "available": true
         },
         {
@@ -1510,8 +1510,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 5,
-          "spotsLeft": 13,
+          "booked": 6,
+          "spotsLeft": 12,
           "available": true
         },
         {
@@ -1713,8 +1713,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 0,
-          "spotsLeft": 18,
+          "booked": 1,
+          "spotsLeft": 17,
           "available": true
         },
         {
@@ -1739,8 +1739,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 15,
-          "booked": 0,
-          "spotsLeft": 15,
+          "booked": 1,
+          "spotsLeft": 14,
           "available": true
         },
         {
@@ -1817,8 +1817,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 1,
-          "spotsLeft": 17,
+          "booked": 2,
+          "spotsLeft": 16,
           "available": true
         },
         {
@@ -2038,8 +2038,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 0,
-          "spotsLeft": 15,
+          "booked": 1,
+          "spotsLeft": 14,
           "available": true
         },
         {
@@ -2163,8 +2163,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 0,
-          "spotsLeft": 18,
+          "booked": 1,
+          "spotsLeft": 17,
           "available": true
         },
         {
@@ -2475,8 +2475,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 20,
-          "booked": 0,
-          "spotsLeft": 20,
+          "booked": 1,
+          "spotsLeft": 19,
           "available": true
         },
         {
@@ -2553,8 +2553,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 0,
-          "spotsLeft": 15,
+          "booked": 1,
+          "spotsLeft": 14,
           "available": true
         },
         {
@@ -2925,8 +2925,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 3,
-          "spotsLeft": 15,
+          "booked": 4,
+          "spotsLeft": 14,
           "available": true
         },
         {
@@ -2938,8 +2938,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 1,
-          "spotsLeft": 17,
+          "booked": 2,
+          "spotsLeft": 16,
           "available": true
         },
         {
@@ -2977,8 +2977,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 0,
-          "spotsLeft": 15,
+          "booked": 1,
+          "spotsLeft": 14,
           "available": true
         },
         {
@@ -3016,8 +3016,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 15,
-          "booked": 0,
-          "spotsLeft": 15,
+          "booked": 1,
+          "spotsLeft": 14,
           "available": true
         }
       ]
@@ -3167,8 +3167,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 15,
-          "booked": 1,
-          "spotsLeft": 14,
+          "booked": 2,
+          "spotsLeft": 13,
           "available": true
         },
         {
@@ -3193,8 +3193,8 @@
           "area": "bay",
           "side": "left",
           "capacity": 12,
-          "booked": 3,
-          "spotsLeft": 9,
+          "booked": 2,
+          "spotsLeft": 10,
           "available": true
         },
         {
@@ -3245,8 +3245,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 20,
-          "booked": 2,
-          "spotsLeft": 18,
+          "booked": 3,
+          "spotsLeft": 17,
           "available": true
         },
         {
@@ -3513,8 +3513,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 1,
-          "spotsLeft": 17,
+          "booked": 2,
+          "spotsLeft": 16,
           "available": true
         },
         {
@@ -4601,6 +4601,19 @@
           "available": true
         },
         {
+          "id": 40862,
+          "start": "08:30",
+          "end": "10:00",
+          "name": "שיעור גלישה למתחילים ב Bay - בוגרים מעל גיל 16",
+          "level": 0,
+          "area": "bay",
+          "side": "right",
+          "capacity": 24,
+          "booked": 0,
+          "spotsLeft": 24,
+          "available": true
+        },
+        {
           "id": 37893,
           "start": "09:00",
           "end": "10:00",
@@ -4679,29 +4692,29 @@
           "available": true
         },
         {
-          "id": 37899,
+          "id": 40867,
           "start": "12:00",
           "end": "13:00",
-          "name": "L3 - Intermediate (M3)",
-          "level": 3,
+          "name": "L6 - Ocean T (T3)",
+          "level": 6,
           "area": "reef",
           "side": "right",
-          "capacity": 18,
+          "capacity": 12,
           "booked": 0,
-          "spotsLeft": 18,
+          "spotsLeft": 12,
           "available": true
         },
         {
-          "id": 37898,
+          "id": 40866,
           "start": "12:00",
           "end": "13:00",
-          "name": "L3 - Intermediate (M3)",
-          "level": 3,
+          "name": "L6 - Ocean T (T3)",
+          "level": 6,
           "area": "reef",
           "side": "left",
-          "capacity": 18,
+          "capacity": 12,
           "booked": 0,
-          "spotsLeft": 18,
+          "spotsLeft": 12,
           "available": true
         },
         {
@@ -4731,35 +4744,35 @@
           "available": true
         },
         {
-          "id": 37901,
+          "id": 40861,
           "start": "14:00",
           "end": "15:00",
-          "name": "L4 – Advanced (T1 Only)",
-          "level": 4,
+          "name": "L6- 2B Or Not 2B (B2+B3) - Barrel Fest",
+          "level": 6,
           "area": "reef",
           "side": "right",
-          "capacity": 18,
+          "capacity": 15,
           "booked": 0,
-          "spotsLeft": 18,
+          "spotsLeft": 15,
           "available": true
         },
         {
-          "id": 37900,
+          "id": 40860,
           "start": "14:00",
           "end": "15:00",
-          "name": "L4 – Advanced (T1 Only)",
-          "level": 4,
+          "name": "L6- 2B Or Not 2B (B2+B3) - Barrel Fest",
+          "level": 6,
           "area": "reef",
           "side": "left",
-          "capacity": 18,
+          "capacity": 15,
           "booked": 0,
-          "spotsLeft": 18,
+          "spotsLeft": 15,
           "available": true
         },
         {
-          "id": 37887,
-          "start": "16:00",
-          "end": "17:00",
+          "id": 40871,
+          "start": "15:00",
+          "end": "16:00",
           "name": "L2 Improvers (M2) - כולל גלשן סופט ללא עלות",
           "level": 2,
           "area": "reef",
@@ -4770,16 +4783,42 @@
           "available": true
         },
         {
-          "id": 37886,
-          "start": "16:00",
-          "end": "17:00",
+          "id": 40870,
+          "start": "15:00",
+          "end": "16:00",
           "name": "L2 Improvers (M2) - כולל גלשן סופט ללא עלות",
           "level": 2,
           "area": "reef",
           "side": "left",
-          "capacity": 21,
+          "capacity": 20,
           "booked": 0,
-          "spotsLeft": 21,
+          "spotsLeft": 20,
+          "available": true
+        },
+        {
+          "id": 40869,
+          "start": "16:00",
+          "end": "17:00",
+          "name": "L3 - Intermediate (M3)",
+          "level": 3,
+          "area": "reef",
+          "side": "right",
+          "capacity": 18,
+          "booked": 0,
+          "spotsLeft": 18,
+          "available": true
+        },
+        {
+          "id": 40868,
+          "start": "16:00",
+          "end": "17:00",
+          "name": "L3 - Intermediate (M3)",
+          "level": 3,
+          "area": "reef",
+          "side": "left",
+          "capacity": 18,
+          "booked": 0,
+          "spotsLeft": 18,
           "available": true
         },
         {
@@ -4806,6 +4845,45 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
+          "available": true
+        },
+        {
+          "id": 40865,
+          "start": "17:30",
+          "end": "19:00",
+          "name": "שיעור גלישה למתחילים ב Bay - בוגרים מעל גיל 16",
+          "level": 0,
+          "area": "bay",
+          "side": "right",
+          "capacity": 8,
+          "booked": 0,
+          "spotsLeft": 8,
+          "available": true
+        },
+        {
+          "id": 40863,
+          "start": "17:30",
+          "end": "19:00",
+          "name": "שיעור גלישה למתחילים ב Bay - ילדים 7-10",
+          "level": 0,
+          "area": "bay",
+          "side": "left",
+          "capacity": 8,
+          "booked": 0,
+          "spotsLeft": 8,
+          "available": true
+        },
+        {
+          "id": 40864,
+          "start": "17:30",
+          "end": "19:00",
+          "name": "שיעור גלישה למתחילים ב Bay - ילדים 11-16",
+          "level": 0,
+          "area": "bay",
+          "side": "left",
+          "capacity": 6,
+          "booked": 0,
+          "spotsLeft": 6,
           "available": true
         },
         {
@@ -5256,6 +5334,32 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
+          "available": true
+        },
+        {
+          "id": 40872,
+          "start": "17:30",
+          "end": "19:00",
+          "name": "שיעור גלישה למתחילים ב Bay - ילדים 7-10",
+          "level": 0,
+          "area": "bay",
+          "side": "right",
+          "capacity": 12,
+          "booked": 0,
+          "spotsLeft": 12,
+          "available": true
+        },
+        {
+          "id": 40873,
+          "start": "17:30",
+          "end": "19:00",
+          "name": "שיעור גלישה למתחילים ב Bay - ילדים 11-16",
+          "level": 0,
+          "area": "bay",
+          "side": "right",
+          "capacity": 12,
+          "booked": 0,
+          "spotsLeft": 12,
           "available": true
         },
         {
