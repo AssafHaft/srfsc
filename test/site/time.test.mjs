@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   israelToday, israelTime, israelIso, addDays, dayOfWeek, daysBetween,
-  toParkDate, shortDate, minutes, formatAge,
+  toParkDate, shortDate, minutes, formatAge, monthsBetween, israelInstant,
 } from '../../site/lib/time.mjs';
 
 test('israelToday follows Israel midnight, not UTC midnight', () => {
@@ -48,4 +48,16 @@ test('formatAge in Hebrew', () => {
   assert.equal(formatAge('2026-09-10T14:30:00+03:00', now), 'לפני שעתיים');
   assert.equal(formatAge('2026-09-10T11:30:00+03:00', now), 'לפני 5 שעות');
   assert.equal(formatAge('2026-09-08T16:30:00+03:00', now), 'לפני יומיים');
+});
+
+test('monthsBetween lists every month the range touches', () => {
+  assert.deepEqual(monthsBetween('2025-11-20', '2026-01-03'), ['2025-11', '2025-12', '2026-01']);
+  assert.deepEqual(monthsBetween('2026-09-01', '2026-09-30'), ['2026-09']);
+});
+
+test('israelInstant reads Israel wall-clock time in summer, winter and next to the DST change', () => {
+  assert.equal(israelInstant('2026-09-10', '16:17'), Date.parse('2026-09-10T13:17:00Z'));
+  assert.equal(israelInstant('2026-12-01', '12:00'), Date.parse('2026-12-01T10:00:00Z'));
+  assert.equal(israelInstant('2026-10-24', '23:00'), Date.parse('2026-10-24T20:00:00Z')); // still +03:00
+  assert.equal(israelInstant('2026-10-25', '08:00'), Date.parse('2026-10-25T06:00:00Z')); // +02:00 after 02:00
 });

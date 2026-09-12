@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ניתוח – SRF Park TLV (mockup)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;500;600&family=Secular+One&display=swap">
+<style>
+/* Mockup of the analysis tab. Real park data: last 90 days (13.6–10.9.2026) against the same weeks of 2025,
+   upcoming sessions as published on 11.9.2026 20:38. Static except the heatmap metric switch. */
+:root {
+  --foam: #F1F6F5; --deck: #FFFFFF; --deep: #0F2B35; --deep-2: #244652; --deep-3: #17394A;
+  --mist: #5F7A83; --mist-2: #9DB4BA; --line: #D8E3E2; --rescue: #FF5A1F; --rescue-ink: #B23A0C;
+  --sand-tint: #FBF5E6; --sand-line: #EBD9A8;
+  --l0: #E2B860; --l1: #91C36B; --l2: #6F9B5C; --l3: #487037; --l4: #81ABCA; --l5: #225A8C; --l6: #8A71B2;
+  --h0: #EEF3F2; --h1: #D3E3E3; --h2: #A8C6CA; --h3: #6F9AA4; --h4: #3B6B79; --h5: #0F2B35;
+  --display: "Secular One", "IBM Plex Sans Hebrew", system-ui, sans-serif;
+  --text: "IBM Plex Sans Hebrew", system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html { background: var(--foam); }
+body { margin: 0; font-family: var(--text); color: var(--deep); font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-align: inherit; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--deep); outline-offset: 2px; border-radius: 6px; }
+.num { font-variant-numeric: tabular-nums; }
+.ltr { direction: ltr; unicode-bidi: isolate; display: inline-block; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 32px 24px 56px; }
+
+/* header (as on the schedule) */
+.top { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px 24px; flex-wrap: wrap; margin-bottom: 18px; }
+.brand h1 { font-family: var(--display); font-weight: 400; font-size: 36px; line-height: 1; margin: 0; }
+.brand p { margin: 8px 0 0; color: var(--mist); font-size: 14px; }
+.fresh { display: flex; align-items: center; gap: 14px; }
+.fresh-text { text-align: end; font-size: 13px; color: var(--mist); line-height: 1.45; }
+.fresh-text strong { display: block; color: var(--deep); font-weight: 500; font-size: 14px; }
+.btn-refresh { display: inline-flex; align-items: center; gap: 8px; padding: 9px 18px; border: 1.5px solid var(--deep); border-radius: 999px; font-weight: 500; font-size: 14px; }
+.btn-refresh svg { width: 16px; height: 16px; }
+
+/* NEW: top-level tabs */
+.tabs { display: flex; gap: 28px; border-bottom: 1px solid var(--line); margin-bottom: 18px; }
+.tabs button { position: relative; padding: 6px 2px 10px; font-family: var(--display); font-size: 20px; color: var(--mist); }
+.tabs button[aria-selected="true"] { color: var(--deep); }
+.tabs button[aria-selected="true"]::after { content: ""; position: absolute; inset-inline: 0; bottom: -1px; height: 3px; border-radius: 3px 3px 0 0; background: var(--deep); }
+
+/* controls (as on the schedule) */
+.controls { display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; margin-bottom: 8px; }
+.seg { display: inline-flex; background: var(--deck); border: 1px solid var(--line); border-radius: 999px; padding: 3px; }
+.seg button { padding: 6px 16px; border-radius: 999px; font-size: 14px; font-weight: 500; color: var(--mist); white-space: nowrap; }
+.seg button[aria-pressed="true"] { background: var(--deep); color: var(--foam); }
+.seg.sm button { padding: 3px 12px; font-size: 13px; }
+.levels { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.levels-label { font-size: 13px; color: var(--mist); margin-inline-end: 6px; }
+.lv-toggle { padding: 3px; border-radius: 8px; border: 1.5px solid transparent; }
+.chip { display: inline-grid; place-items: center; min-width: 30px; height: 20px; padding: 0 5px; border-radius: 5px; font-size: 12px; font-weight: 600; line-height: 1; color: #fff; direction: ltr; flex: none; }
+.chip.lv0, .chip.lv1, .chip.lv2, .chip.lv4 { color: var(--deep); }
+.lv0 { background: var(--l0); } .lv1 { background: var(--l1); } .lv2 { background: var(--l2); } .lv3 { background: var(--l3); }
+.lv4 { background: var(--l4); } .lv5 { background: var(--l5); } .lv6 { background: var(--l6); }
+.compare-note { margin: 0 0 22px; font-size: 13px; color: var(--mist); }
+.compare-note b { color: var(--deep); font-weight: 500; }
+
+/* sections */
+.sec { margin-top: 34px; scroll-margin-top: 16px; }
+.sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px 16px; flex-wrap: wrap; margin-bottom: 12px; }
+.sec h2 { font-family: var(--display); font-weight: 400; font-size: 24px; line-height: 1.15; margin: 0; }
+.sec-sub { margin: 2px 0 0; font-size: 13px; color: var(--mist); }
+.card { background: var(--deck); border: 1px solid var(--line); border-radius: 14px; }
+.foot { margin: 10px 2px 0; font-size: 12px; color: var(--mist); }
+
+/* 1. KPIs */
+.kpis { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+.kpi { padding: 14px 14px 12px; display: flex; flex-direction: column; gap: 2px; }
+.kpi .k { font-size: 13px; color: var(--mist); }
+.kpi .v { font-family: var(--display); font-size: 32px; line-height: 1.1; }
+.kpi .d { font-size: 12.5px; line-height: 1.4; }
+.kpi .d .ar { font-weight: 600; }
+.kpi .d.bad .ar { color: var(--rescue-ink); }
+.kpi .d .ly { color: var(--mist); }
+.kpi.lead { background: var(--deep); border-color: var(--deep); color: var(--foam); }
+.kpi.lead .k, .kpi.lead .d .ly { color: var(--mist-2); }
+.kpi.lead .d.bad .ar { color: #FF9A70; }
+
+/* 2. insights */
+.ins { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.ins li { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 4px 12px; padding: 14px 16px; border-inline-start: 4px solid var(--line); }
+.ins li.bad { border-inline-start-color: var(--rescue); }
+.ins li.good { border-inline-start-color: var(--deep); }
+.ins .n { font-family: var(--display); font-size: 22px; line-height: 1.1; color: var(--mist-2); }
+.ins .t { font-size: 15px; font-weight: 500; line-height: 1.45; }
+.ins .m { grid-column: 2; display: flex; gap: 14px; font-size: 12.5px; color: var(--mist); }
+.ins .m a { font-weight: 500; color: var(--deep); text-underline-offset: 3px; }
+
+/* 3. heatmap */
+.heat-wrap { padding: 14px 14px 12px; overflow-x: auto; }
+.heat { display: grid; grid-template-columns: 44px repeat(7, minmax(44px, 1fr)); gap: 3px; min-width: 360px; }
+.heat .hd { font-size: 12.5px; color: var(--mist); text-align: center; padding-bottom: 2px; }
+.heat .hd b { display: block; font-weight: 500; color: var(--deep); }
+.heat .hr { font-size: 12px; color: var(--mist); display: flex; align-items: center; }
+.heat .c { height: 30px; border-radius: 5px; display: grid; place-items: center; font-size: 12px; font-weight: 500; background: var(--h0); }
+.heat .c.x { background: transparent; border: 1px dashed var(--line); }
+.heat .c.s1 { background: var(--h1); } .heat .c.s2 { background: var(--h2); }
+.heat .c.s3 { background: var(--h3); color: #fff; } .heat .c.s4 { background: var(--h4); color: #fff; } .heat .c.s5 { background: var(--h5); color: #fff; }
+.scale { display: flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 12px; color: var(--mist); flex-wrap: wrap; }
+.scale i { width: 26px; height: 12px; border-radius: 3px; display: inline-block; }
+
+/* 4. levels table */
+.tbl { width: 100%; border-collapse: collapse; font-size: 14px; }
+.tbl th { font-weight: 400; font-size: 12.5px; color: var(--mist); text-align: start; padding: 10px 12px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.tbl td { padding: 9px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap; }
+.tbl tr:first-child td { border-top: 0; }
+.tbl .lvcell { display: flex; align-items: center; gap: 8px; }
+.tbl .lvcell small { color: var(--mist); font-size: 12.5px; }
+.occ { display: flex; align-items: center; gap: 8px; min-width: 150px; }
+.occ .bar { flex: 1; height: 8px; border-radius: 4px; background: #E4ECEB; overflow: hidden; position: relative; }
+.occ .bar i { position: absolute; inset-block: 0; inset-inline-start: 0; background: var(--deep); border-radius: 4px; }
+.occ .bar u { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--rescue); }
+.occ span { min-width: 34px; font-weight: 600; }
+.dlt { font-size: 12.5px; }
+.dlt.bad { color: var(--rescue-ink); font-weight: 600; }
+.sd { display: grid; gap: 3px; min-width: 120px; }
+.sd div { height: 6px; border-radius: 3px; }
+.sd .cap { background: var(--mist-2); }
+.sd .bk { background: var(--deep); }
+.tbl-scroll { overflow-x: auto; }
+
+/* 5. slots */
+.slots { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.slots h3 { margin: 0; padding: 12px 16px 8px; font-size: 15px; font-weight: 600; border-bottom: 1px solid var(--line); }
+.slots h3 small { font-weight: 400; color: var(--mist); font-size: 12.5px; margin-inline-start: 6px; }
+.slot { display: grid; grid-template-columns: 22px 104px 76px minmax(0, 1fr) 64px; gap: 8px; align-items: center; padding: 7px 16px; border-top: 1px solid var(--line); font-size: 14px; }
+.slot:first-of-type { border-top: 0; }
+.slot .rk { color: var(--mist-2); font-size: 12.5px; }
+.slot .wh { font-weight: 500; }
+.slot .v { text-align: end; font-size: 12.5px; color: var(--mist); }
+.slot .occ { min-width: 0; }
+
+/* 6. trend */
+.trend { padding: 14px 14px 8px; }
+.trend svg { width: 100%; height: auto; display: block; }
+.trend .lg { display: flex; gap: 18px; font-size: 12.5px; color: var(--mist); margin: 4px 4px 0; flex-wrap: wrap; }
+.trend .lg span { display: inline-flex; align-items: center; gap: 6px; }
+
+/* 7. pace */
+.pace { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 8px; }
+.collect { padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+.collect .big { font-family: var(--display); font-size: 28px; line-height: 1.1; }
+.meter { height: 8px; border-radius: 4px; background: #E4ECEB; overflow: hidden; }
+.meter i { display: block; height: 100%; background: var(--deep); }
+.collect ul { margin: 0; padding-inline-start: 18px; font-size: 13.5px; color: var(--mist); }
+.example { padding: 14px; position: relative; }
+.example .tag { position: absolute; top: 12px; inset-inline-start: 14px; font-size: 12px; font-weight: 600; color: var(--mist); border: 1px dashed var(--mist-2); border-radius: 4px; padding: 0 6px; }
+.example svg { width: 100%; height: auto; display: block; opacity: .75; }
+
+/* 8. upcoming */
+.up { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 8px; }
+.days { padding: 14px 14px 10px; }
+.days .bars { display: flex; align-items: flex-end; gap: 6px; height: 120px; }
+.days .b { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 3px; height: 100%; }
+.days .b i { width: 100%; border-radius: 4px 4px 0 0; background: var(--deep); min-height: 2px; }
+.days .b em { font-style: normal; font-size: 11.5px; font-weight: 600; }
+.days .lbl { display: flex; gap: 6px; margin-top: 4px; }
+.days .lbl span { flex: 1; text-align: center; font-size: 11px; color: var(--mist); line-height: 1.25; }
+.days .lbl span b { display: block; color: var(--deep); font-weight: 500; }
+.risk h3 { margin: 0; padding: 12px 16px 8px; font-size: 15px; font-weight: 600; border-bottom: 1px solid var(--line); }
+.risk h3 small { font-weight: 400; color: var(--mist); font-size: 12.5px; margin-inline-start: 6px; }
+.rrow { display: grid; grid-template-columns: 92px 44px minmax(0, 1fr) 88px; gap: 10px; align-items: center; padding: 7px 16px; border-top: 1px solid var(--line); font-size: 14px; }
+.rrow:first-of-type { border-top: 0; }
+.rrow .when b { display: block; font-weight: 600; }
+.rrow .when span { font-size: 12px; color: var(--mist); }
+.rrow .nm { font-size: 13px; color: var(--mist); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rrow .fill { text-align: end; font-weight: 600; }
+.rrow .fill small { display: block; font-weight: 400; font-size: 12px; color: var(--mist); }
+.more { padding: 8px 16px 12px; font-size: 13px; font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+
+/* 9. operations */
+.ops { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.op { padding: 14px; }
+.op .v { display: block; font-family: var(--display); font-size: 26px; line-height: 1.1; }
+.op .k { display: block; font-size: 13px; font-weight: 500; }
+/* charts are laid out in code (time order included), so SVG text must not inherit RTL anchoring */
+svg text { direction: ltr; unicode-bidi: plaintext; }
+.op p { margin: 4px 0 0; font-size: 12.5px; color: var(--mist); line-height: 1.45; }
+.coverage { margin-top: 26px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--mist); }
+
+@media (max-width: 720px) {
+  .wrap { padding: 20px 14px 44px; }
+  .brand h1 { font-size: 30px; }
+  .fresh { width: 100%; justify-content: space-between; }
+  .fresh-text { text-align: start; }
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kpi .v { font-size: 28px; }
+  .ins, .slots, .pace, .up { grid-template-columns: 1fr; }
+  .ops { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .heat { grid-template-columns: 34px repeat(7, minmax(0, 1fr)); gap: 2px; min-width: 0; }
+  .heat .c { font-size: 10.5px; height: 26px; }
+  .slot { grid-template-columns: 18px 88px 70px minmax(0, 1fr) 56px; gap: 6px; padding: 7px 12px; }
+  .rrow { grid-template-columns: 78px 40px minmax(0, 1fr) 70px; gap: 8px; padding: 7px 12px; }
+  .days .lbl span { font-size: 10px; }
+  .days .b em { font-size: 10px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1>לוח סשנים</h1>
+      <p>ריף ימין, ריף שמאל ו־Bay ב־SRF Park TLV</p>
+    </div>
+    <div class="fresh">
+      <div class="fresh-text"><strong>עודכן לפני 2 דקות</strong><span>הלוח פורסם עד יום שישי, 25.9</span></div>
+      <button class="btn-refresh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 0 0-14.9-4M4 4v4h4"/><path d="M4 13a8 8 0 0 0 14.9 4M20 20v-4h-4"/></svg><span>עדכון עכשיו</span></button>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" aria-selected="false">לוח</button>
+    <button role="tab" aria-selected="true">ניתוח</button>
+  </nav>
+
+  <div class="controls">
+    <div class="seg" role="group" aria-label="תקופה">
+      <button aria-pressed="false">30 יום</button>
+      <button aria-pressed="true">90 יום</button>
+      <button aria-pressed="false">12 חודשים</button>
+      <button aria-pressed="false">הכול</button>
+    </div>
+    <div class="levels" id="levels"></div>
+  </div>
+  <p class="compare-note" id="compare-note"></p>
+
+  <main id="analysis"></main>
+</div>
+<script>
+const DATA = {"today":"2026-09-11","now":"20:40","fetchedAt":"2026-09-11T20:38:18+03:00","period":{"from":"2026-06-13","to":"2026-09-10","lyFrom":"2025-06-14","lyTo":"2025-09-11"},"prices":{"reef":360,"reefHigh":390,"bayAdult":250,"bayKids":195},"kpis":{"cur":{"sessions":3199,"capacity":51925,"booked":35518,"occupancy":0.6840250361097737,"soldOut":0.22006877149109097,"revenue":12559995,"emptyValue":5781685},"ly":{"sessions":2885,"capacity":46160,"booked":35274,"occupancy":0.7641681109185442,"soldOut":0.32270363951473136,"revenue":12654485,"emptyValue":3681770},"open":90,"closed":0,"lyOpen":81,"lyClosed":0},"heat":[{"hour":"06","cells":[{"n":18,"sessions":18,"capacity":270,"booked":135,"occupancy":0.5,"soldOut":0,"revenue":52260,"emptyValue":51960},{"n":20,"sessions":20,"capacity":298,"booked":171,"occupancy":0.5738255033557047,"soldOut":0,"revenue":66690,"emptyValue":49530},{"n":20,"sessions":20,"capacity":306,"booked":153,"occupancy":0.5,"soldOut":0,"revenue":59490,"emptyValue":58770},{"n":26,"sessions":26,"capacity":389,"booked":228,"occupancy":0.5861182519280206,"soldOut":0.07692307692307693,"revenue":88920,"emptyValue":62790},{"n":24,"sessions":24,"capacity":366,"booked":206,"occupancy":0.5628415300546448,"soldOut":0,"revenue":79830,"emptyValue":61830},{"n":24,"sessions":24,"capacity":306,"booked":165,"occupancy":0.5392156862745098,"soldOut":0,"revenue":64350,"emptyValue":54990},{"n":22,"sessions":22,"capacity":336,"booked":207,"occupancy":0.6160714285714286,"soldOut":0.045454545454545456,"revenue":80340,"emptyValue":49620}]},{"hour":"07","cells":[{"n":25,"sessions":25,"capacity":433,"booked":176,"occupancy":0.4064665127020785,"soldOut":0,"revenue":64590,"emptyValue":93090},{"n":26,"sessions":26,"capacity":457,"booked":209,"occupancy":0.4573304157549234,"soldOut":0,"revenue":75240,"emptyValue":89280},{"n":26,"sessions":26,"capacity":433,"booked":218,"occupancy":0.5034642032332564,"soldOut":0,"revenue":79530,"emptyValue":79050},{"n":26,"sessions":26,"capacity":466,"booked":277,"occupancy":0.5944206008583691,"soldOut":0,"revenue":99720,"emptyValue":68040},{"n":26,"sessions":26,"capacity":419,"booked":247,"occupancy":0.5894988066825776,"soldOut":0.038461538461538464,"revenue":93990,"emptyValue":64050},{"n":24,"sessions":24,"capacity":427,"booked":312,"occupancy":0.7306791569086651,"soldOut":0.125,"revenue":113160,"emptyValue":41460},{"n":26,"sessions":26,"capacity":318,"booked":270,"occupancy":0.8490566037735849,"soldOut":0.3076923076923077,"revenue":105300,"emptyValue":18720}]},{"hour":"08","cells":[{"n":29,"sessions":29,"capacity":447,"booked":212,"occupancy":0.4742729306487696,"soldOut":0,"revenue":79550,"emptyValue":85990},{"n":29,"sessions":29,"capacity":392,"booked":198,"occupancy":0.5051020408163265,"soldOut":0,"revenue":75680,"emptyValue":71880},{"n":29,"sessions":29,"capacity":441,"booked":284,"occupancy":0.6439909297052154,"soldOut":0.1724137931034483,"revenue":108520,"emptyValue":55490},{"n":30,"sessions":30,"capacity":397,"booked":282,"occupancy":0.7103274559193955,"soldOut":0.2,"revenue":107040,"emptyValue":40090},{"n":28,"sessions":28,"capacity":476,"booked":263,"occupancy":0.5525210084033614,"soldOut":0.03571428571428571,"revenue":96340,"emptyValue":75780},{"n":35,"sessions":35,"capacity":540,"booked":446,"occupancy":0.825925925925926,"soldOut":0.42857142857142855,"revenue":157140,"emptyValue":28260},{"n":26,"sessions":26,"capacity":469,"booked":383,"occupancy":0.8166311300639659,"soldOut":0.3076923076923077,"revenue":137880,"emptyValue":30960}]},{"hour":"09","cells":[{"n":27,"sessions":27,"capacity":474,"booked":191,"occupancy":0.4029535864978903,"soldOut":0.037037037037037035,"revenue":69190,"emptyValue":100370},{"n":27,"sessions":27,"capacity":494,"booked":166,"occupancy":0.3360323886639676,"soldOut":0,"revenue":58660,"emptyValue":116540},{"n":26,"sessions":26,"capacity":427,"booked":187,"occupancy":0.4379391100702576,"soldOut":0,"revenue":67860,"emptyValue":86760},{"n":26,"sessions":26,"capacity":466,"booked":186,"occupancy":0.39914163090128757,"soldOut":0,"revenue":66960,"emptyValue":100800},{"n":26,"sessions":26,"capacity":465,"booked":210,"occupancy":0.45161290322580644,"soldOut":0,"revenue":76230,"emptyValue":92070},{"n":28,"sessions":28,"capacity":499,"booked":376,"occupancy":0.7535070140280561,"soldOut":0.2857142857142857,"revenue":126560,"emptyValue":44005},{"n":45,"sessions":45,"capacity":740,"booked":546,"occupancy":0.7378378378378379,"soldOut":0.24444444444444444,"revenue":179280,"emptyValue":53735}]},{"hour":"10","cells":[{"n":27,"sessions":27,"capacity":428,"booked":280,"occupancy":0.6542056074766355,"soldOut":0.07407407407407407,"revenue":103005,"emptyValue":53760},{"n":28,"sessions":28,"capacity":421,"booked":211,"occupancy":0.501187648456057,"soldOut":0.10714285714285714,"revenue":78165,"emptyValue":77520},{"n":30,"sessions":30,"capacity":483,"booked":304,"occupancy":0.629399585921325,"soldOut":0.1,"revenue":107745,"emptyValue":63405},{"n":28,"sessions":28,"capacity":447,"booked":321,"occupancy":0.7181208053691275,"soldOut":0.07142857142857142,"revenue":117240,"emptyValue":45285},{"n":26,"sessions":26,"capacity":467,"booked":354,"occupancy":0.7580299785867237,"soldOut":0.3076923076923077,"revenue":127440,"emptyValue":40680},{"n":40,"sessions":40,"capacity":626,"booked":506,"occupancy":0.8083067092651757,"soldOut":0.425,"revenue":160520,"emptyValue":38655},{"n":26,"sessions":26,"capacity":468,"booked":415,"occupancy":0.8867521367521367,"soldOut":0.38461538461538464,"revenue":149400,"emptyValue":19080}]},{"hour":"11","cells":[{"n":27,"sessions":27,"capacity":476,"booked":297,"occupancy":0.6239495798319328,"soldOut":0.037037037037037035,"revenue":107130,"emptyValue":63810},{"n":26,"sessions":26,"capacity":469,"booked":254,"occupancy":0.5415778251599147,"soldOut":0,"revenue":91440,"emptyValue":77400},{"n":25,"sessions":25,"capacity":453,"booked":283,"occupancy":0.6247240618101545,"soldOut":0.08,"revenue":101880,"emptyValue":61200},{"n":27,"sessions":27,"capacity":487,"booked":306,"occupancy":0.6283367556468172,"soldOut":0.14814814814814814,"revenue":108980,"emptyValue":65050},{"n":26,"sessions":26,"capacity":480,"booked":299,"occupancy":0.6229166666666667,"soldOut":0.19230769230769232,"revenue":108510,"emptyValue":65190},{"n":24,"sessions":24,"capacity":391,"booked":301,"occupancy":0.7698209718670077,"soldOut":0.20833333333333334,"revenue":108360,"emptyValue":32400},{"n":59,"sessions":59,"capacity":966,"booked":798,"occupancy":0.8260869565217391,"soldOut":0.3389830508474576,"revenue":225295,"emptyValue":47375}]},{"hour":"12","cells":[{"n":27,"sessions":27,"capacity":458,"booked":296,"occupancy":0.6462882096069869,"soldOut":0.07407407407407407,"revenue":106590,"emptyValue":58080},{"n":27,"sessions":27,"capacity":428,"booked":254,"occupancy":0.5934579439252337,"soldOut":0.14814814814814814,"revenue":95550,"emptyValue":63950},{"n":29,"sessions":29,"capacity":490,"booked":314,"occupancy":0.6408163265306123,"soldOut":0.1724137931034483,"revenue":110170,"emptyValue":59420},{"n":31,"sessions":31,"capacity":516,"booked":399,"occupancy":0.7732558139534884,"soldOut":0.2903225806451613,"revenue":138675,"emptyValue":39375},{"n":33,"sessions":33,"capacity":521,"booked":427,"occupancy":0.8195777351247601,"soldOut":0.3939393939393939,"revenue":146060,"emptyValue":31325},{"n":39,"sessions":39,"capacity":615,"booked":483,"occupancy":0.7853658536585366,"soldOut":0.48717948717948717,"revenue":155340,"emptyValue":38395},{"n":26,"sessions":26,"capacity":500,"booked":457,"occupancy":0.914,"soldOut":0.46153846153846156,"revenue":164520,"emptyValue":15480}]},{"hour":"13","cells":[{"n":28,"sessions":28,"capacity":446,"booked":311,"occupancy":0.6973094170403588,"soldOut":0.21428571428571427,"revenue":108825,"emptyValue":48375},{"n":22,"sessions":22,"capacity":371,"booked":242,"occupancy":0.6522911051212938,"soldOut":0.09090909090909091,"revenue":89640,"emptyValue":47520},{"n":26,"sessions":26,"capacity":438,"booked":299,"occupancy":0.682648401826484,"soldOut":0.19230769230769232,"revenue":111810,"emptyValue":50370},{"n":25,"sessions":25,"capacity":398,"booked":296,"occupancy":0.7437185929648241,"soldOut":0.32,"revenue":106385,"emptyValue":37740},{"n":23,"sessions":23,"capacity":378,"booked":262,"occupancy":0.6931216931216931,"soldOut":0.2608695652173913,"revenue":97350,"emptyValue":40170},{"n":23,"sessions":23,"capacity":350,"booked":272,"occupancy":0.7771428571428571,"soldOut":0.34782608695652173,"revenue":97920,"emptyValue":28080},{"n":56,"sessions":56,"capacity":964,"booked":780,"occupancy":0.8091286307053942,"soldOut":0.375,"revenue":227190,"emptyValue":43310}]},{"hour":"14","cells":[{"n":27,"sessions":27,"capacity":462,"booked":285,"occupancy":0.6168831168831169,"soldOut":0.18518518518518517,"revenue":104720,"emptyValue":65020},{"n":33,"sessions":33,"capacity":496,"booked":323,"occupancy":0.6512096774193549,"soldOut":0.18181818181818182,"revenue":115865,"emptyValue":58905},{"n":27,"sessions":27,"capacity":403,"booked":295,"occupancy":0.7320099255583127,"soldOut":0.2222222222222222,"revenue":114610,"emptyValue":41020},{"n":27,"sessions":27,"capacity":413,"booked":300,"occupancy":0.7263922518159807,"soldOut":0.2222222222222222,"revenue":113985,"emptyValue":38655},{"n":26,"sessions":26,"capacity":383,"booked":271,"occupancy":0.7075718015665796,"soldOut":0.2692307692307692,"revenue":102750,"emptyValue":41220},{"n":53,"sessions":53,"capacity":814,"booked":731,"occupancy":0.898034398034398,"soldOut":0.4528301886792453,"revenue":206405,"emptyValue":22180},{"n":26,"sessions":26,"capacity":499,"booked":403,"occupancy":0.8076152304609219,"soldOut":0.3076923076923077,"revenue":145080,"emptyValue":34560}]},{"hour":"15","cells":[{"n":39,"sessions":39,"capacity":611,"booked":377,"occupancy":0.6170212765957447,"soldOut":0.15384615384615385,"revenue":121760,"emptyValue":78685},{"n":26,"sessions":26,"capacity":447,"booked":201,"occupancy":0.44966442953020136,"soldOut":0.038461538461538464,"revenue":73830,"emptyValue":88890},{"n":35,"sessions":35,"capacity":570,"booked":324,"occupancy":0.5684210526315789,"soldOut":0.17142857142857143,"revenue":102945,"emptyValue":85590},{"n":35,"sessions":35,"capacity":601,"booked":377,"occupancy":0.627287853577371,"soldOut":0.11428571428571428,"revenue":117455,"emptyValue":75865},{"n":36,"sessions":36,"capacity":544,"booked":412,"occupancy":0.7573529411764706,"soldOut":0.16666666666666666,"revenue":138995,"emptyValue":43975},{"n":24,"sessions":24,"capacity":383,"booked":354,"occupancy":0.9242819843342036,"soldOut":0.5416666666666666,"revenue":127440,"emptyValue":10440},{"n":55,"sessions":55,"capacity":879,"booked":719,"occupancy":0.8179749715585893,"soldOut":0.4727272727272727,"revenue":218520,"emptyValue":38320}]},{"hour":"16","cells":[{"n":29,"sessions":29,"capacity":490,"booked":265,"occupancy":0.5408163265306123,"soldOut":0.10344827586206896,"revenue":93440,"emptyValue":80080},{"n":44,"sessions":44,"capacity":660,"booked":371,"occupancy":0.5621212121212121,"soldOut":0.20454545454545456,"revenue":110775,"emptyValue":93240},{"n":33,"sessions":33,"capacity":541,"booked":335,"occupancy":0.6192236598890942,"soldOut":0.18181818181818182,"revenue":111165,"emptyValue":71385},{"n":29,"sessions":29,"capacity":485,"booked":314,"occupancy":0.6474226804123712,"soldOut":0.034482758620689655,"revenue":113315,"emptyValue":57835},{"n":26,"sessions":26,"capacity":443,"booked":205,"occupancy":0.46275395033860045,"soldOut":0.11538461538461539,"revenue":75390,"emptyValue":85890},{"n":18,"sessions":18,"capacity":276,"booked":271,"occupancy":0.9818840579710145,"soldOut":0.8333333333333334,"revenue":104610,"emptyValue":1950},{"n":25,"sessions":25,"capacity":479,"booked":373,"occupancy":0.778705636743215,"soldOut":0.28,"revenue":134280,"emptyValue":38160}]},{"hour":"17","cells":[{"n":37,"sessions":37,"capacity":548,"booked":368,"occupancy":0.6715328467153284,"soldOut":0.13513513513513514,"revenue":118020,"emptyValue":63480},{"n":26,"sessions":26,"capacity":429,"booked":214,"occupancy":0.4988344988344988,"soldOut":0,"revenue":77040,"emptyValue":77400},{"n":39,"sessions":39,"capacity":616,"booked":384,"occupancy":0.6233766233766234,"soldOut":0.23076923076923078,"revenue":121375,"emptyValue":75445},{"n":39,"sessions":39,"capacity":580,"booked":371,"occupancy":0.6396551724137931,"soldOut":0.3076923076923077,"revenue":119745,"emptyValue":71585},{"n":35,"sessions":35,"capacity":556,"booked":409,"occupancy":0.7356115107913669,"soldOut":0.2857142857142857,"revenue":138510,"emptyValue":47055},{"n":24,"sessions":24,"capacity":417,"booked":396,"occupancy":0.9496402877697842,"soldOut":0.5833333333333334,"revenue":143460,"emptyValue":7560},{"n":30,"sessions":30,"capacity":465,"booked":399,"occupancy":0.8580645161290322,"soldOut":0.6,"revenue":147490,"emptyValue":21120}]},{"hour":"18","cells":[{"n":27,"sessions":27,"capacity":481,"booked":278,"occupancy":0.577962577962578,"soldOut":0.07407407407407407,"revenue":99740,"emptyValue":73440},{"n":45,"sessions":45,"capacity":663,"booked":469,"occupancy":0.7073906485671192,"soldOut":0.35555555555555557,"revenue":146315,"emptyValue":61935},{"n":28,"sessions":28,"capacity":490,"booked":352,"occupancy":0.7183673469387755,"soldOut":0.2857142857142857,"revenue":125900,"emptyValue":47260},{"n":25,"sessions":25,"capacity":434,"booked":254,"occupancy":0.5852534562211982,"soldOut":0.16,"revenue":91140,"emptyValue":60960},{"n":27,"sessions":27,"capacity":495,"booked":334,"occupancy":0.6747474747474748,"soldOut":0.1111111111111111,"revenue":119800,"emptyValue":56420},{"n":23,"sessions":23,"capacity":336,"booked":310,"occupancy":0.9226190476190477,"soldOut":0.43478260869565216,"revenue":119850,"emptyValue":10110},{"n":26,"sessions":26,"capacity":470,"booked":435,"occupancy":0.925531914893617,"soldOut":0.5,"revenue":156600,"emptyValue":12600}]},{"hour":"19","cells":[{"n":26,"sessions":26,"capacity":425,"booked":279,"occupancy":0.6564705882352941,"soldOut":0.23076923076923078,"revenue":104610,"emptyValue":54690},{"n":26,"sessions":26,"capacity":406,"booked":206,"occupancy":0.5073891625615764,"soldOut":0.038461538461538464,"revenue":74910,"emptyValue":72150},{"n":27,"sessions":27,"capacity":412,"booked":315,"occupancy":0.7645631067961165,"soldOut":0.37037037037037035,"revenue":119060,"emptyValue":35890},{"n":27,"sessions":27,"capacity":418,"booked":304,"occupancy":0.7272727272727273,"soldOut":0.37037037037037035,"revenue":110510,"emptyValue":40160},{"n":26,"sessions":26,"capacity":432,"booked":340,"occupancy":0.7870370370370371,"soldOut":0.2692307692307692,"revenue":122920,"emptyValue":31970},null,{"n":26,"sessions":26,"capacity":390,"booked":357,"occupancy":0.9153846153846154,"soldOut":0.6538461538461539,"revenue":139230,"emptyValue":12870}]},{"hour":"20","cells":[{"n":26,"sessions":26,"capacity":426,"booked":296,"occupancy":0.6948356807511737,"soldOut":0.15384615384615385,"revenue":110310,"emptyValue":48270},{"n":24,"sessions":24,"capacity":354,"booked":278,"occupancy":0.7853107344632768,"soldOut":0.20833333333333334,"revenue":107580,"emptyValue":29400},{"n":24,"sessions":24,"capacity":384,"booked":273,"occupancy":0.7109375,"soldOut":0.25,"revenue":101580,"emptyValue":40620},{"n":22,"sessions":22,"capacity":357,"booked":263,"occupancy":0.7366946778711485,"soldOut":0.36363636363636365,"revenue":99180,"emptyValue":34110},{"n":23,"sessions":23,"capacity":371,"booked":281,"occupancy":0.7574123989218329,"soldOut":0.2608695652173913,"revenue":105480,"emptyValue":33480},null,{"n":26,"sessions":26,"capacity":467,"booked":334,"occupancy":0.715203426124197,"soldOut":0.19230769230769232,"revenue":120240,"emptyValue":47880}]},{"hour":"21","cells":[{"n":20,"sessions":20,"capacity":318,"booked":191,"occupancy":0.60062893081761,"soldOut":0.05,"revenue":72810,"emptyValue":47970},{"n":24,"sessions":24,"capacity":420,"booked":335,"occupancy":0.7976190476190477,"soldOut":0.20833333333333334,"revenue":121200,"emptyValue":30720},{"n":25,"sessions":25,"capacity":384,"booked":311,"occupancy":0.8098958333333334,"soldOut":0.28,"revenue":120030,"emptyValue":28110},{"n":23,"sessions":23,"capacity":375,"booked":257,"occupancy":0.6853333333333333,"soldOut":0.30434782608695654,"revenue":96870,"emptyValue":42900},{"n":24,"sessions":24,"capacity":364,"booked":296,"occupancy":0.8131868131868132,"soldOut":0.4583333333333333,"revenue":113940,"emptyValue":25860},null,{"n":20,"sessions":20,"capacity":295,"booked":263,"occupancy":0.8915254237288136,"soldOut":0.4,"revenue":102570,"emptyValue":12480}]},{"hour":"22","cells":[{"n":6,"sessions":6,"capacity":90,"booked":64,"occupancy":0.7111111111111111,"soldOut":0,"revenue":24960,"emptyValue":10140},{"n":16,"sessions":16,"capacity":240,"booked":188,"occupancy":0.7833333333333333,"soldOut":0.375,"revenue":73320,"emptyValue":20280},{"n":18,"sessions":18,"capacity":276,"booked":217,"occupancy":0.7862318840579711,"soldOut":0.2222222222222222,"revenue":83970,"emptyValue":22590},{"n":18,"sessions":18,"capacity":270,"booked":225,"occupancy":0.8333333333333334,"soldOut":0.2222222222222222,"revenue":87750,"emptyValue":17550},{"n":20,"sessions":20,"capacity":306,"booked":241,"occupancy":0.7875816993464052,"soldOut":0.1,"revenue":93210,"emptyValue":25050},null,null]}],"levels":[{"key":"bay-adult","sessions":187,"capacity":3043,"booked":1845,"occupancy":0.6063095629313178,"soldOut":0.18716577540106952,"revenue":461250,"emptyValue":299500,"capShare":0.058603755416466057,"bookShare":0.05194549242637536,"revShare":0.03672374073397322,"lyOccupancy":0.4893944051644636},{"key":"bay-kids","sessions":237,"capacity":3253,"booked":2558,"occupancy":0.7863510605594836,"soldOut":0.37130801687763715,"revenue":500565,"emptyValue":135525,"capShare":0.06264805007221955,"bookShare":0.07201982093586351,"revShare":0.03985391713929822,"lyOccupancy":0.7245197004233149},{"key":"L1","sessions":190,"capacity":3372,"booked":1727,"occupancy":0.5121589561091341,"soldOut":0.10526315789473684,"revenue":621720,"emptyValue":592200,"capShare":0.06493981704381319,"bookShare":0.048623233290162736,"revShare":0.04950001970542186,"lyOccupancy":0.4920908829450676},{"key":"L2","sessions":422,"capacity":7568,"booked":4472,"occupancy":0.5909090909090909,"soldOut":0.13270142180094788,"revenue":1610280,"emptyValue":1114560,"capShare":0.14574867597496388,"bookShare":0.12590799031476999,"revShare":0.12820705740726807,"lyOccupancy":0.6604306388986939},{"key":"L3","sessions":336,"capacity":5910,"booked":3522,"occupancy":0.5959390862944163,"soldOut":0.11904761904761904,"revenue":1267920,"emptyValue":859680,"capShare":0.1138180067404911,"bookShare":0.0991609887944141,"revShare":0.10094908477272482,"lyOccupancy":0.8046123116034138},{"key":"L4","sessions":650,"capacity":11628,"booked":8297,"occupancy":0.7135362917096664,"soldOut":0.19692307692307692,"revenue":2986920,"emptyValue":1199160,"capShare":0.2239383726528647,"bookShare":0.23359986485725548,"revShare":0.23781219658128844,"lyOccupancy":0.8772151898734177},{"key":"L5","sessions":569,"capacity":8493,"booked":6555,"occupancy":0.7718120805369127,"soldOut":0.30579964850615116,"revenue":2557230,"emptyValue":755820,"capShare":0.16356283100625904,"bookShare":0.18455431049045554,"revShare":0.20360119570111293,"lyOccupancy":0.8567903577868463},{"key":"L6","sessions":608,"capacity":8658,"booked":6542,"occupancy":0.7556017556017556,"soldOut":0.2680921052631579,"revenue":2554110,"emptyValue":825240,"capShare":0.1667404910929225,"bookShare":0.18418829889070332,"revShare":0.2033527879589124,"lyOccupancy":0.840557089686637}],"top":[{"weekday":5,"start":"16:00","level":"L5","dates":6,"sessions":10,"capacity":150,"booked":148,"occupancy":0.9866666666666667,"soldOut":0.8,"revenue":57720,"emptyValue":780},{"weekday":6,"start":"18:00","level":"L4","dates":4,"sessions":8,"capacity":144,"booked":142,"occupancy":0.9861111111111112,"soldOut":0.75,"revenue":51120,"emptyValue":720},{"weekday":5,"start":"16:00","level":"L6","dates":5,"sessions":6,"capacity":90,"booked":87,"occupancy":0.9666666666666667,"soldOut":0.8333333333333334,"revenue":33930,"emptyValue":1170},{"weekday":5,"start":"12:00","level":"L6","dates":9,"sessions":18,"capacity":260,"booked":247,"occupancy":0.95,"soldOut":0.6666666666666666,"revenue":96720,"emptyValue":5070},{"weekday":6,"start":"15:00","level":"L5","dates":13,"sessions":26,"capacity":390,"booked":369,"occupancy":0.9461538461538461,"soldOut":0.6923076923076923,"revenue":144300,"emptyValue":8190},{"weekday":5,"start":"17:00","level":"L4","dates":11,"sessions":22,"capacity":387,"booked":366,"occupancy":0.9457364341085271,"soldOut":0.5454545454545454,"revenue":131760,"emptyValue":7560},{"weekday":5,"start":"14:30","level":"bay-kids","dates":12,"sessions":24,"capacity":310,"booked":292,"occupancy":0.9419354838709677,"soldOut":0.5,"revenue":57135,"emptyValue":3510},{"weekday":6,"start":"13:00","level":"L4","dates":12,"sessions":24,"capacity":432,"booked":406,"occupancy":0.9398148148148148,"soldOut":0.5833333333333334,"revenue":146160,"emptyValue":9360},{"weekday":2,"start":"15:30","level":"bay-kids","dates":4,"sessions":6,"capacity":65,"booked":61,"occupancy":0.9384615384615385,"soldOut":0.6666666666666666,"revenue":11895,"emptyValue":780},{"weekday":3,"start":"15:30","level":"bay-kids","dates":4,"sessions":7,"capacity":108,"booked":101,"occupancy":0.9351851851851852,"soldOut":0.42857142857142855,"revenue":19695,"emptyValue":1365}],"bottom":[{"weekday":0,"start":"09:00","level":"L1","dates":7,"sessions":14,"capacity":250,"booked":74,"occupancy":0.296,"soldOut":0,"revenue":26640,"emptyValue":63360},{"weekday":2,"start":"15:00","level":"L2","dates":4,"sessions":7,"capacity":125,"booked":41,"occupancy":0.328,"soldOut":0.14285714285714285,"revenue":14760,"emptyValue":30240},{"weekday":1,"start":"09:00","level":"L2","dates":9,"sessions":18,"capacity":328,"booked":111,"occupancy":0.3384146341463415,"soldOut":0,"revenue":39960,"emptyValue":78120},{"weekday":0,"start":"07:00","level":"L4","dates":11,"sessions":21,"capacity":373,"booked":135,"occupancy":0.36193029490616624,"soldOut":0,"revenue":48600,"emptyValue":85680},{"weekday":3,"start":"08:30","level":"bay-adult","dates":4,"sessions":4,"capacity":55,"booked":21,"occupancy":0.38181818181818183,"soldOut":0.25,"revenue":5250,"emptyValue":8500},{"weekday":0,"start":"08:00","level":"L5","dates":6,"sessions":12,"capacity":180,"booked":74,"occupancy":0.4111111111111111,"soldOut":0,"revenue":28860,"emptyValue":41340},{"weekday":1,"start":"15:00","level":"L3","dates":10,"sessions":20,"capacity":360,"booked":148,"occupancy":0.4111111111111111,"soldOut":0,"revenue":53280,"emptyValue":76320},{"weekday":3,"start":"09:00","level":"L1","dates":4,"sessions":8,"capacity":143,"booked":60,"occupancy":0.4195804195804196,"soldOut":0,"revenue":21600,"emptyValue":29880},{"weekday":3,"start":"09:00","level":"L2","dates":6,"sessions":12,"capacity":215,"booked":94,"occupancy":0.4372093023255814,"soldOut":0,"revenue":33840,"emptyValue":43560},{"weekday":1,"start":"19:00","level":"L1","dates":9,"sessions":18,"capacity":288,"booked":126,"occupancy":0.4375,"soldOut":0,"revenue":45360,"emptyValue":58320}],"weeks":[{"from":"2026-06-13","to":"2026-06-19","occupancy":0.6278625954198473,"revenue":836095,"lyOccupancy":0.7522935779816514,"lyRevenue":186990,"closed":0},{"from":"2026-06-20","to":"2026-06-26","occupancy":0.6093940131418837,"revenue":898145,"lyOccupancy":0.9011479591836735,"lyRevenue":533910,"closed":0},{"from":"2026-06-27","to":"2026-07-03","occupancy":0.7090024330900243,"revenue":1023235,"lyOccupancy":0.8272335844994618,"lyRevenue":1154580,"closed":0},{"from":"2026-07-04","to":"2026-07-10","occupancy":0.501605334650531,"revenue":712510,"lyOccupancy":0.8606369426751592,"lyRevenue":1261455,"closed":0},{"from":"2026-07-11","to":"2026-07-17","occupancy":0.6118112181863109,"revenue":872915,"lyOccupancy":0.7846924177396281,"lyRevenue":1194025,"closed":0},{"from":"2026-07-18","to":"2026-07-24","occupancy":0.7111857401188323,"revenue":979730,"lyOccupancy":0.8161935784085621,"lyRevenue":1255555,"closed":0},{"from":"2026-07-25","to":"2026-07-31","occupancy":0.5681818181818182,"revenue":767945,"lyOccupancy":0.7505784359093013,"lyRevenue":1151130,"closed":0},{"from":"2026-08-01","to":"2026-08-07","occupancy":0.7884985563041386,"revenue":1166795,"lyOccupancy":0.6882993841781146,"lyRevenue":1015980,"closed":0},{"from":"2026-08-08","to":"2026-08-14","occupancy":0.7983425414364641,"revenue":1217525,"lyOccupancy":0.8219550918575641,"lyRevenue":1280430,"closed":0},{"from":"2026-08-15","to":"2026-08-21","occupancy":0.6872868972235753,"revenue":969150,"lyOccupancy":0.6595348837209303,"lyRevenue":987430,"closed":0},{"from":"2026-08-22","to":"2026-08-28","occupancy":0.8921614100185529,"revenue":1345240,"lyOccupancy":0.7142143392455659,"lyRevenue":975015,"closed":0},{"from":"2026-08-29","to":"2026-09-04","occupancy":0.6882747933884298,"revenue":946715,"lyOccupancy":0.7682887528198518,"lyRevenue":842885,"closed":0},{"from":"2026-09-05","to":"2026-09-10","occupancy":0.6623643297154591,"revenue":823995,"lyOccupancy":0.6572838073128264,"lyRevenue":815100,"closed":0}],"months":[{"month":"2025-10","occupancy":0.7918294378600278,"revenue":4385630},{"month":"2025-11","occupancy":0.6916197623514697,"revenue":4085930},{"month":"2025-12","occupancy":0.4767050487156776,"revenue":1975665},{"month":"2026-01","occupancy":0.4020176252319109,"revenue":1277810},{"month":"2026-02","occupancy":0.4335750928710419,"revenue":898780},{"month":"2026-03","occupancy":0.6748685594111462,"revenue":1205370},{"month":"2026-04","occupancy":0.6762536873156342,"revenue":2346600},{"month":"2026-05","occupancy":0.6139528564635555,"revenue":3276990},{"month":"2026-06","occupancy":0.6870290802665172,"revenue":3991315},{"month":"2026-07","occupancy":0.6114334470989761,"revenue":3776670},{"month":"2026-08","occupancy":0.7864119351722657,"revenue":5129495},{"month":"2026-09","occupancy":0.6618149146451033,"revenue":1339925}],"upDays":[{"date":"2026-09-12","sessions":34,"capacity":582,"booked":398,"occupancy":0.6838487972508591,"soldOut":0.47058823529411764,"revenue":142145,"emptyValue":50815},{"date":"2026-09-13","sessions":32,"capacity":592,"booked":272,"occupancy":0.4594594594594595,"soldOut":0.25,"revenue":96960,"emptyValue":99360},{"date":"2026-09-14","sessions":38,"capacity":630,"booked":77,"occupancy":0.12222222222222222,"soldOut":0,"revenue":28240,"emptyValue":196655},{"date":"2026-09-15","sessions":34,"capacity":563,"booked":32,"occupancy":0.056838365896980464,"soldOut":0,"revenue":11250,"emptyValue":193890},{"date":"2026-09-16","sessions":35,"capacity":597,"booked":28,"occupancy":0.04690117252931323,"soldOut":0,"revenue":9575,"emptyValue":201885},{"date":"2026-09-17","sessions":34,"capacity":556,"booked":22,"occupancy":0.039568345323741004,"soldOut":0,"revenue":7965,"emptyValue":195225},{"date":"2026-09-18","sessions":32,"capacity":519,"booked":33,"occupancy":0.06358381502890173,"soldOut":0.03125,"revenue":9910,"emptyValue":168600},{"date":"2026-09-19","sessions":41,"capacity":687,"booked":18,"occupancy":0.026200873362445413,"soldOut":0,"revenue":6015,"emptyValue":225135},{"date":"2026-09-22","sessions":39,"capacity":646,"booked":5,"occupancy":0.007739938080495356,"soldOut":0,"revenue":1690,"emptyValue":227150},{"date":"2026-09-23","sessions":38,"capacity":610,"booked":2,"occupancy":0.003278688524590164,"soldOut":0,"revenue":750,"emptyValue":219860},{"date":"2026-09-24","sessions":36,"capacity":592,"booked":2,"occupancy":0.0033783783783783786,"soldOut":0,"revenue":720,"emptyValue":215280},{"date":"2026-09-25","sessions":22,"capacity":338,"booked":2,"occupancy":0.005917159763313609,"soldOut":0,"revenue":555,"emptyValue":111825}],"atRisk":[{"date":"2026-09-12","start":"09:30","level":"bay-adult","name":"שיעור גלישה למתחילים ב Bay - בוגרים מעל גיל 16","booked":7,"capacity":18,"hours":13,"emptyValue":2750},{"date":"2026-09-12","start":"11:30","level":"bay-kids","name":"שיעור גלישה למתחילים ב Bay - ילדים 11-16","booked":5,"capacity":18,"hours":15,"emptyValue":2535},{"date":"2026-09-12","start":"13:30","level":"bay-kids","name":"שיעור גלישה למתחילים ב Bay - ילדים 7-10","booked":3,"capacity":36,"hours":17,"emptyValue":6435},{"date":"2026-09-12","start":"14:00","level":"L1","name":"L1 Beginners Plus (M1) - כולל גלשן סופט ללא עלות","booked":3,"capacity":20,"hours":17,"emptyValue":6120},{"date":"2026-09-12","start":"15:30","level":"bay-kids","name":"שיעור גלישה למתחילים ב Bay - ילדים 7-10","booked":10,"capacity":36,"hours":19,"emptyValue":5070},{"date":"2026-09-12","start":"20:00","level":"L4","name":"L4 – Advanced (M4 Only)","booked":12,"capacity":36,"hours":23,"emptyValue":8640},{"date":"2026-09-13","start":"08:00","level":"L6","name":"L6 Pro (T2+B2)","booked":5,"capacity":15,"hours":35,"emptyValue":3900},{"date":"2026-09-13","start":"08:30","level":"bay-adult","name":"שיעור גלישה למתחילים ב Bay - בוגרים מעל גיל 16","booked":1,"capacity":24,"hours":36,"emptyValue":5750},{"date":"2026-09-13","start":"09:00","level":"L2","name":"L2 Improvers (M2) - כולל גלשן סופט ללא עלות","booked":8,"capacity":40,"hours":36,"emptyValue":11520},{"date":"2026-09-13","start":"10:30","level":"bay-adult","name":"שיעור גלישה למתחילים ב Bay - בוגרים מעל גיל 16","booked":5,"capacity":24,"hours":38,"emptyValue":4750},{"date":"2026-09-13","start":"12:00","level":"L2","name":"L2 Improvers (M2) - כולל גלשן סופט ללא עלות","booked":2,"capacity":20,"hours":39,"emptyValue":6480},{"date":"2026-09-13","start":"13:30","level":"bay-kids","name":"שיעור גלישה למתחילים ב Bay - ילדים 7-10","booked":13,"capacity":48,"hours":41,"emptyValue":6825},{"date":"2026-09-13","start":"14:00","level":"L1","name":"L1 Beginners Plus (M1) - כולל גלשן סופט ללא עלות","booked":9,"capacity":40,"hours":41,"emptyValue":11160},{"date":"2026-09-13","start":"15:00","level":"L6","name":"L6- 2B Or Not 2B (B2+B3) - Barrel Fest","booked":4,"capacity":30,"hours":42,"emptyValue":10140},{"date":"2026-09-13","start":"17:30","level":"bay-kids","name":"שיעור גלישה למתחילים ב Bay - ילדים 11-16","booked":7,"capacity":48,"hours":45,"emptyValue":7995},{"date":"2026-09-13","start":"18:00","level":"L2","name":"L2 Improvers (M2) - כולל גלשן סופט ללא עלות","booked":7,"capacity":20,"hours":45,"emptyValue":4680},{"date":"2026-09-13","start":"20:00","level":"L4","name":"L4 – Advanced (T1 Only)","booked":8,"capacity":36,"hours":47,"emptyValue":10080}],"ops":{"closed":[],"cancelled":8,"blocked":67,"blockedNames":["RS74 SUMMER ×1","אירוע סגור- פלייטיקה ×8","מועדון גלים נעורים בית ינאי ×1","החברים של ניסים ×6","L4 – New Advanced Carves (T1 Only) ×3"],"events":0,"overbooked":11,"overbookedPeople":19},"insights":[{"rule":"weekend","impact":2520792.161581696,"tone":"info","text":"שישי־שבת מלאים ב־82%, ימי חול ב־63%. אם ימי החול היו מתמלאים כמו סוף השבוע, זה ₪2,520,792 נוספים.","link":"heat"},{"rule":"trend","impact":1470791.834861932,"tone":"bad","text":"התפוסה ירדה ב־8 נקודות מאשתקד, מ־76% ל־68%. ההיצע גדל ב־12% וההזמנות כמעט לא השתנו.","link":"trend"},{"rule":"level-trend","impact":1317240,"tone":"bad","text":"הירידות הגדולות מאשתקד: L3 מ־80% ל־60%, L4 מ־88% ל־71%.","link":"levels"},{"rule":"weak-block","impact":317710,"tone":"bad","text":"השעות החלשות: ב׳ 09:00 (34%), ד׳ 09:00 (40%), א׳ 09:00 (40%). יחד ₪317,710 במקומות ריקים. מועמדות לשינוי רמה או למבצע.","link":"slots"},{"rule":"undersupply","impact":185863.79746835443,"tone":"good","text":"Bay ילדים נמכר עד המקום האחרון ב־37% מהסשנים: הביקוש גבוה מההיצע, כדאי לשקול עוד סשנים.","link":"levels"},{"rule":"at-risk","impact":114830,"tone":"bad","text":"17 סשנים ב־48 השעות הקרובות מלאים בפחות מ־40%: ₪114,830 פתוחים למכירה.","link":"upcoming"}],"coverage":{"first":"2025-04-02","sessions":14283,"snapshots":9,"snapshotsSince":"2026-09-10"}};
+
+const HE_DAYS = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
+const SHORT = ['א׳', 'ב׳', 'ג׳', 'ד׳', 'ה׳', 'ו׳', 'ש׳'];
+const pct = x => (x === null || x === undefined ? '–' : `${Math.round(x * 100)}%`);
+const pts = (a, b) => Math.round(a * 100) - Math.round(b * 100);
+const int = n => Math.round(n).toLocaleString('en-US');
+const money = n => `<span class="ltr num">${n >= 1e6 ? `₪${(n / 1e6).toFixed(1)}M` : n >= 1e4 ? `₪${Math.round(n / 1e3)}K` : `₪${int(n)}`}</span>`;
+const d2 = iso => { const [, m, d] = iso.split('-'); return `${+d}.${+m}`; };
+const dow = iso => new Date(`${iso}T12:00:00Z`).getUTCDay();
+const lvChip = key => key.startsWith('bay') ? '<span class="chip lv0">Bay</span>' : `<span class="chip lv${key.slice(1)}">${key}</span>`;
+const lvName = key => key === 'bay-adult' ? 'מבוגרים' : key === 'bay-kids' ? 'ילדים' : '';
+const $ = s => document.querySelector(s);
+
+// level chips + compare note
+$('#levels').innerHTML = '<span class="levels-label">רמות:</span>' + [0, 1, 2, 3, 4, 5, 6].map(l => `<button class="lv-toggle"><span class="chip lv${l}">${l ? `L${l}` : 'Bay'}</span></button>`).join('');
+const P = DATA.period;
+$('#compare-note').innerHTML = `מציג <b>${d2(P.from)}–${d2(P.to)}.${P.to.slice(0, 4)}</b> (עד אתמול) בהשוואה ל־<b>אותם שבועות אשתקד</b>, ${d2(P.lyFrom)}–${d2(P.lyTo)}.${P.lyTo.slice(0, 4)}`;
+
+function delta(cur, ly, { unit = '%', lowerIsBetter = false, fmt } = {}) {
+  if (ly === null || ly === undefined) return '<div class="d"><span class="ly">אין נתונים מאשתקד</span></div>';
+  let diff, txt;
+  if (unit === 'pts') { diff = pts(cur, ly); txt = `${Math.abs(diff)} נק׳`; }
+  else { diff = Math.round((cur / ly - 1) * 100); txt = `${Math.abs(diff)}%`; }
+  const bad = lowerIsBetter ? diff > 0 : diff < 0;
+  const ar = diff === 0 ? '=' : diff > 0 ? '▲' : '▼';
+  return `<div class="d ${bad && diff !== 0 ? 'bad' : ''}"><span class="ar">${ar} ${txt}</span> <span class="ly">· אשתקד ${fmt(ly)}</span></div>`;
+}
+
+function kpis() {
+  const { cur, ly, open, closed } = DATA.kpis;
+  return `<section class="sec" id="kpis"><div class="kpis">
+    <div class="card kpi lead"><span class="k">תפוסה</span><span class="v num">${pct(cur.occupancy)}</span>${delta(cur.occupancy, ly.occupancy, { unit: 'pts', fmt: pct })}</div>
+    <div class="card kpi"><span class="k">מקומות שנמכרו</span><span class="v num">${int(cur.booked)}</span>${delta(cur.booked, ly.booked, { fmt: int })}</div>
+    <div class="card kpi"><span class="k">הכנסה משוערת</span><span class="v">${money(cur.revenue)}</span>${delta(cur.revenue, ly.revenue, { fmt: n => money(n) })}</div>
+    <div class="card kpi"><span class="k">סשנים שנמכרו עד הסוף</span><span class="v num">${pct(cur.soldOut)}</span>${delta(cur.soldOut, ly.soldOut, { unit: 'pts', fmt: pct })}</div>
+    <div class="card kpi"><span class="k">שווי מקומות ריקים</span><span class="v">${money(cur.emptyValue)}</span>${delta(cur.emptyValue, ly.emptyValue, { lowerIsBetter: true, fmt: n => money(n) })}</div>
+    <div class="card kpi"><span class="k">ימי פעילות</span><span class="v num">${open}</span><div class="d"><span class="ly">${closed ? `${closed} ימים סגורים` : 'בלי ימים סגורים'} · ${int(cur.capacity)} מקומות</span></div></div>
+  </div><p class="foot">הכנסה ושווי מקומות ריקים הם הערכה לפי מחירון (ריף L1–L4 ‏360 ₪, L5–L6 ‏390 ₪, Bay מבוגרים 250 ₪, Bay ילדים 195 ₪), בלי כרטיסיות, מנויים והנחות. התפוסה והמקומות לא כוללים אירועים פרטיים וסשנים שבוטלו.</p></section>`;
+}
+
+const LINKS = { trend: 'למגמה', levels: 'לטבלת הרמות', heat: 'למפת העומס', slots: 'לסשנים החלשים', upcoming: 'לימים הקרובים', pace: 'לקצב ההזמנות' };
+function insights() {
+  return `<section class="sec" id="insights"><div class="sec-head"><div><h2>מה בולט</h2><p class="sec-sub">מסקנות אוטומטיות מהתקופה שנבחרה, מהחשובה ביותר. כל אחת מבוססת על לפחות 20 סשנים.</p></div></div>
+    <ol class="ins">${DATA.insights.map((i, n) => `<li class="card ${i.tone}"><span class="n num">${n + 1}</span><span class="t">${i.text}</span><span class="m"><span>השפעה: ${money(i.impact)}</span><a href="#${i.link}">${LINKS[i.link]} ←</a></span></li>`).join('')}</ol></section>`;
+}
+
+const STEPS = { occupancy: [0.4, 0.55, 0.7, 0.85, 0.95], soldOut: [0.1, 0.25, 0.4, 0.6, 0.8] };
+function heatCells(metric) {
+  const max = Math.max(...DATA.heat.flatMap(r => r.cells.filter(Boolean).map(c => c.revenue)));
+  const step = c => { const v = metric === 'revenue' ? c.revenue / max : c[metric]; const s = metric === 'revenue' ? [0.2, 0.4, 0.6, 0.8, 0.95] : STEPS[metric]; return s.filter(t => v >= t).length; };
+  const label = c => metric === 'revenue' ? `${Math.round(c.revenue / 1e3)}K` : pct(c[metric]);
+  return DATA.heat.map(r => `<div class="hr num">${r.hour}:00</div>` + r.cells.map((c, d) => c ? `<div class="c s${step(c)} num" title="${HE_DAYS[d]} ${r.hour}:00 · ${c.n} סשנים · תפוסה ${pct(c.occupancy)} · נמכרו עד הסוף ${pct(c.soldOut)}">${label(c)}</div>` : '<div class="c x" title="פחות מ־4 סשנים"></div>').join('')).join('');
+}
+function heat() {
+  return `<section class="sec" id="heat"><div class="sec-head"><div><h2>מתי עמוס</h2><p class="sec-sub">כל משבצת: כל הסשנים שהתחילו באותו יום ושעה בתקופה. משבצת ריקה: פחות מ־4 סשנים.</p></div>
+    <div class="seg sm" id="heat-metric"><button aria-pressed="true" data-m="occupancy">תפוסה</button><button aria-pressed="false" data-m="soldOut">נמכרו עד הסוף</button><button aria-pressed="false" data-m="revenue">הכנסה</button></div></div>
+    <div class="card heat-wrap"><div class="heat" id="heat-grid"><div></div>${HE_DAYS.map((d, i) => `<div class="hd"><b>${SHORT[i]}</b>${i >= 5 ? 'סופ״ש' : ''}</div>`).join('')}${heatCells('occupancy')}</div>
+    <div class="scale"><span>נמוך</span><i style="background:var(--h0)"></i><i style="background:var(--h1)"></i><i style="background:var(--h2)"></i><i style="background:var(--h3)"></i><i style="background:var(--h4)"></i><i style="background:var(--h5)"></i><span>גבוה</span><span style="margin-inline-start:14px">תפוסה: 40% · 55% · 70% · 85% · 95%</span></div></div></section>`;
+}
+
+function levels() {
+  const rows = DATA.levels.map(l => {
+    const d = l.lyOccupancy === null ? '' : pts(l.occupancy, l.lyOccupancy);
+    return `<tr><td><span class="lvcell">${lvChip(l.key)}<small>${lvName(l.key)}</small></span></td>
+      <td class="num">${int(l.sessions)}</td>
+      <td><div class="occ"><div class="bar"><i style="width:${Math.round(l.occupancy * 100)}%"></i>${l.lyOccupancy === null ? '' : `<u style="inset-inline-start:${Math.round(l.lyOccupancy * 100)}%" title="אשתקד ${pct(l.lyOccupancy)}"></u>`}</div><span class="num">${pct(l.occupancy)}</span></div></td>
+      <td class="dlt num ${d !== '' && d <= -10 ? 'bad' : ''}">${d === '' ? '–' : `${d > 0 ? '▲' : d < 0 ? '▼' : '='} ${Math.abs(d)} נק׳`}</td>
+      <td class="num">${pct(l.soldOut)}</td>
+      <td>${money(l.revenue)} <small class="num" style="color:var(--mist)">(${pct(l.revShare)})</small></td>
+      <td><div class="sd" title="חלק מהמקומות ${pct(l.capShare)} · חלק מההזמנות ${pct(l.bookShare)}"><div class="cap" style="width:${Math.round(l.capShare * 300)}%"></div><div class="bk" style="width:${Math.round(l.bookShare * 300)}%"></div></div></td></tr>`;
+  }).join('');
+  return `<section class="sec" id="levels"><div class="sec-head"><div><h2>מה נמכר</h2><p class="sec-sub">לפי רמה. הקו הכתום על פס התפוסה הוא התפוסה של אשתקד.</p></div></div>
+    <div class="card tbl-scroll"><table class="tbl"><thead><tr><th>רמה</th><th>סשנים</th><th>תפוסה</th><th>מול אשתקד</th><th>נמכרו עד הסוף</th><th>הכנסה משוערת</th><th>היצע <span style="color:var(--mist-2)">▬</span> מול ביקוש <span style="color:var(--deep)">▬</span></th></tr></thead><tbody>${rows}</tbody></table></div>
+    <p class="foot">״היצע מול ביקוש״: הפס האפור הוא החלק של הרמה מכל המקומות בפארק, והכהה הוא החלק שלה מכל ההזמנות. כהה ארוך מאפור: הרמה מבוקשת יותר ממה שמוקצה לה.</p></section>`;
+}
+
+function slotRows(list) {
+  return list.map((s, i) => `<div class="slot"><span class="rk num">${i + 1}</span><span class="wh">${HE_DAYS[s.weekday]} <span class="ltr num">${s.start}</span></span><span class="lvcell" style="display:flex;gap:6px;align-items:center">${lvChip(s.level)}<small style="color:var(--mist);font-size:12px">${lvName(s.level)}</small></span>
+    <div class="occ"><div class="bar"><i style="width:${Math.round(s.occupancy * 100)}%"></i></div><span class="num">${pct(s.occupancy)}</span></div><span class="v">${s.soldOut >= 0.5 ? `מלא ב־${pct(s.soldOut)}` : `${money(s.emptyValue)} ריק`}</span></div>`).join('');
+}
+function slots() {
+  return `<section class="sec" id="slots"><div class="sec-head"><div><h2>הסשנים הכי חזקים והכי חלשים</h2><p class="sec-sub">סשנים קבועים (יום, שעה ורמה) שרצו לפחות 4 פעמים בתקופה.</p></div></div>
+    <div class="slots"><div class="card"><h3>הכי מבוקשים<small>מועמדים להוספת סשן</small></h3>${slotRows(DATA.top)}</div>
+    <div class="card"><h3>הכי חלשים<small>מועמדים לשינוי רמה, שעה או מבצע</small></h3>${slotRows(DATA.bottom)}</div></div></section>`;
+}
+
+function trend() {
+  const W = 700, H = 210, L = 36, R = 8, T = 12, B = 34;
+  const n = DATA.weeks.length, bw = (W - L - R) / n;
+  const y = v => T + (1 - v) * (H - T - B);
+  // time runs right to left, like the week view: oldest week on the right
+  const x = i => W - R - (i + 1) * bw;
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="תפוסה שבועית מול אשתקד">`;
+  for (const g of [0, 0.25, 0.5, 0.75, 1]) s += `<line x1="${L}" x2="${W - R}" y1="${y(g)}" y2="${y(g)}" stroke="#D8E3E2"/><text x="${L - 6}" y="${y(g) + 4}" font-size="11" fill="#5F7A83" text-anchor="end">${g * 100}%</text>`;
+  DATA.weeks.forEach((w, i) => {
+    s += `<rect x="${x(i) + 3}" y="${y(w.occupancy)}" width="${bw - 6}" height="${y(0) - y(w.occupancy)}" rx="3" fill="#0F2B35"><title>שבוע ${d2(w.from)}: ${pct(w.occupancy)} (אשתקד ${pct(w.lyOccupancy)})</title></rect>`;
+    if (i % 2 === 0) s += `<text x="${x(i) + bw / 2}" y="${H - 14}" font-size="11" fill="#5F7A83" text-anchor="middle">${d2(w.from)}</text>`;
+  });
+  const pts2 = DATA.weeks.map((w, i) => `${x(i) + bw / 2},${y(w.lyOccupancy)}`).join(' ');
+  s += `<polyline points="${pts2}" fill="none" stroke="#FF5A1F" stroke-width="2"/>`;
+  DATA.weeks.forEach((w, i) => { s += `<circle cx="${x(i) + bw / 2}" cy="${y(w.lyOccupancy)}" r="3" fill="#FF5A1F"/>`; });
+  s += '</svg>';
+  return `<section class="sec" id="trend"><div class="sec-head"><div><h2>מגמה</h2><p class="sec-sub">תפוסה לפי שבוע (בתקופה של 12 חודשים ומעלה: לפי חודש). הזמן זורם מימין לשמאל, כמו בלוח.</p></div>
+    <div class="seg sm"><button aria-pressed="true">תפוסה</button><button aria-pressed="false">הכנסה</button></div></div>
+    <div class="card trend">${s}<div class="lg"><span><i style="width:14px;height:10px;background:#0F2B35;border-radius:2px;display:inline-block"></i>השנה</span><span><i style="width:14px;height:2px;background:#FF5A1F;display:inline-block"></i>אותו שבוע אשתקד</span><span>ימים סגורים יסומנו בפס מקווקו מתחת לשבוע</span></div></div></section>`;
+}
+
+function pace() {
+  // Illustrative curve only: the real one needs ~2 weeks of snapshots.
+  const W = 460, H = 200, L = 34, R = 10, T = 26, B = 30;
+  const leads = [14, 10, 7, 5, 3, 2, 1, 0];
+  const xs = i => L + (i / (leads.length - 1)) * (W - L - R);
+  const y = v => T + (1 - v) * (H - T - B);
+  const curve = (vals, color, dash) => `<polyline points="${vals.map((v, i) => `${xs(i)},${y(v)}`).join(' ')}" fill="none" stroke="${color}" stroke-width="2.5" ${dash ? 'stroke-dasharray="5 4"' : ''}/>`;
+  let s = `<svg viewBox="0 0 ${W} ${H}" aria-hidden="true">`;
+  for (const g of [0, 0.5, 1]) s += `<line x1="${L}" x2="${W - R}" y1="${y(g)}" y2="${y(g)}" stroke="#D8E3E2"/><text x="${L - 6}" y="${y(g) + 4}" font-size="11" fill="#5F7A83" text-anchor="end">${g * 100}%</text>`;
+  leads.forEach((d, i) => { s += `<text x="${xs(i)}" y="${H - 10}" font-size="11" fill="#5F7A83" text-anchor="middle">${d === 0 ? 'ביום' : d}</text>`; });
+  s += curve([0.05, 0.08, 0.14, 0.2, 0.34, 0.46, 0.66, 0.84], '#225A8C') + curve([0.02, 0.04, 0.07, 0.1, 0.18, 0.26, 0.42, 0.61], '#6F9B5C', true);
+  s += `<text x="${W - R}" y="${y(0.88)}" font-size="12" fill="#225A8C" text-anchor="end">L5</text><text x="${W - R}" y="${y(0.64)}" font-size="12" fill="#6F9B5C" text-anchor="end">L2</text></svg>`;
+  const c = DATA.coverage;
+  return `<section class="sec" id="pace"><div class="sec-head"><div><h2>כמה מהר מתמלא</h2><p class="sec-sub">מבוסס על צילומי מצב של הלוח שנאספים מכאן והלאה. הפארק לא שומר מתי הוזמן כל מקום.</p></div></div>
+    <div class="pace"><div class="card collect"><span class="k" style="font-size:13px;color:var(--mist)">אוספים נתונים</span><span class="big num">${c.snapshots} צילומי מצב</span>
+      <div class="meter"><i style="width:${Math.round(c.snapshots / 300 * 100)}%"></i></div>
+      <span style="font-size:13.5px">מאז ${d2(c.snapshotsSince)}. הגרפים יופיעו כשיהיו לפחות 30 סשנים שנצפו מלפחות 7 ימים לפני תחילתם, בערך ב־24.9.</span>
+      <ul><li>עקומת מילוי ממוצעת לכל רמה, ולחול מול סוף שבוע</li><li>כמה ימים מראש סשן נמכר עד הסוף (חציון)</li><li>איזה חלק מההזמנות מגיע ב־24 השעות האחרונות</li><li>כמה מקומות מתפנים בביטולים</li></ul></div>
+      <div class="card example"><span class="tag">דוגמה להמחשה, לא נתונים אמיתיים</span>${s}<p class="foot" style="margin:2px 4px 0">ציר אופקי: ימים לפני תחילת הסשן. ציר אנכי: כמה מהסשן כבר הוזמן.</p></div></div></section>`;
+}
+
+function upcoming() {
+  const days = DATA.upDays;
+  const bars = days.map(d => `<div class="b"><em class="num">${pct(d.occupancy)}</em><i style="height:${Math.max(2, Math.round(d.occupancy * 100))}%"></i></div>`).join('');
+  const lbls = days.map(d => `<span><b>${SHORT[dow(d.date)]}</b>${d2(d.date)}</span>`).join('');
+  const rows = DATA.atRisk.slice(0, 7).map(r => `<div class="rrow"><span class="when"><b>${SHORT[dow(r.date)]} <span class="ltr num">${r.start}</span></b><span>בעוד ${r.hours} שעות</span></span>${lvChip(r.level)}<span class="nm">${r.name}</span><span class="fill num">${r.booked}/${r.capacity}<small>${money(r.emptyValue)} פתוח</small></span></div>`).join('');
+  return `<section class="sec" id="upcoming"><div class="sec-head"><div><h2>הימים הקרובים</h2><p class="sec-sub">מהלוח שפורסם עכשיו. כשיהיו מספיק צילומי מצב, כל יום יושווה לקצב הרגיל באותו מרחק זמן.</p></div></div>
+    <div class="up"><div class="card days"><div class="bars">${bars}</div><div class="lbl">${lbls}</div><p class="foot">כמה מכל יום כבר הוזמן. רוב ההזמנות מגיעות ביומיים האחרונים, לכן ימים רחוקים נראים ריקים.</p></div>
+    <div class="card risk"><h3>סשנים בסיכון<small>פחות מ־40% מלא, מתחילים ב־48 השעות הקרובות</small></h3>${rows}<button class="more">ועוד ${DATA.atRisk.length - 7} סשנים</button></div></div></section>`;
+}
+
+function ops() {
+  const o = DATA.ops;
+  return `<section class="sec" id="ops"><div class="sec-head"><div><h2>תפעול</h2><p class="sec-sub">קיבולת שלא הייתה למכירה, ושינויים בלוח.</p></div></div>
+    <div class="ops"><div class="card op"><span class="v num">${o.closed.length}</span><span class="k">ימים סגורים</span><p>${o.closed.length ? o.closed.map(c => `${d2(c.date)} ${c.text}`).join(' · ') : 'אין בתקופה. ב־12 החודשים האחרונים: 19, בעיקר תחזוקה, תקלה ב־17–20.3 ו־28.2–4.3 בהנחיית פיקוד העורף.'}</p></div>
+    <div class="card op"><span class="v num">${o.blocked}</span><span class="k">סשנים חסומים לאירועים</span><p>${o.blockedNames.slice(0, 3).join(' · ')}</p></div>
+    <div class="card op"><span class="v num">${o.cancelled}</span><span class="k">סשנים שבוטלו</span><p>קיבולת 0 בלוח. הוסרו מהלוח לפני שהתקיימו: נספר מכאן והלאה.</p></div>
+    <div class="card op"><span class="v num">${o.overbooked}</span><span class="k">צדדים עם הזמנת יתר</span><p>${o.overbookedPeople} גולשים מעבר לקיבולת, בדרך כלל אחרי שהקיבולת הוקטנה.</p></div></div>
+    <p class="coverage">היסטוריה מ־${d2(DATA.coverage.first)}.${DATA.coverage.first.slice(0, 4)} · ${int(DATA.coverage.sessions)} סשנים · ${DATA.coverage.snapshots} צילומי מצב מאז ${d2(DATA.coverage.snapshotsSince)} · מתעדכן בכל ריענון</p></section>`;
+}
+
+$('#analysis').innerHTML = kpis() + insights() + heat() + levels() + slots() + trend() + pace() + upcoming() + ops();
+document.querySelector('#heat-metric').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  document.querySelectorAll('#heat-metric button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+  const grid = $('#heat-grid');
+  grid.innerHTML = '<div></div>' + HE_DAYS.map((d, i) => `<div class="hd"><b>${SHORT[i]}</b>${i >= 5 ? 'סופ״ש' : ''}</div>`).join('') + heatCells(b.dataset.m);
+});
+</script>
+</body>
+</html>

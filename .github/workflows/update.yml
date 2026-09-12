@@ -1,11 +1,12 @@
-# Scrape the park's schedule, commit site/data/schedule.json, deploy site/ to GitHub Pages.
-# Spec: docs/superpowers/specs/2026-09-10-surf-schedule-design.md, section 5.
+# Scrape the park's schedule, record history, commit site/data/, deploy site/ to GitHub Pages.
+# Specs: docs/superpowers/specs/2026-09-10-surf-schedule-design.md section 5, and
+# docs/superpowers/specs/2026-09-11-schedule-analysis-design.md section 5.
 name: Update schedule
 
 on:
   schedule:
-    - cron: '17 3-20 * * *' # hourly at :17, 06:17–23:17 Israel summer time (05:17–22:17 in winter)
-  workflow_dispatch: # the page's "עדכון עכשיו" button
+    - cron: '17,47 3-20 * * *' # twice an hour, 06:17–23:47 Israel summer time; GitHub drops many scheduled runs
+  workflow_dispatch: # the page's "עדכון עכשיו" button (or an external trigger, see README)
   push:
     branches: [main]
 
@@ -14,7 +15,7 @@ permissions:
   pages: write
   id-token: write
 
-# One run at a time; a button press waits behind a running hourly run.
+# One run at a time; a button press waits behind a running scheduled run.
 concurrency:
   group: update
   cancel-in-progress: false
@@ -31,6 +32,11 @@ jobs:
         with:
           fetch-depth: 0 # full history so `git pull --rebase` below always finds the merge base
 
+      # a run queued behind another starts from the commit it was triggered on; move to the latest,
+      # so its history edits land on top of the previous run's
+      - name: Update to the latest commit
+        run: git pull --ff-only origin "${GITHUB_REF_NAME}"
+
       - uses: actions/setup-node@v7
         with:
           node-version: 22
@@ -40,21 +46,29 @@ jobs:
 
       # Set the repository variable SCRAPE_IN_ACTIONS=false to scrape from your own computer instead.
       - name: Scrape the park
+        id: scrape
         if: vars.SCRAPE_IN_ACTIONS != 'false'
         run: node scraper/scrape.mjs
         # a push should still deploy code (with the existing data) when the park is unreachable
         continue-on-error: ${{ github.event_name == 'push' }}
 
+      # History never blocks the schedule: if this step fails, the new schedule still commits and deploys.
+      - name: Update history
+        if: steps.scrape.outcome == 'success' && vars.SCRAPE_IN_ACTIONS != 'false'
+        run: node scraper/update-history.mjs
+        continue-on-error: true
+
       - name: Commit new data
         if: vars.SCRAPE_IN_ACTIONS != 'false'
         run: |
-          if git diff --quiet -- site/data/schedule.json; then
+          # a new month's history file is untracked, so check for those as well as changed files
+          if git diff --quiet -- site/data && [ -z "$(git ls-files --others --exclude-standard -- site/data)" ]; then
             echo "No changes to commit"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add site/data/schedule.json
+          git add site/data
           git commit -m "data: update schedule"
           git pull --rebase
           git push

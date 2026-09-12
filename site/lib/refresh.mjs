@@ -18,7 +18,8 @@ const QUEUED = new Set(['queued', 'waiting', 'pending', 'requested']);
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 /**
- * Runs one refresh and resolves with the fresh schedule object.
+ * Runs one refresh. Resolves with { schedule, extras }: the fresh schedule, and each of `extraPaths`
+ * (repo paths such as the history files) parsed, or null if that one file couldn't be read.
  * onStatus({ phase: 'starting' | 'queued' | 'running', elapsedMs, url }) reports progress.
  */
 export async function refresh({
@@ -31,6 +32,7 @@ export async function refresh({
   pollMs = 5000,
   lookupMs = 30000,
   timeoutMs = 600000,
+  extraPaths = [],
 }) {
   const repo = `${API}/repos/${config.owner}/${config.repo}`;
   const call = async (url, init = {}) => {
@@ -89,8 +91,16 @@ export async function refresh({
     await sleep(pollMs);
   }
 
-  const file = await call(`${repo}/contents/${config.dataPath}?ref=${encodeURIComponent(config.branch)}`, {
-    headers: { Accept: 'application/vnd.github.raw+json' },
-  });
-  return file.json();
+  const read = async path =>
+    (await call(`${repo}/contents/${path}?ref=${encodeURIComponent(config.branch)}`, { headers: { Accept: 'application/vnd.github.raw+json' } })).json();
+  const schedule = await read(config.dataPath);
+  const extras = {};
+  await Promise.all(extraPaths.map(async path => {
+    try {
+      extras[path] = await read(path);
+    } catch {
+      extras[path] = null; // the schedule refreshed; the page keeps its older copy of this file
+    }
+  }));
+  return { schedule, extras };
 }
