@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-09-12T10:54:44+03:00",
+  "fetchedAt": "2026-09-12T14:31:59+03:00",
   "publishedThrough": "2026-09-26",
   "days": [
     {
@@ -17,9 +17,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 17,
-          "spotsLeft": 1,
-          "available": true
+          "booked": 18,
+          "spotsLeft": 0,
+          "available": false,
+          "blocked": false
         },
         {
           "id": 39289,
@@ -30,9 +31,10 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 17,
-          "spotsLeft": 1,
-          "available": true
+          "booked": 16,
+          "spotsLeft": 2,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 38931,
@@ -45,7 +47,8 @@
           "capacity": 15,
           "booked": 15,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 38930,
@@ -58,7 +61,8 @@
           "capacity": 15,
           "booked": 15,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 38074,
@@ -71,7 +75,8 @@
           "capacity": 18,
           "booked": 9,
           "spotsLeft": 9,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37347,
@@ -84,7 +89,8 @@
           "capacity": 18,
           "booked": 18,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 37346,
@@ -97,7 +103,8 @@
           "capacity": 18,
           "booked": 18,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 37349,
@@ -108,9 +115,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 15,
-          "spotsLeft": 0,
-          "available": false
+          "booked": 14,
+          "spotsLeft": 1,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37348,
@@ -123,7 +131,8 @@
           "capacity": 15,
           "booked": 15,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 37650,
@@ -136,7 +145,8 @@
           "capacity": 18,
           "booked": 11,
           "spotsLeft": 7,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37653,
@@ -149,7 +159,8 @@
           "capacity": 18,
           "booked": 6,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37351,
@@ -160,9 +171,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 20,
-          "booked": 17,
-          "spotsLeft": 3,
-          "available": true
+          "booked": 20,
+          "spotsLeft": 0,
+          "available": false,
+          "blocked": false
         },
         {
           "id": 37350,
@@ -175,7 +187,8 @@
           "capacity": 20,
           "booked": 20,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 39292,
@@ -188,7 +201,8 @@
           "capacity": 12,
           "booked": 12,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 39291,
@@ -199,9 +213,10 @@
           "area": "reef",
           "side": "left",
           "capacity": 12,
-          "booked": 12,
-          "spotsLeft": 0,
-          "available": false
+          "booked": 11,
+          "spotsLeft": 1,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37656,
@@ -212,9 +227,10 @@
           "area": "bay",
           "side": "right",
           "capacity": 18,
-          "booked": 3,
-          "spotsLeft": 15,
-          "available": true
+          "booked": 8,
+          "spotsLeft": 10,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37659,
@@ -225,9 +241,10 @@
           "area": "bay",
           "side": "left",
           "capacity": 18,
-          "booked": 4,
-          "spotsLeft": 14,
-          "available": true
+          "booked": 6,
+          "spotsLeft": 12,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37355,
@@ -238,9 +255,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 20,
-          "booked": 12,
-          "spotsLeft": 8,
-          "available": true
+          "booked": 18,
+          "spotsLeft": 2,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37354,
@@ -251,9 +269,10 @@
           "area": "reef",
           "side": "left",
           "capacity": 20,
-          "booked": 7,
-          "spotsLeft": 13,
-          "available": true
+          "booked": 12,
+          "spotsLeft": 8,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37357,
@@ -266,7 +285,8 @@
           "capacity": 15,
           "booked": 15,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 37356,
@@ -279,7 +299,8 @@
           "capacity": 15,
           "booked": 15,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 37662,
@@ -290,9 +311,10 @@
           "area": "bay",
           "side": "right",
           "capacity": 18,
-          "booked": 5,
-          "spotsLeft": 13,
-          "available": true
+          "booked": 8,
+          "spotsLeft": 10,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37665,
@@ -303,9 +325,10 @@
           "area": "bay",
           "side": "left",
           "capacity": 18,
-          "booked": 5,
-          "spotsLeft": 13,
-          "available": true
+          "booked": 14,
+          "spotsLeft": 4,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37359,
@@ -316,9 +339,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 20,
-          "booked": 10,
-          "spotsLeft": 10,
-          "available": true
+          "booked": 16,
+          "spotsLeft": 4,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37358,
@@ -329,9 +353,10 @@
           "area": "reef",
           "side": "left",
           "capacity": 20,
-          "booked": 9,
-          "spotsLeft": 11,
-          "available": true
+          "booked": 17,
+          "spotsLeft": 3,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37361,
@@ -344,7 +369,8 @@
           "capacity": 15,
           "booked": 15,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 37360,
@@ -357,7 +383,8 @@
           "capacity": 15,
           "booked": 15,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 38075,
@@ -370,7 +397,8 @@
           "capacity": 18,
           "booked": 10,
           "spotsLeft": 8,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37363,
@@ -383,7 +411,8 @@
           "capacity": 18,
           "booked": 18,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 37362,
@@ -396,7 +425,8 @@
           "capacity": 18,
           "booked": 18,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 37365,
@@ -409,7 +439,8 @@
           "capacity": 15,
           "booked": 15,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 37364,
@@ -422,7 +453,8 @@
           "capacity": 15,
           "booked": 15,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 37367,
@@ -433,9 +465,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 8,
-          "spotsLeft": 10,
-          "available": true
+          "booked": 18,
+          "spotsLeft": 0,
+          "available": false,
+          "blocked": false
         },
         {
           "id": 37366,
@@ -446,9 +479,10 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 8,
-          "spotsLeft": 10,
-          "available": true
+          "booked": 17,
+          "spotsLeft": 1,
+          "available": true,
+          "blocked": false
         }
       ]
     },
@@ -469,7 +503,8 @@
           "capacity": 15,
           "booked": 15,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 37376,
@@ -482,7 +517,8 @@
           "capacity": 15,
           "booked": 15,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 39405,
@@ -495,7 +531,8 @@
           "capacity": 24,
           "booked": 1,
           "spotsLeft": 23,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37379,
@@ -506,9 +543,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 20,
-          "booked": 10,
-          "spotsLeft": 10,
-          "available": true
+          "booked": 18,
+          "spotsLeft": 2,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37378,
@@ -521,7 +559,8 @@
           "capacity": 20,
           "booked": 4,
           "spotsLeft": 16,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37381,
@@ -534,7 +573,8 @@
           "capacity": 18,
           "booked": 18,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 37380,
@@ -547,7 +587,8 @@
           "capacity": 18,
           "booked": 18,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 39406,
@@ -560,7 +601,8 @@
           "capacity": 24,
           "booked": 5,
           "spotsLeft": 19,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37383,
@@ -573,7 +615,8 @@
           "capacity": 18,
           "booked": 18,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 37382,
@@ -586,7 +629,8 @@
           "capacity": 18,
           "booked": 18,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 37385,
@@ -597,9 +641,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 20,
-          "booked": 12,
-          "spotsLeft": 8,
-          "available": true
+          "booked": 14,
+          "spotsLeft": 6,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37384,
@@ -610,9 +655,10 @@
           "area": "reef",
           "side": "left",
           "capacity": 20,
-          "booked": 5,
-          "spotsLeft": 15,
-          "available": true
+          "booked": 6,
+          "spotsLeft": 14,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37387,
@@ -625,7 +671,8 @@
           "capacity": 15,
           "booked": 15,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 37386,
@@ -638,7 +685,8 @@
           "capacity": 15,
           "booked": 15,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 39407,
@@ -651,7 +699,8 @@
           "capacity": 24,
           "booked": 5,
           "spotsLeft": 19,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39408,
@@ -664,7 +713,8 @@
           "capacity": 24,
           "booked": 8,
           "spotsLeft": 16,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37389,
@@ -675,9 +725,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 20,
-          "booked": 11,
-          "spotsLeft": 9,
-          "available": true
+          "booked": 14,
+          "spotsLeft": 6,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37388,
@@ -688,9 +739,10 @@
           "area": "reef",
           "side": "left",
           "capacity": 20,
-          "booked": 5,
-          "spotsLeft": 15,
-          "available": true
+          "booked": 6,
+          "spotsLeft": 14,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37391,
@@ -701,9 +753,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 6,
-          "spotsLeft": 9,
-          "available": true
+          "booked": 9,
+          "spotsLeft": 6,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37390,
@@ -714,9 +767,10 @@
           "area": "reef",
           "side": "left",
           "capacity": 15,
-          "booked": 5,
-          "spotsLeft": 10,
-          "available": true
+          "booked": 11,
+          "spotsLeft": 4,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37393,
@@ -727,9 +781,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 17,
-          "spotsLeft": 1,
-          "available": true
+          "booked": 18,
+          "spotsLeft": 0,
+          "available": false,
+          "blocked": false
         },
         {
           "id": 37392,
@@ -742,7 +797,8 @@
           "capacity": 18,
           "booked": 18,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 37395,
@@ -755,7 +811,8 @@
           "capacity": 12,
           "booked": 12,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 37394,
@@ -768,7 +825,8 @@
           "capacity": 12,
           "booked": 12,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 39409,
@@ -781,7 +839,8 @@
           "capacity": 24,
           "booked": 6,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40761,
@@ -794,7 +853,8 @@
           "capacity": 24,
           "booked": 1,
           "spotsLeft": 23,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37397,
@@ -805,9 +865,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 20,
-          "booked": 10,
-          "spotsLeft": 10,
-          "available": true
+          "booked": 12,
+          "spotsLeft": 8,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37396,
@@ -818,9 +879,10 @@
           "area": "reef",
           "side": "left",
           "capacity": 20,
-          "booked": 7,
-          "spotsLeft": 13,
-          "available": true
+          "booked": 8,
+          "spotsLeft": 12,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37399,
@@ -833,7 +895,8 @@
           "capacity": 15,
           "booked": 15,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 37398,
@@ -844,9 +907,10 @@
           "area": "reef",
           "side": "left",
           "capacity": 15,
-          "booked": 12,
-          "spotsLeft": 3,
-          "available": true
+          "booked": 16,
+          "spotsLeft": 0,
+          "available": false,
+          "blocked": false
         },
         {
           "id": 37401,
@@ -857,9 +921,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 8,
-          "spotsLeft": 10,
-          "available": true
+          "booked": 10,
+          "spotsLeft": 8,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37400,
@@ -870,9 +935,10 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 1,
-          "spotsLeft": 17,
-          "available": true
+          "booked": 12,
+          "spotsLeft": 6,
+          "available": true,
+          "blocked": false
         }
       ]
     },
@@ -893,7 +959,8 @@
           "capacity": 15,
           "booked": 2,
           "spotsLeft": 13,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 38922,
@@ -906,7 +973,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 38925,
@@ -919,7 +987,8 @@
           "capacity": 18,
           "booked": 1,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 38924,
@@ -932,7 +1001,8 @@
           "capacity": 18,
           "booked": 4,
           "spotsLeft": 14,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37407,
@@ -945,7 +1015,8 @@
           "capacity": 15,
           "booked": 1,
           "spotsLeft": 14,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37406,
@@ -958,7 +1029,8 @@
           "capacity": 15,
           "booked": 1,
           "spotsLeft": 14,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37409,
@@ -971,7 +1043,8 @@
           "capacity": 18,
           "booked": 4,
           "spotsLeft": 14,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37408,
@@ -982,9 +1055,10 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 0,
-          "spotsLeft": 18,
-          "available": true
+          "booked": 1,
+          "spotsLeft": 17,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37411,
@@ -997,7 +1071,8 @@
           "capacity": 15,
           "booked": 2,
           "spotsLeft": 13,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37410,
@@ -1010,7 +1085,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37413,
@@ -1021,9 +1097,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 17,
-          "booked": 5,
-          "spotsLeft": 12,
-          "available": true
+          "booked": 7,
+          "spotsLeft": 10,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37412,
@@ -1036,7 +1113,8 @@
           "capacity": 18,
           "booked": 5,
           "spotsLeft": 13,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37415,
@@ -1049,7 +1127,8 @@
           "capacity": 15,
           "booked": 4,
           "spotsLeft": 11,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37414,
@@ -1062,7 +1141,8 @@
           "capacity": 15,
           "booked": 2,
           "spotsLeft": 13,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37417,
@@ -1075,7 +1155,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37416,
@@ -1088,7 +1169,8 @@
           "capacity": 19,
           "booked": 2,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37419,
@@ -1101,7 +1183,8 @@
           "capacity": 12,
           "booked": 4,
           "spotsLeft": 8,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37418,
@@ -1112,9 +1195,10 @@
           "area": "reef",
           "side": "left",
           "capacity": 12,
-          "booked": 0,
-          "spotsLeft": 12,
-          "available": true
+          "booked": 2,
+          "spotsLeft": 10,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37421,
@@ -1127,7 +1211,8 @@
           "capacity": 18,
           "booked": 1,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37420,
@@ -1140,7 +1225,8 @@
           "capacity": 18,
           "booked": 3,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37423,
@@ -1153,7 +1239,8 @@
           "capacity": 15,
           "booked": 1,
           "spotsLeft": 14,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37422,
@@ -1166,7 +1253,8 @@
           "capacity": 15,
           "booked": 1,
           "spotsLeft": 14,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39412,
@@ -1179,7 +1267,8 @@
           "capacity": 24,
           "booked": 1,
           "spotsLeft": 23,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37425,
@@ -1192,7 +1281,8 @@
           "capacity": 20,
           "booked": 5,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37424,
@@ -1205,7 +1295,8 @@
           "capacity": 19,
           "booked": 10,
           "spotsLeft": 9,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37427,
@@ -1216,9 +1307,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 4,
-          "spotsLeft": 14,
-          "available": true
+          "booked": 5,
+          "spotsLeft": 13,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37426,
@@ -1231,7 +1323,8 @@
           "capacity": 18,
           "booked": 6,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39413,
@@ -1244,7 +1337,8 @@
           "capacity": 10,
           "booked": 0,
           "spotsLeft": 10,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40855,
@@ -1257,7 +1351,8 @@
           "capacity": 11,
           "booked": 0,
           "spotsLeft": 11,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40854,
@@ -1270,7 +1365,8 @@
           "capacity": 24,
           "booked": 1,
           "spotsLeft": 23,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37429,
@@ -1283,7 +1379,8 @@
           "capacity": 20,
           "booked": 5,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37428,
@@ -1296,7 +1393,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37431,
@@ -1309,7 +1407,8 @@
           "capacity": 12,
           "booked": 1,
           "spotsLeft": 11,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37430,
@@ -1320,9 +1419,10 @@
           "area": "reef",
           "side": "left",
           "capacity": 12,
-          "booked": 4,
-          "spotsLeft": 8,
-          "available": true
+          "booked": 5,
+          "spotsLeft": 7,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40750,
@@ -1335,7 +1435,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": true
         },
         {
           "id": 40749,
@@ -1348,7 +1449,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": true
         },
         {
           "id": 40748,
@@ -1361,7 +1463,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": true
         },
         {
           "id": 40747,
@@ -1374,7 +1477,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": true
         }
       ]
     },
@@ -1395,7 +1499,8 @@
           "capacity": 15,
           "booked": 1,
           "spotsLeft": 14,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37438,
@@ -1408,7 +1513,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37437,
@@ -1419,9 +1525,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 2,
-          "spotsLeft": 16,
-          "available": true
+          "booked": 4,
+          "spotsLeft": 14,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37436,
@@ -1434,7 +1541,8 @@
           "capacity": 18,
           "booked": 1,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37441,
@@ -1447,7 +1555,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37440,
@@ -1460,7 +1569,8 @@
           "capacity": 15,
           "booked": 1,
           "spotsLeft": 14,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39415,
@@ -1473,7 +1583,8 @@
           "capacity": 24,
           "booked": 4,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 38809,
@@ -1486,7 +1597,8 @@
           "capacity": 16,
           "booked": 4,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 38808,
@@ -1499,7 +1611,8 @@
           "capacity": 18,
           "booked": 1,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40796,
@@ -1512,7 +1625,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40795,
@@ -1525,7 +1639,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39773,
@@ -1536,9 +1651,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 3,
-          "spotsLeft": 15,
-          "available": true
+          "booked": 4,
+          "spotsLeft": 14,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39772,
@@ -1551,7 +1667,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37447,
@@ -1564,7 +1681,8 @@
           "capacity": 15,
           "booked": 2,
           "spotsLeft": 13,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37446,
@@ -1577,7 +1695,8 @@
           "capacity": 15,
           "booked": 1,
           "spotsLeft": 14,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37455,
@@ -1588,9 +1707,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 0,
-          "spotsLeft": 18,
-          "available": true
+          "booked": 1,
+          "spotsLeft": 17,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37454,
@@ -1603,7 +1723,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37449,
@@ -1616,7 +1737,8 @@
           "capacity": 12,
           "booked": 1,
           "spotsLeft": 11,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37448,
@@ -1627,9 +1749,10 @@
           "area": "reef",
           "side": "left",
           "capacity": 12,
-          "booked": 0,
-          "spotsLeft": 12,
-          "available": true
+          "booked": 1,
+          "spotsLeft": 11,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39416,
@@ -1642,7 +1765,8 @@
           "capacity": 24,
           "booked": 2,
           "spotsLeft": 22,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37457,
@@ -1655,7 +1779,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37456,
@@ -1668,7 +1793,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39775,
@@ -1681,7 +1807,8 @@
           "capacity": 15,
           "booked": 2,
           "spotsLeft": 13,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39774,
@@ -1694,7 +1821,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37469,
@@ -1707,7 +1835,8 @@
           "capacity": 19,
           "booked": 0,
           "spotsLeft": 19,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37468,
@@ -1720,7 +1849,8 @@
           "capacity": 20,
           "booked": 1,
           "spotsLeft": 19,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 38390,
@@ -1733,7 +1863,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": true
         },
         {
           "id": 37466,
@@ -1746,7 +1877,8 @@
           "capacity": 18,
           "booked": 1,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37463,
@@ -1759,7 +1891,8 @@
           "capacity": 15,
           "booked": 1,
           "spotsLeft": 14,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37462,
@@ -1772,7 +1905,8 @@
           "capacity": 15,
           "booked": 4,
           "spotsLeft": 11,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37459,
@@ -1785,7 +1919,8 @@
           "capacity": 12,
           "booked": 1,
           "spotsLeft": 11,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37458,
@@ -1798,7 +1933,8 @@
           "capacity": 12,
           "booked": 1,
           "spotsLeft": 11,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37451,
@@ -1811,7 +1947,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37450,
@@ -1824,7 +1961,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         }
       ]
     },
@@ -1845,7 +1983,8 @@
           "capacity": 15,
           "booked": 1,
           "spotsLeft": 14,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37472,
@@ -1858,7 +1997,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37471,
@@ -1871,7 +2011,8 @@
           "capacity": 18,
           "booked": 1,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37470,
@@ -1882,9 +2023,10 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 1,
-          "spotsLeft": 17,
-          "available": true
+          "booked": 2,
+          "spotsLeft": 16,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37475,
@@ -1897,7 +2039,8 @@
           "capacity": 15,
           "booked": 1,
           "spotsLeft": 14,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37474,
@@ -1910,7 +2053,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39417,
@@ -1923,7 +2067,8 @@
           "capacity": 24,
           "booked": 2,
           "spotsLeft": 22,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37493,
@@ -1936,7 +2081,8 @@
           "capacity": 18,
           "booked": 1,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37492,
@@ -1949,7 +2095,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37477,
@@ -1962,7 +2109,8 @@
           "capacity": 18,
           "booked": 2,
           "spotsLeft": 16,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37476,
@@ -1975,7 +2123,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37479,
@@ -1988,7 +2137,8 @@
           "capacity": 20,
           "booked": 4,
           "spotsLeft": 16,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37478,
@@ -2001,7 +2151,8 @@
           "capacity": 20,
           "booked": 1,
           "spotsLeft": 19,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37495,
@@ -2014,7 +2165,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37494,
@@ -2027,7 +2179,8 @@
           "capacity": 18,
           "booked": 1,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37497,
@@ -2040,7 +2193,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37496,
@@ -2053,7 +2207,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37499,
@@ -2066,7 +2221,8 @@
           "capacity": 18,
           "booked": 1,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37498,
@@ -2079,7 +2235,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37501,
@@ -2092,7 +2249,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37500,
@@ -2105,7 +2263,8 @@
           "capacity": 12,
           "booked": 1,
           "spotsLeft": 11,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39418,
@@ -2118,7 +2277,8 @@
           "capacity": 23,
           "booked": 3,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37487,
@@ -2131,7 +2291,8 @@
           "capacity": 21,
           "booked": 0,
           "spotsLeft": 21,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37486,
@@ -2144,7 +2305,8 @@
           "capacity": 20,
           "booked": 1,
           "spotsLeft": 19,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 38848,
@@ -2157,7 +2319,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39419,
@@ -2170,7 +2333,8 @@
           "capacity": 12,
           "booked": 1,
           "spotsLeft": 11,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39420,
@@ -2183,7 +2347,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37481,
@@ -2196,7 +2361,8 @@
           "capacity": 20,
           "booked": 1,
           "spotsLeft": 19,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37480,
@@ -2209,7 +2375,8 @@
           "capacity": 20,
           "booked": 1,
           "spotsLeft": 19,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40763,
@@ -2222,7 +2389,8 @@
           "capacity": 15,
           "booked": 2,
           "spotsLeft": 13,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40762,
@@ -2235,7 +2403,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40767,
@@ -2248,7 +2417,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40766,
@@ -2261,7 +2431,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40769,
@@ -2274,7 +2445,8 @@
           "capacity": 15,
           "booked": 1,
           "spotsLeft": 14,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40768,
@@ -2287,7 +2459,8 @@
           "capacity": 15,
           "booked": 2,
           "spotsLeft": 13,
-          "available": true
+          "available": true,
+          "blocked": false
         }
       ]
     },
@@ -2308,7 +2481,8 @@
           "capacity": 15,
           "booked": 1,
           "spotsLeft": 14,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37526,
@@ -2321,7 +2495,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37535,
@@ -2334,7 +2509,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37534,
@@ -2347,7 +2523,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37537,
@@ -2360,7 +2537,8 @@
           "capacity": 18,
           "booked": 3,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37536,
@@ -2373,7 +2551,8 @@
           "capacity": 18,
           "booked": 1,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37529,
@@ -2386,7 +2565,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37528,
@@ -2399,7 +2579,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37505,
@@ -2412,7 +2593,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37504,
@@ -2425,7 +2607,8 @@
           "capacity": 18,
           "booked": 1,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37507,
@@ -2438,7 +2621,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37506,
@@ -2451,7 +2635,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37509,
@@ -2464,7 +2649,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37508,
@@ -2477,7 +2663,8 @@
           "capacity": 15,
           "booked": 1,
           "spotsLeft": 14,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37511,
@@ -2490,7 +2677,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37510,
@@ -2503,7 +2691,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37513,
@@ -2516,7 +2705,8 @@
           "capacity": 12,
           "booked": 1,
           "spotsLeft": 11,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37512,
@@ -2527,9 +2717,10 @@
           "area": "reef",
           "side": "left",
           "capacity": 12,
-          "booked": 0,
-          "spotsLeft": 12,
-          "available": true
+          "booked": 1,
+          "spotsLeft": 11,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37533,
@@ -2542,7 +2733,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37532,
@@ -2555,7 +2747,8 @@
           "capacity": 14,
           "booked": 1,
           "spotsLeft": 13,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40842,
@@ -2568,7 +2761,8 @@
           "capacity": 10,
           "booked": 1,
           "spotsLeft": 9,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40843,
@@ -2581,7 +2775,8 @@
           "capacity": 14,
           "booked": 0,
           "spotsLeft": 14,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37531,
@@ -2594,7 +2789,8 @@
           "capacity": 19,
           "booked": 0,
           "spotsLeft": 19,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37530,
@@ -2607,7 +2803,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 38794,
@@ -2620,7 +2817,8 @@
           "capacity": 18,
           "booked": 1,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 38793,
@@ -2633,7 +2831,8 @@
           "capacity": 18,
           "booked": 3,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 38792,
@@ -2646,7 +2845,8 @@
           "capacity": 18,
           "booked": 4,
           "spotsLeft": 14,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 38791,
@@ -2659,7 +2859,8 @@
           "capacity": 18,
           "booked": 2,
           "spotsLeft": 16,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 38796,
@@ -2672,7 +2873,8 @@
           "capacity": 15,
           "booked": 3,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 38795,
@@ -2685,7 +2887,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40791,
@@ -2696,9 +2899,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 0,
-          "spotsLeft": 15,
-          "available": true
+          "booked": 1,
+          "spotsLeft": 14,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40790,
@@ -2711,7 +2915,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40789,
@@ -2724,7 +2929,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40788,
@@ -2737,7 +2943,8 @@
           "capacity": 15,
           "booked": 1,
           "spotsLeft": 14,
-          "available": true
+          "available": true,
+          "blocked": false
         }
       ]
     },
@@ -2758,7 +2965,8 @@
           "capacity": 12,
           "booked": 1,
           "spotsLeft": 11,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37538,
@@ -2771,7 +2979,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37541,
@@ -2784,7 +2993,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37540,
@@ -2797,7 +3007,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37563,
@@ -2808,9 +3019,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 0,
-          "spotsLeft": 15,
-          "available": true
+          "booked": 1,
+          "spotsLeft": 14,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37562,
@@ -2823,7 +3035,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37611,
@@ -2834,9 +3047,10 @@
           "area": "bay",
           "side": "right",
           "capacity": 18,
-          "booked": 1,
-          "spotsLeft": 17,
-          "available": true
+          "booked": 2,
+          "spotsLeft": 16,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37543,
@@ -2847,9 +3061,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 0,
-          "spotsLeft": 18,
-          "available": true
+          "booked": 1,
+          "spotsLeft": 17,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37542,
@@ -2862,7 +3077,8 @@
           "capacity": 18,
           "booked": 2,
           "spotsLeft": 16,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37555,
@@ -2875,7 +3091,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37554,
@@ -2888,7 +3105,8 @@
           "capacity": 15,
           "booked": 2,
           "spotsLeft": 13,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37614,
@@ -2901,7 +3119,8 @@
           "capacity": 7,
           "booked": 7,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": false
         },
         {
           "id": 37617,
@@ -2914,7 +3133,8 @@
           "capacity": 12,
           "booked": 2,
           "spotsLeft": 10,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37557,
@@ -2927,7 +3147,8 @@
           "capacity": 15,
           "booked": 2,
           "spotsLeft": 13,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37556,
@@ -2938,9 +3159,10 @@
           "area": "reef",
           "side": "left",
           "capacity": 20,
-          "booked": 0,
-          "spotsLeft": 20,
-          "available": true
+          "booked": 1,
+          "spotsLeft": 19,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39272,
@@ -2953,7 +3175,8 @@
           "capacity": 20,
           "booked": 2,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39271,
@@ -2966,7 +3189,8 @@
           "capacity": 20,
           "booked": 3,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37625,
@@ -2977,9 +3201,10 @@
           "area": "bay",
           "side": "right",
           "capacity": 18,
-          "booked": 5,
-          "spotsLeft": 13,
-          "available": true
+          "booked": 7,
+          "spotsLeft": 11,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37628,
@@ -2992,7 +3217,8 @@
           "capacity": 18,
           "booked": 1,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37547,
@@ -3005,7 +3231,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37546,
@@ -3018,7 +3245,8 @@
           "capacity": 18,
           "booked": 1,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37561,
@@ -3031,7 +3259,8 @@
           "capacity": 18,
           "booked": 1,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37560,
@@ -3044,7 +3273,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37647,
@@ -3057,7 +3287,8 @@
           "capacity": 18,
           "booked": 1,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37549,
@@ -3070,7 +3301,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37548,
@@ -3083,7 +3315,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39390,
@@ -3096,7 +3329,8 @@
           "capacity": 15,
           "booked": 1,
           "spotsLeft": 14,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39482,
@@ -3109,7 +3343,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 0,
-          "available": false
+          "available": false,
+          "blocked": true
         },
         {
           "id": 37559,
@@ -3122,7 +3357,8 @@
           "capacity": 18,
           "booked": 1,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37558,
@@ -3135,7 +3371,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39388,
@@ -3148,7 +3385,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39387,
@@ -3161,7 +3399,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         }
       ]
     },
@@ -3182,7 +3421,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37564,
@@ -3195,7 +3435,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37567,
@@ -3208,7 +3449,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37566,
@@ -3221,7 +3463,8 @@
           "capacity": 12,
           "booked": 1,
           "spotsLeft": 11,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37595,
@@ -3234,7 +3477,8 @@
           "capacity": 18,
           "booked": 2,
           "spotsLeft": 16,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37594,
@@ -3247,7 +3491,8 @@
           "capacity": 18,
           "booked": 1,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37569,
@@ -3260,7 +3505,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37568,
@@ -3273,7 +3519,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39273,
@@ -3286,7 +3533,8 @@
           "capacity": 24,
           "booked": 1,
           "spotsLeft": 23,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37571,
@@ -3297,9 +3545,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 1,
-          "spotsLeft": 17,
-          "available": true
+          "booked": 2,
+          "spotsLeft": 16,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37570,
@@ -3312,7 +3561,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37573,
@@ -3323,9 +3573,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 1,
-          "spotsLeft": 14,
-          "available": true
+          "booked": 0,
+          "spotsLeft": 15,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37572,
@@ -3338,7 +3589,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37651,
@@ -3351,7 +3603,8 @@
           "capacity": 18,
           "booked": 1,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37654,
@@ -3364,7 +3617,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37575,
@@ -3377,7 +3631,8 @@
           "capacity": 20,
           "booked": 1,
           "spotsLeft": 19,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37574,
@@ -3390,7 +3645,8 @@
           "capacity": 20,
           "booked": 3,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37577,
@@ -3403,7 +3659,8 @@
           "capacity": 18,
           "booked": 1,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37576,
@@ -3414,9 +3671,10 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 0,
-          "spotsLeft": 18,
-          "available": true
+          "booked": 1,
+          "spotsLeft": 17,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39306,
@@ -3427,9 +3685,10 @@
           "area": "bay",
           "side": "right",
           "capacity": 9,
-          "booked": 2,
-          "spotsLeft": 7,
-          "available": true
+          "booked": 3,
+          "spotsLeft": 6,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37660,
@@ -3442,7 +3701,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39307,
@@ -3453,9 +3713,10 @@
           "area": "bay",
           "side": "left",
           "capacity": 6,
-          "booked": 0,
-          "spotsLeft": 6,
-          "available": true
+          "booked": 1,
+          "spotsLeft": 5,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37579,
@@ -3468,7 +3729,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37578,
@@ -3481,7 +3743,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40849,
@@ -3494,7 +3757,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40848,
@@ -3507,7 +3771,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37663,
@@ -3520,7 +3785,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37666,
@@ -3533,7 +3799,8 @@
           "capacity": 18,
           "booked": 1,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37583,
@@ -3546,7 +3813,8 @@
           "capacity": 20,
           "booked": 4,
           "spotsLeft": 16,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37582,
@@ -3559,7 +3827,8 @@
           "capacity": 20,
           "booked": 2,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37585,
@@ -3572,7 +3841,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37584,
@@ -3585,7 +3855,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39274,
@@ -3598,7 +3869,8 @@
           "capacity": 24,
           "booked": 0,
           "spotsLeft": 24,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37587,
@@ -3609,9 +3881,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 0,
-          "spotsLeft": 18,
-          "available": true
+          "booked": 1,
+          "spotsLeft": 17,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37586,
@@ -3624,7 +3897,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37589,
@@ -3637,7 +3911,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37588,
@@ -3650,7 +3925,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40847,
@@ -3663,7 +3939,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40846,
@@ -3676,7 +3953,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37593,
@@ -3689,7 +3967,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37592,
@@ -3702,7 +3981,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         }
       ]
     },
@@ -3737,7 +4017,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37706,
@@ -3750,7 +4031,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37705,
@@ -3763,7 +4045,8 @@
           "capacity": 18,
           "booked": 1,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37704,
@@ -3776,7 +4059,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37709,
@@ -3789,7 +4073,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37708,
@@ -3802,7 +4087,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39421,
@@ -3815,7 +4101,8 @@
           "capacity": 24,
           "booked": 0,
           "spotsLeft": 24,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 38813,
@@ -3828,7 +4115,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 38812,
@@ -3841,7 +4129,8 @@
           "capacity": 16,
           "booked": 0,
           "spotsLeft": 16,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37733,
@@ -3854,7 +4143,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37732,
@@ -3867,7 +4157,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 38815,
@@ -3878,9 +4169,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 20,
-          "booked": 3,
-          "spotsLeft": 17,
-          "available": true
+          "booked": 5,
+          "spotsLeft": 15,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 38814,
@@ -3893,7 +4185,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37715,
@@ -3906,7 +4199,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37714,
@@ -3919,7 +4213,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37723,
@@ -3932,7 +4227,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37722,
@@ -3945,7 +4241,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37717,
@@ -3958,7 +4255,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37716,
@@ -3971,7 +4269,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39423,
@@ -3984,7 +4283,8 @@
           "capacity": 24,
           "booked": 0,
           "spotsLeft": 24,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37739,
@@ -3997,7 +4297,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37738,
@@ -4010,7 +4311,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37729,
@@ -4021,9 +4323,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 0,
-          "spotsLeft": 18,
-          "available": true
+          "booked": 1,
+          "spotsLeft": 17,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37728,
@@ -4036,7 +4339,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39426,
@@ -4047,9 +4351,10 @@
           "area": "bay",
           "side": "right",
           "capacity": 12,
-          "booked": 1,
-          "spotsLeft": 11,
-          "available": true
+          "booked": 2,
+          "spotsLeft": 10,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39424,
@@ -4062,7 +4367,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39425,
@@ -4075,7 +4381,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37737,
@@ -4088,7 +4395,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37736,
@@ -4101,7 +4409,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37735,
@@ -4114,7 +4423,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37734,
@@ -4127,7 +4437,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37731,
@@ -4140,7 +4451,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37730,
@@ -4153,7 +4465,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37727,
@@ -4166,7 +4479,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37726,
@@ -4179,7 +4493,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37719,
@@ -4192,7 +4507,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37718,
@@ -4205,7 +4521,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37721,
@@ -4218,7 +4535,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37720,
@@ -4231,7 +4549,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         }
       ]
     },
@@ -4252,7 +4571,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37872,
@@ -4265,7 +4585,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37871,
@@ -4278,7 +4599,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37870,
@@ -4291,7 +4613,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37875,
@@ -4304,7 +4627,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37874,
@@ -4317,7 +4641,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40862,
@@ -4330,7 +4655,8 @@
           "capacity": 24,
           "booked": 0,
           "spotsLeft": 24,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37893,
@@ -4343,7 +4669,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37892,
@@ -4356,7 +4683,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37877,
@@ -4369,7 +4697,8 @@
           "capacity": 18,
           "booked": 1,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37876,
@@ -4382,7 +4711,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37879,
@@ -4395,7 +4725,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37878,
@@ -4408,7 +4739,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40867,
@@ -4421,7 +4753,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40866,
@@ -4434,7 +4767,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37895,
@@ -4447,7 +4781,8 @@
           "capacity": 15,
           "booked": 1,
           "spotsLeft": 14,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37894,
@@ -4460,7 +4795,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40861,
@@ -4473,7 +4809,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40860,
@@ -4486,7 +4823,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40871,
@@ -4499,7 +4837,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40870,
@@ -4512,7 +4851,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40869,
@@ -4525,7 +4865,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40868,
@@ -4538,7 +4879,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37897,
@@ -4551,7 +4893,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37896,
@@ -4564,7 +4907,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40865,
@@ -4577,7 +4921,8 @@
           "capacity": 8,
           "booked": 0,
           "spotsLeft": 8,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40863,
@@ -4590,7 +4935,8 @@
           "capacity": 8,
           "booked": 0,
           "spotsLeft": 8,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40864,
@@ -4603,7 +4949,8 @@
           "capacity": 6,
           "booked": 0,
           "spotsLeft": 6,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37881,
@@ -4616,7 +4963,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37880,
@@ -4629,7 +4977,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37889,
@@ -4642,7 +4991,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37888,
@@ -4655,7 +5005,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37883,
@@ -4668,7 +5019,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37882,
@@ -4681,7 +5033,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37891,
@@ -4694,7 +5047,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37890,
@@ -4707,7 +5061,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37885,
@@ -4720,7 +5075,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37884,
@@ -4733,7 +5089,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         }
       ]
     },
@@ -4754,7 +5111,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37762,
@@ -4767,7 +5125,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37771,
@@ -4780,7 +5139,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37770,
@@ -4793,7 +5153,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37773,
@@ -4806,7 +5167,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37772,
@@ -4819,7 +5181,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 38881,
@@ -4832,7 +5195,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 38880,
@@ -4845,7 +5209,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37741,
@@ -4858,7 +5223,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37740,
@@ -4871,7 +5237,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37743,
@@ -4884,7 +5251,8 @@
           "capacity": 20,
           "booked": 2,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37742,
@@ -4897,7 +5265,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37745,
@@ -4910,7 +5279,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37744,
@@ -4923,7 +5293,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37747,
@@ -4934,9 +5305,10 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 0,
-          "spotsLeft": 18,
-          "available": true
+          "booked": 3,
+          "spotsLeft": 15,
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37746,
@@ -4949,7 +5321,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37749,
@@ -4962,7 +5335,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37748,
@@ -4975,7 +5349,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37769,
@@ -4988,7 +5363,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37768,
@@ -5001,7 +5377,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37767,
@@ -5014,7 +5391,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37766,
@@ -5027,7 +5405,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37751,
@@ -5040,7 +5419,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37750,
@@ -5053,7 +5433,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40872,
@@ -5066,7 +5447,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 40873,
@@ -5079,7 +5461,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37753,
@@ -5092,7 +5475,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37752,
@@ -5105,7 +5489,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37755,
@@ -5118,7 +5503,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37754,
@@ -5131,7 +5517,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37757,
@@ -5144,7 +5531,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37756,
@@ -5157,7 +5545,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37759,
@@ -5170,7 +5559,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37758,
@@ -5183,7 +5573,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37761,
@@ -5196,7 +5587,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37760,
@@ -5209,7 +5601,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         }
       ]
     },
@@ -5230,7 +5623,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37774,
@@ -5243,7 +5637,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37777,
@@ -5256,7 +5651,8 @@
           "capacity": 18,
           "booked": 1,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37776,
@@ -5269,7 +5665,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37799,
@@ -5282,7 +5679,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37798,
@@ -5295,7 +5693,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39427,
@@ -5308,7 +5707,8 @@
           "capacity": 24,
           "booked": 0,
           "spotsLeft": 24,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37779,
@@ -5321,7 +5721,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37778,
@@ -5334,7 +5735,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37791,
@@ -5347,7 +5749,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37790,
@@ -5360,7 +5763,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39429,
@@ -5373,7 +5777,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39428,
@@ -5386,7 +5791,8 @@
           "capacity": 10,
           "booked": 1,
           "spotsLeft": 9,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37793,
@@ -5399,7 +5805,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37792,
@@ -5412,7 +5819,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37781,
@@ -5425,7 +5833,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37780,
@@ -5438,7 +5847,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39431,
@@ -5451,7 +5861,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39432,
@@ -5464,7 +5875,8 @@
           "capacity": 12,
           "booked": 0,
           "spotsLeft": 12,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39430,
@@ -5477,7 +5889,8 @@
           "capacity": 24,
           "booked": 0,
           "spotsLeft": 24,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37783,
@@ -5490,7 +5903,8 @@
           "capacity": 14,
           "booked": 0,
           "spotsLeft": 14,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37782,
@@ -5503,7 +5917,8 @@
           "capacity": 12,
           "booked": 1,
           "spotsLeft": 11,
-          "available": true
+          "available": true,
+          "blocked": false
         }
       ]
     },
@@ -5524,7 +5939,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37830,
@@ -5537,7 +5953,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37805,
@@ -5550,7 +5967,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37804,
@@ -5563,7 +5981,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39433,
@@ -5576,7 +5995,8 @@
           "capacity": 24,
           "booked": 0,
           "spotsLeft": 24,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37807,
@@ -5589,7 +6009,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37806,
@@ -5602,7 +6023,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37809,
@@ -5615,7 +6037,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37808,
@@ -5628,7 +6051,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39434,
@@ -5641,7 +6065,8 @@
           "capacity": 24,
           "booked": 0,
           "spotsLeft": 24,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39435,
@@ -5654,7 +6079,8 @@
           "capacity": 24,
           "booked": 0,
           "spotsLeft": 24,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37811,
@@ -5667,7 +6093,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37810,
@@ -5680,7 +6107,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37813,
@@ -5693,7 +6121,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37812,
@@ -5706,7 +6135,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39436,
@@ -5719,7 +6149,8 @@
           "capacity": 24,
           "booked": 0,
           "spotsLeft": 24,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39437,
@@ -5732,7 +6163,8 @@
           "capacity": 24,
           "booked": 0,
           "spotsLeft": 24,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37815,
@@ -5745,7 +6177,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37814,
@@ -5758,7 +6191,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37817,
@@ -5771,7 +6205,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37816,
@@ -5784,7 +6219,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39439,
@@ -5797,7 +6233,8 @@
           "capacity": 24,
           "booked": 0,
           "spotsLeft": 24,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39440,
@@ -5810,7 +6247,8 @@
           "capacity": 24,
           "booked": 0,
           "spotsLeft": 24,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37819,
@@ -5823,7 +6261,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37818,
@@ -5836,7 +6275,8 @@
           "capacity": 20,
           "booked": 0,
           "spotsLeft": 20,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37821,
@@ -5849,7 +6289,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37820,
@@ -5862,7 +6303,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 39438,
@@ -5875,7 +6317,8 @@
           "capacity": 24,
           "booked": 0,
           "spotsLeft": 24,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37823,
@@ -5888,7 +6331,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37822,
@@ -5901,7 +6345,8 @@
           "capacity": 18,
           "booked": 1,
           "spotsLeft": 17,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37825,
@@ -5914,7 +6359,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37824,
@@ -5927,7 +6373,8 @@
           "capacity": 15,
           "booked": 0,
           "spotsLeft": 15,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37827,
@@ -5940,7 +6387,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         },
         {
           "id": 37826,
@@ -5953,7 +6401,8 @@
           "capacity": 18,
           "booked": 0,
           "spotsLeft": 18,
-          "available": true
+          "available": true,
+          "blocked": false
         }
       ]
     }
