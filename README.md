@@ -3,7 +3,7 @@
 A glanceable Hebrew schedule of surf sessions at [SRF Park TLV](https://www.srfparktlv.co.il/sessions/?zone=reef-right%7Creef-left%7Cbay): opening hours, the wave level of every session, and spots left on each side, with today always front and centre. A second tab, "ניתוח", analyses the park's history: occupancy, strong and weak slots, trends, fill speed and the sessions at risk in the next two days.
 
 - Site: https://assafhaft.github.io/srfsc/
-- Design: [schedule](docs/superpowers/specs/2026-09-10-surf-schedule-design.md), [analysis](docs/superpowers/specs/2026-09-11-schedule-analysis-design.md)
+- Design: [schedule](docs/superpowers/specs/2026-09-10-surf-schedule-design.md), [analysis](docs/superpowers/specs/2026-09-11-schedule-analysis-design.md), [CMS import](docs/superpowers/specs/2026-09-12-cms-import-design.md)
 
 ## How it works
 
@@ -15,6 +15,8 @@ GitHub Actions runs every half hour (06:17–23:47 Israel time) and whenever som
 
 The page is static HTML and JavaScript with no build step and no dependencies. The analysis tab computes everything in the browser from the history files, and revenue figures are estimates at the list prices in `site/config.js`.
 
+History from 1.5.2025 to 10.9.2026 also holds a one-time import of the park's management-system (CMS) export. Public sessions carry its booked counts, and bookings the public schedule never showed (groups, camps, events, private lessons, clubs, courses) are stored by category only, never by name. The analysis tab shows them in their own section.
+
 ## Working on it
 
 Needs Node 20 or newer. There's nothing to install.
@@ -25,6 +27,7 @@ npm run scrape         # fetch the live schedule into site/data/schedule.json
 npm run update-history # record it into site/data/history/
 npm run update         # both of the above
 npm run backfill       # one-time: import every past session the park still serves (about 5 minutes)
+npm run import-cms -- <file.xlsx> [--dry-run]  # one-time: merge the park's CMS export (refuses to run twice)
 npm run serve          # preview the site at http://localhost:8000/
 ```
 

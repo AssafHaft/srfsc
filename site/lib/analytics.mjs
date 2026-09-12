@@ -126,22 +126,28 @@ const monthEnd = month => addDays(`${addDays(`${month}-28`, 4).slice(0, 7)}-01`,
 /** The same calendar date a year earlier; 29 February becomes 28 February. */
 const yearEarlier = iso => `${Number(iso.slice(0, 4)) - 1}${iso.slice(4)}`.replace(/-02-29$/, '-02-28');
 
-/** Weekly buckets up to 92 days, monthly above; each with the comparison range's matching bucket. */
-export function trend(cur, cmp, range, closed, prices) {
-  const weekly = daysBetween(range.from, range.to) + 1 <= WEEKLY_MAX_DAYS;
+/** Weekly buckets up to 92 days, calendar months above, clipped to from..to. */
+function periodBuckets(from, to) {
+  const weekly = daysBetween(from, to) + 1 <= WEEKLY_MAX_DAYS;
   const buckets = [];
   if (weekly) {
-    for (let from = range.from; from <= range.to; from = addDays(from, 7)) {
-      const end = addDays(from, 6);
-      buckets.push({ from, to: end < range.to ? end : range.to });
+    for (let f = from; f <= to; f = addDays(f, 7)) {
+      const end = addDays(f, 6);
+      buckets.push({ from: f, to: end < to ? end : to });
     }
   } else {
-    for (const m of monthsBetween(range.from, range.to)) {
-      const from = `${m}-01` > range.from ? `${m}-01` : range.from;
+    for (const m of monthsBetween(from, to)) {
       const end = monthEnd(m);
-      buckets.push({ from, to: end < range.to ? end : range.to });
+      buckets.push({ from: `${m}-01` > from ? `${m}-01` : from, to: end < to ? end : to });
     }
   }
+  return { unit: weekly ? 'week' : 'month', buckets };
+}
+
+/** Weekly buckets up to 92 days, monthly above; each with the comparison range's matching bucket. */
+export function trend(cur, cmp, range, closed, prices) {
+  const { unit, buckets } = periodBuckets(range.from, range.to);
+  const weekly = unit === 'week';
   // weekly: the comparison's day offset (−364 for last year keeps weekdays aligned);
   // monthly: the same calendar month a year earlier (spec 6.6), whole months stay whole across 29 February
   const offset = range.compare ? daysBetween(range.compare.from, range.from) : 0;
@@ -281,6 +287,64 @@ export function operations(rows, closed, range, levels) {
   };
 }
 
+const REEF_TIME = new Set(['surf', 'event', 'blocked', 'hidden']);
+/** A reef side and hour: date, side and start rounded up to the whole hour (hidden rows start on the hour). */
+const sideHour = r => `${r.date}|${r.side}|${r.start.endsWith(':00') ? r.start.slice(0, 2) : String(Number(r.start.slice(0, 2)) + 1).padStart(2, '0')}`;
+const peopleOf = rows => rows.reduce((n, r) => n + r.booked, 0);
+
+/**
+ * Bookings the public schedule never showed, from the one-time CMS import (CMS import spec 6.2).
+ * Only the part of the range inside the import's coverage counts; the level filter doesn't apply.
+ */
+export function hidden(rows, range, cms) {
+  if (!cms) return { window: null };
+  const from = range.from > cms.from ? range.from : cms.from;
+  const to = range.to < cms.to ? range.to : cms.to;
+  if (from > to) return { window: null };
+  const offset = range.compare ? daysBetween(range.compare.from, range.from) : null;
+  const compare = offset !== null && addDays(from, -offset) >= cms.from ? { from: addDays(from, -offset), to: addDays(to, -offset) } : null;
+  const measure = (a, b) => {
+    const inWindow = rows.filter(r => inRange(r, a, b));
+    const list = inWindow.filter(r => r.kind === 'hidden');
+    const people = peopleOf(list);
+    const reef = inWindow.filter(r => r.area === 'reef' && REEF_TIME.has(r.kind));
+    const onSale = new Set(reef.filter(isCounted).map(sideHour));
+    const taken = new Set(reef.filter(r => r.kind === 'hidden').map(sideHour).filter(k => !onSale.has(k)));
+    return {
+      list,
+      totals: {
+        people, sessions: list.length,
+        share: share(people, people + peopleOf(inWindow.filter(isCounted))),
+        reefShare: share(taken.size, new Set(reef.map(sideHour)).size),
+      },
+    };
+  };
+  const cur = measure(from, to);
+  const cmp = compare ? measure(compare.from, compare.to) : null;
+  const cmpByLabel = cmp ? groupBy(cmp.list, r => r.name) : new Map();
+  const categories = [...groupBy(cur.list, r => r.name)]
+    .map(([label, g]) => {
+      const people = peopleOf(g);
+      return {
+        label, people, sessions: g.length, share: share(people, cur.totals.people), avgSize: people / g.length,
+        bayShare: share(peopleOf(g.filter(r => r.area === 'bay')), people),
+        cmpPeople: cmp ? peopleOf(cmpByLabel.get(label) ?? []) : null,
+      };
+    })
+    .sort((a, b) => b.people - a.people || a.label.localeCompare(b.label));
+  const { unit, buckets } = periodBuckets(from, to);
+  const hours = [...new Set(cur.list.map(r => r.start.slice(0, 2)))].sort();
+  return {
+    window: { from, to }, compare, partial: from > range.from || to < range.to,
+    ...cur.totals, cmp: cmp ? cmp.totals : null, categories, unit,
+    buckets: buckets.map(b => ({ ...b, people: peopleOf(cur.list.filter(r => inRange(r, b.from, b.to))) })),
+    grid: hours.map(hour => ({
+      hour,
+      cells: [0, 1, 2, 3, 4, 5, 6].map(d => peopleOf(cur.list.filter(r => r.start.slice(0, 2) === hour && dayOfWeek(r.date) === d))),
+    })),
+  };
+}
+
 /** Everything the analysis tab shows, for one period and level filter. */
 export function analyse({ rows, closed, range, levels, prices, schedule, now, index = null }) {
   const cur = selectRows(rows, range, levels);
@@ -298,6 +362,7 @@ export function analyse({ rows, closed, range, levels, prices, schedule, now, in
     pace: paceModel,
     upcoming: upcoming(schedule, { now, prices, levels, paceModel }),
     ops: operations(rows, closed, range, levels),
-    coverage: { first: index?.first ?? null, sessions: cur.length, snapshots: index?.snapshots ?? 0, snapshotsSince: index?.snapshotsSince ?? null, updatedAt: index?.updatedAt ?? null },
+    hidden: hidden(rows, range, index?.cms ?? null),
+    coverage: { first: index?.first ?? null, sessions: cur.length, snapshots: index?.snapshots ?? 0, snapshotsSince: index?.snapshotsSince ?? null, updatedAt: index?.updatedAt ?? null, cms: index?.cms ?? null },
   };
 }

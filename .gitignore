@@ -1,3 +1,6 @@
 # Local Claude Code settings (machine-specific paths)
 .claude/launch.json
 .claude/settings.local.json
+
+# CMS exports hold customers' names: never commit them
+*.xlsx

@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  aggregate, analyse, bookedAt, curveAt, heatmap, levelKey, levelTable, operations, pace, priceOf,
+  aggregate, analyse, bookedAt, curveAt, heatmap, hidden, levelKey, levelTable, operations, pace, priceOf,
   selectRows, slotRanking, trend, upcoming, weekSplit,
 } from '../../site/lib/analytics.mjs';
 import { periodRange } from '../../site/lib/history.mjs';
@@ -198,7 +198,73 @@ test('analyse builds every section and counts the period for the coverage line',
     rows, closed: [], range: periodRange('30d', '2026-09-11', '2025-04-02'), levels: ALL, prices: PRICES,
     schedule: { days: [] }, now: new Date('2026-09-11T13:00:00Z'), index: { first: '2025-04-02', snapshots: 12, snapshotsSince: '2026-09-12', updatedAt: '2026-09-12T06:17:00+03:00' },
   });
-  assert.deepEqual(Object.keys(model), ['range', 'prices', 'kpis', 'split', 'heat', 'levels', 'slots', 'trend', 'pace', 'upcoming', 'ops', 'coverage']);
+  assert.deepEqual(Object.keys(model), ['range', 'prices', 'kpis', 'split', 'heat', 'levels', 'slots', 'trend', 'pace', 'upcoming', 'ops', 'hidden', 'coverage']);
   assert.deepEqual([model.kpis.cur.sessions, model.kpis.cur.daysOpen, model.kpis.cmp.sessions], [4, 4, 0]);
-  assert.deepEqual(model.coverage, { first: '2025-04-02', sessions: 4, snapshots: 12, snapshotsSince: '2026-09-12', updatedAt: '2026-09-12T06:17:00+03:00' });
+  assert.deepEqual(model.coverage, { first: '2025-04-02', sessions: 4, snapshots: 12, snapshotsSince: '2026-09-12', updatedAt: '2026-09-12T06:17:00+03:00', cms: null });
+  assert.deepEqual(model.hidden, { window: null });
+});
+
+const CMS = { from: '2025-05-01', to: '2026-09-10', importedAt: '2026-09-12T12:00:00+03:00' };
+// A hidden booking from the CMS import (6.9.2026, a Bay camp); override fields per test.
+const hid = (over = {}) => row({ id: -1, kind: 'hidden', name: 'קייטנות', area: 'bay', level: 0, capacity: 12, booked: 6, ...over });
+
+test('hidden: no import, or a period outside it, has no window', () => {
+  const range = periodRange('30d', '2026-12-01', '2025-04-02'); // 1.11–30.11.2026
+  assert.deepEqual(hidden([hid()], range, null), { window: null });
+  assert.deepEqual(hidden([hid()], range, CMS), { window: null });
+});
+
+test('hidden: totals, shares, categories, buckets and grid, compared with the same weeks a year earlier', () => {
+  const rows = [
+    hid({ id: -1, start: '09:00' }), // Sunday 6.9, Bay camp, 6 people
+    hid({ id: -2, start: '09:00', area: 'reef', name: 'אירועים', capacity: 15, booked: 10 }),
+    hid({ id: -3, date: '2026-07-03', start: '17:00', booked: 4 }), // a Friday
+    hid({ id: -4, date: '2026-06-01', booked: 99 }), // before the period
+    row({ id: 1, capacity: 20, booked: 20 }), // public reef surf
+    row({ id: 2, date: '2026-08-01', kind: 'lesson', area: 'bay', level: 0, booked: 10 }),
+    row({ id: 3, kind: 'blocked', booked: 0 }), // reef time, not for sale
+    row({ id: 4, kind: 'cancelled', capacity: 0, booked: 0 }), // not reef time at all
+    hid({ id: -5, date: '2025-07-04', booked: 5 }), // a year earlier
+    row({ id: 5, date: '2025-07-04', capacity: 15, booked: 15 }),
+  ];
+  const h = hidden(rows, periodRange('90d', '2026-09-11', '2025-04-02'), CMS);
+  assert.deepEqual([h.window, h.compare, h.partial], [{ from: '2026-06-13', to: '2026-09-10' }, { from: '2025-06-14', to: '2025-09-11' }, false]);
+  assert.deepEqual([h.people, h.sessions, h.share], [20, 3, 0.4]); // 20 of 20 + 30 public
+  assert.equal(h.reefShare, 0.5); // 08:00 right has surf on sale; 09:00 right is held by the hidden event
+  assert.deepEqual(h.cmp, { people: 5, sessions: 1, share: 0.25, reefShare: 0 });
+  assert.deepEqual(h.categories, [
+    { label: 'אירועים', people: 10, sessions: 1, share: 0.5, avgSize: 10, bayShare: 0, cmpPeople: 0 },
+    { label: 'קייטנות', people: 10, sessions: 2, share: 0.5, avgSize: 5, bayShare: 1, cmpPeople: 5 },
+  ]);
+  assert.deepEqual([h.unit, h.buckets.length, h.buckets.reduce((n, b) => n + b.people, 0)], ['week', 13, 20]);
+  assert.deepEqual(h.buckets.at(-1), { from: '2026-09-05', to: '2026-09-10', people: 16 });
+  assert.deepEqual(h.grid, [{ hour: '09', cells: [16, 0, 0, 0, 0, 0, 0] }, { hour: '17', cells: [0, 0, 0, 0, 0, 4, 0] }]);
+});
+
+test('hidden: reef time counts a side-hour only when a hidden booking holds it and no public session was on sale', () => {
+  const rows = [
+    row({ id: 1 }), // 08:00 right, on sale
+    hid({ id: -1, area: 'reef', start: '08:00', booked: 1 }), // rides along the public session: not taken
+    hid({ id: -2, area: 'reef', start: '10:00' }), // takes 10:00 right
+    hid({ id: -3, area: 'reef', start: '10:00', side: 'left' }), // takes 10:00 left
+    row({ id: 2, start: '11:30', end: '12:30', kind: 'blocked' }), // 12:00 right: not for sale, no hidden booking
+    hid({ id: -4, start: '09:00' }), // Bay: not reef time
+  ];
+  const h = hidden(rows, periodRange('30d', '2026-09-11', '2025-04-02'), CMS);
+  assert.equal(h.reefShare, 2 / 4);
+});
+
+test('hidden: a covered period with no hidden bookings has zero totals and empty lists', () => {
+  const h = hidden([row()], periodRange('30d', '2026-09-11', '2025-04-02'), CMS);
+  assert.deepEqual([h.people, h.sessions, h.share, h.reefShare, h.categories, h.grid], [0, 0, 0, 0, [], []]);
+  assert.ok(h.buckets.every(b => b.people === 0));
+});
+
+test('hidden: a period running past the import is partial; no comparison before the import starts', () => {
+  const past = hidden([hid({ date: '2025-05-10' })], periodRange('30d', '2025-06-01', '2025-04-02'), CMS);
+  assert.deepEqual([past.window, past.compare, past.cmp, past.partial], [{ from: '2025-05-02', to: '2025-05-31' }, null, null, false]);
+  assert.equal(past.categories[0].cmpPeople, null);
+  const year = hidden([hid({ date: '2026-01-15' })], periodRange('12m', '2026-09-12', '2025-04-02'), CMS);
+  assert.deepEqual([year.window, year.partial, year.unit, year.buckets.length], [{ from: '2025-09-12', to: '2026-09-10' }, true, 'month', 13]);
+  assert.deepEqual([year.buckets[0].from, year.buckets.at(-1).to], ['2025-09-12', '2026-09-10']);
 });

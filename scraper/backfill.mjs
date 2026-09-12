@@ -1,5 +1,7 @@
 // CLI: one-time import of every past session the park still serves into site/data/history/
-// (analysis spec section 4.4). Safe to re-run: it merges and keeps existing pace entries.
+// (analysis spec section 4.4). Safe to re-run: it merges and keeps existing pace entries, and
+// keeps CMS-imported hidden rows, but puts the park's own counts back over the CMS import's
+// booked corrections.
 // Usage: node scraper/backfill.mjs   (about 180 windows, 1.5 s apart: 5 minutes)
 import { pathToFileURL } from 'node:url';
 import { addDays, israelIso, israelToday, monthsBetween } from '../site/lib/time.mjs';

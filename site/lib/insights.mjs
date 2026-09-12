@@ -1,4 +1,4 @@
-// "מה בולט": fixed rules over an analyse() model (analysis spec section 6.9). Each rule fires only
+// "מה בולט": fixed rules over an analyse() model (analysis spec section 6.9, CMS import spec 6.4). Each rule fires only
 // under its condition; fired insights are sorted by impact in ₪, rules without a ₪ value last.
 import { HE_DAYS_SHORT } from './time.mjs';
 
@@ -106,6 +106,15 @@ export function insights(model, max = MAX_INSIGHTS) {
     if (pace.last24Share >= 0.4) {
       out.push({ rule: 'late-demand', tone: 'info', link: 'pace', impact: null, text: `${points(pace.last24Share)}% מההזמנות מגיעות ב־24 השעות האחרונות.` });
     }
+  }
+
+  const hid = model.hidden;
+  if (hid?.window && hid.sessions >= MIN_SESSIONS && hid.share >= 0.1 && hid.categories.length) {
+    const top = hid.categories[0];
+    out.push({
+      rule: 'hidden-share', tone: 'info', link: 'hidden', impact: null,
+      text: `${points(hid.share)}% מההזמנות בתקופה לא עברו בלוח הציבורי, בעיקר ${top.label} (${points(top.share)}%).`,
+    });
   }
 
   return out.sort((a, b) => (b.impact ?? -1) - (a.impact ?? -1)).slice(0, max);

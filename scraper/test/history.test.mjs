@@ -146,3 +146,22 @@ test('nextIndex counts snapshots and keeps the earliest date and every month', (
   assert.deepEqual([backfilled.first, backfilled.months, backfilled.snapshots, backfilled.snapshotsSince], ['2025-04-02', ['2025-04', '2026-09'], 1, '2026-09-12']);
   assert.equal(nextIndex(null, { months: [], updatedAt: 'x', first: null, snapshot: false }).snapshotsSince, null);
 });
+
+test('hidden rows from the CMS import survive the final-count pass and never move the catch-up', () => {
+  const hidden = row({ id: -1, date: '2026-09-11', kind: 'hidden', name: 'קייטנות', final: true, booked: 9, capacity: 12 });
+  const store = upsertUpcoming({}, scheduleAt('2026-09-10T08:00:00+03:00'));
+  store['2026-09'].sessions.push(structuredClone(hidden));
+  applyFinal(store, structuredClone(fixtureWindow('2026-09-10')), { from: '2026-09-10', to: '2026-09-12' });
+  assert.deepEqual(rowById(store, -1), hidden); // not overwritten, not "removed"
+
+  const month = (...rows) => ({ '2026-09': { month: '2026-09', closed: [], sessions: rows } });
+  const park = row({ date: '2026-09-10', final: true });
+  assert.equal(finalFrom(month(park, row({ id: -1, date: '2026-09-18', kind: 'hidden', final: true })), '2026-09-20', '2026-08-21'), '2026-09-11');
+});
+
+test('nextIndex keeps the CMS import coverage', () => {
+  const cms = { from: '2025-05-01', to: '2026-09-10', importedAt: '2026-09-12T12:00:00+03:00' };
+  const prev = { updatedAt: 'x', first: '2025-04-02', months: ['2026-09'], snapshots: 2, snapshotsSince: '2026-09-12', cms };
+  assert.deepEqual(nextIndex(prev, { months: ['2026-09'], updatedAt: 'y', first: '2025-04-02', snapshot: true }).cms, cms);
+  assert.equal('cms' in nextIndex(null, { months: [], updatedAt: 'x', first: null, snapshot: false }), false);
+});

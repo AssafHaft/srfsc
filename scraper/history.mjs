@@ -71,7 +71,7 @@ export function upsertUpcoming(store, schedule) {
 /**
  * Final counts from one past park window: its rows dated from..to take the park's numbers and
  * final: true (keeping their pace). Rows we hold for those dates that the park no longer lists
- * become kind "removed".
+ * become kind "removed", except rows from the CMS import (kind "hidden"), which the park never lists.
  */
 export function applyFinal(store, window, { from, to }) {
   const listed = new Set();
@@ -96,7 +96,7 @@ export function applyFinal(store, window, { from, to }) {
   if (!listed.size && !(window.close_days ?? []).length) return store;
   for (const m of Object.values(store)) {
     for (const r of m.sessions) {
-      if (r.date >= from && r.date <= to && !listed.has(r.id)) {
+      if (r.date >= from && r.date <= to && r.kind !== 'hidden' && !listed.has(r.id)) {
         r.kind = 'removed';
         r.final = true;
       }
@@ -123,7 +123,7 @@ export function finalFrom(store, today, floor) {
   const normal = addDays(today, -3);
   const latest = Object.values(store)
     .flatMap(m => m.sessions)
-    .filter(r => r.final === true && r.date < today)
+    .filter(r => r.final === true && r.kind !== 'hidden' && r.date < today)
     .reduce((max, r) => (r.date > max ? r.date : max), '');
   if (!latest) return normal;
   const next = addDays(latest, 1);
@@ -164,5 +164,6 @@ export function nextIndex(prev, { months, updatedAt, first, snapshot }) {
     months: [...new Set([...(prev?.months ?? []), ...months])].sort(),
     snapshots: (prev?.snapshots ?? 0) + (snapshot ? 1 : 0),
     snapshotsSince: prev?.snapshotsSince ?? (snapshot ? updatedAt.slice(0, 10) : null),
+    ...(prev?.cms ? { cms: prev.cms } : {}),
   };
 }

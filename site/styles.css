@@ -358,4 +358,11 @@ svg .closed-mark { stroke: var(--mist-2); stroke-width: 3; stroke-dasharray: 4 3
   .days .lbl span { font-size: 10px; }
   .days .b em { font-size: 10px; }
 }
+
+/* hidden bookings (CMS import) */
+.kpis.hid { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-bottom: 8px; }
+.hid-when { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+@media (max-width: 720px) {
+  .kpis.hid, .hid-when { grid-template-columns: 1fr; }
+}
 .up, .pace { align-items: start; }

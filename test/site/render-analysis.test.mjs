@@ -62,11 +62,11 @@ test('period buttons and the comparison line', () => {
   assert.ok(compareNote(periodRange('all', '2026-09-11', '2025-04-02')).includes('אין להיסטוריה תקופה קודמת'));
 });
 
-test('renderAnalysis: nine sections in order, the numbers, and escaped park text', () => {
+test('renderAnalysis: ten sections in order, the numbers, and escaped park text', () => {
   const m = model();
   const html = renderAnalysis(m, insights(m), UI);
   const ids = [...html.matchAll(/<section class="sec" id="a-([a-z]+)"/g)].map(x => x[1]);
-  assert.deepEqual(ids, ['kpis', 'insights', 'heat', 'levels', 'slots', 'trend', 'pace', 'upcoming', 'ops']);
+  assert.deepEqual(ids, ['kpis', 'insights', 'heat', 'levels', 'hidden', 'slots', 'trend', 'pace', 'upcoming', 'ops']);
   assert.ok(html.includes('<span class="v num">72%</span>')); // (12×3 + 12×15) of (12×10 + 12×15)
   assert.ok(html.includes('אין נתון להשוואה')); // no sessions a year earlier
   assert.ok(html.includes('class="c s5 num"')); // Friday 17:00 is full
@@ -77,6 +77,8 @@ test('renderAnalysis: nine sections in order, the numbers, and escaped park text
   assert.ok(html.includes('1.7 תחזוקה'));
   assert.ok(html.includes('(ריף L1–L4 360 ₪, L5–L6 390 ₪, Bay מבוגרים 250 ₪, Bay ילדים 195 ₪)'));
   assert.match(html, /ההיסטוריה עודכנה לפני /);
+  assert.ok(html.includes('הזמנות שלא עברו בלוח מופיעות ב״מה לא בלוח הציבורי״.'));
+  assert.ok(html.includes('<p class="empty">אין נתוני מערכת ניהול.</p>')); // this model has no import
 });
 
 test('renderAnalysis: collecting card before pace is ready, and the at-risk overflow in a details box', () => {
@@ -94,4 +96,43 @@ test('renderAnalysis: the heat and trend switches change what is drawn', () => {
   assert.ok(html.includes('data-trend-metric="revenue" aria-pressed="true"'));
   assert.match(html, /class="c s\d num" title="[^"]*">\d+K<\/div>/);
   assert.ok(html.includes('aria-label="הכנסה לפי שבוע"'));
+});
+
+const CMS = { from: '2025-05-01', to: '2026-09-10', importedAt: '2026-09-12T12:00:00+03:00' };
+const withCms = (range = periodRange('90d', '2026-09-12', '2025-04-02')) => analyse({
+  rows: [
+    ...history(),
+    row({ id: -1, kind: 'hidden', name: 'קייטנות', area: 'bay', level: 0, date: '2026-07-03', start: '09:00', capacity: 12, booked: 9 }),
+    row({ id: -2, kind: 'hidden', name: 'אירועים', date: '2026-08-02', start: '20:00', capacity: 30, booked: 30 }),
+  ],
+  closed: [], range, levels: new Set(), prices: PRICES, schedule: { days: [] }, now: new Date('2026-09-12T09:00:00Z'),
+  index: { first: '2025-04-02', snapshots: 0, snapshotsSince: null, updatedAt: null, cms: CMS },
+});
+
+test('renderAnalysis: hidden bookings with partial coverage, and the coverage line', () => {
+  const html = renderAnalysis(withCms(), [], UI);
+  assert.ok(html.includes('<section class="sec" id="a-hidden">'));
+  assert.ok(html.includes('בתקופה שנבחרה הנתונים מכסים רק את <span class="ltr num">14.6.2026–10.9.2026</span>.'));
+  assert.ok(html.includes('<span class="k">הזמנות סגורות</span><span class="v num">39</span>'));
+  assert.ok(html.includes('<span class="k">חלק מכל ההזמנות</span><span class="v num">15%</span>')); // 39 of 39 + 216 public
+  assert.ok(html.indexOf('<td>אירועים</td>') < html.indexOf('<td>קייטנות</td>')); // 30 people before 9
+  assert.ok(html.includes('<td class="dlt num">חדש</td>')); // none a year earlier
+  assert.ok(html.includes('aria-label="הזמנות סגורות לפי שבוע"'));
+  assert.ok(html.includes('title="שישי 09:00 · 9 הזמנות"')); // 3.7.2026 was a Friday
+  assert.ok(html.includes('נתוני מערכת הניהול <span class="ltr num">1.5.2025–10.9.2026</span>'));
+});
+
+test('renderAnalysis: a period after the import shows how to reach its data', () => {
+  const html = renderAnalysis(withCms(periodRange('30d', '2026-12-01', '2025-04-02')), [], UI);
+  assert.ok(html.includes('אין נתוני מערכת ניהול לתקופה הזו – הייצוא מכסה <span class="ltr num">1.5.2025–10.9.2026</span>. בחרו ״הכול״ כדי לראות אותם.'));
+});
+
+test('renderAnalysis: a covered period without hidden bookings shows the tiles and says so', () => {
+  const html = renderAnalysis(analyse({
+    rows: history(), closed: [], range: periodRange('90d', '2026-09-12', '2025-04-02'), levels: new Set(), prices: PRICES,
+    schedule: { days: [] }, now: new Date('2026-09-12T09:00:00Z'),
+    index: { first: '2025-04-02', snapshots: 0, snapshotsSince: null, updatedAt: null, cms: CMS },
+  }), [], UI);
+  assert.ok(html.includes('<span class="k">הזמנות סגורות</span><span class="v num">0</span>'));
+  assert.ok(html.includes('<p class="empty">אין הזמנות סגורות בתקופה.</p>'));
 });

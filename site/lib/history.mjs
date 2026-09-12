@@ -4,6 +4,12 @@ import { addDays, daysBetween, monthsBetween } from './time.mjs';
 /** Bay groups for kids. The park's age field says "all" on most kids' groups; the name is reliable. */
 export const isKids = name => /ילדים|גילאי/.test(String(name));
 
+/** Categories of bookings the public schedule never showed (CMS import spec section 3); stored as the row's name. */
+export const HIDDEN_CATEGORIES = [
+  'קבוצות וארגונים', 'קייטנות', 'אירועים', 'שיעורים פרטיים',
+  'חוגים', 'קורסי Bay', 'שימוש פנימי ושריונים', 'שיעורי Bay קבוצתיים',
+];
+
 /** A session's kind, first match wins. ("removed" is only ever set by the history update.) */
 export function classify({ area, level, capacity, blocked }) {
   if (capacity === 0) return 'cancelled';

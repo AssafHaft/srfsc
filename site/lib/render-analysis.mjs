@@ -8,7 +8,7 @@ import { escapeHtml } from './render.mjs';
 const PERIOD_LABELS = { '30d': '30 יום', '90d': '90 יום', '12m': '12 חודשים', all: 'הכול' };
 const HEAT_STEPS = { occupancy: [0.4, 0.55, 0.7, 0.85, 0.95], soldOutShare: [0.1, 0.25, 0.4, 0.6, 0.8], revenue: [0.2, 0.4, 0.6, 0.8, 0.95] };
 const AT_RISK_SHOWN = 7;
-const LINKS = { trend: 'למגמה', levels: 'לטבלת הרמות', heat: 'למפת העומס', upcoming: 'לימים הקרובים', pace: 'לקצב ההזמנות' };
+const LINKS = { trend: 'למגמה', levels: 'לטבלת הרמות', heat: 'למפת העומס', upcoming: 'לימים הקרובים', pace: 'לקצב ההזמנות', hidden: 'לפעילות הסגורה' };
 
 export const pct = x => (x === null || x === undefined ? '–' : `${Math.round(x * 100)}%`);
 const int = n => Math.round(n).toLocaleString('en-US');
@@ -25,6 +25,10 @@ const section = (id, title, sub, body, tools = '') =>
   `<section class="sec" id="a-${id}"><div class="sec-head"><div><h2>${title}</h2>${sub ? `<p class="sec-sub">${sub}</p>` : ''}</div>${tools}</div>${body}</section>`;
 const seg = (attr, options, current) =>
   `<div class="seg sm">${options.map(([value, label]) => `<button data-${attr}="${value}" aria-pressed="${value === current}">${label}</button>`).join('')}</div>`;
+
+const HEAT_HEAD = `<div></div>${HE_DAYS.map((_, i) => `<div class="hd"><b>${HE_DAYS_SHORT[i]}</b>${i >= 5 ? 'סופ״ש' : ''}</div>`).join('')}`;
+/** A chart bucket's axis label: "13.6" for a week, "6.26" for a month. */
+const bucketLabel = (b, unit) => (unit === 'week' ? shortDate(b.from) : `${Number(b.from.slice(5, 7))}.${b.from.slice(2, 4)}`);
 
 /** The period switch buttons. */
 export const renderPeriods = current =>
@@ -63,7 +67,7 @@ function kpiSection(model) {
       `<div class="d"><span class="ly">${cur.closedDays ? `${cur.closedDays} ימים סגורים` : 'בלי ימים סגורים'} · ${int(cur.capacity)} מקומות</span></div>`],
   ];
   const body = `<div class="kpis">${tiles.map(([cls, k, v, dd]) => `<div class="card kpi${cls ? ` ${cls}` : ''}"><span class="k">${k}</span>${v}${dd}</div>`).join('')}</div>`
-    + `<p class="foot">הכנסה ושווי מקומות ריקים הם הערכה לפי מחירון (ריף L1–L4 ${p.reef} ₪, L5–L6 ${p.reefHigh} ₪, Bay מבוגרים ${p.bayAdult} ₪, Bay ילדים ${p.bayKids} ₪), בלי כרטיסיות, מנויים והנחות. התפוסה והמקומות לא כוללים אירועים פרטיים וסשנים שבוטלו.</p>`;
+    + `<p class="foot">הכנסה ושווי מקומות ריקים הם הערכה לפי מחירון (ריף L1–L4 ${p.reef} ₪, L5–L6 ${p.reefHigh} ₪, Bay מבוגרים ${p.bayAdult} ₪, Bay ילדים ${p.bayKids} ₪), בלי כרטיסיות, מנויים והנחות. התפוסה והמקומות כוללים רק את הלוח הציבורי, בלי סשנים שבוטלו. הזמנות שלא עברו בלוח מופיעות ב״מה לא בלוח הציבורי״.</p>`;
   return `<section class="sec" id="a-kpis">${body}</section>`;
 }
 
@@ -87,7 +91,7 @@ function heatSection(model, metric) {
   const value = c => (metric === 'revenue' ? c.revenue / max : c[metric]);
   const step = c => HEAT_STEPS[metric].filter(t => value(c) >= t).length;
   const label = c => (metric === 'revenue' ? (c.revenue >= 1000 ? `${Math.round(c.revenue / 1000)}K` : int(c.revenue)) : pct(c[metric]));
-  const head = `<div></div>${HE_DAYS.map((_, i) => `<div class="hd"><b>${HE_DAYS_SHORT[i]}</b>${i >= 5 ? 'סופ״ש' : ''}</div>`).join('')}`;
+  const head = HEAT_HEAD;
   const rows = heat.map(r => `<div class="hr num">${r.hour}:00</div>${r.cells.map((c, d) => (c
     ? `<div class="c s${step(c)} num" title="${HE_DAYS[d]} ${r.hour}:00 · ${c.sessions} סשנים · תפוסה ${pct(c.occupancy)} · נמכרו עד הסוף ${pct(c.soldOutShare)}">${label(c)}</div>`
     : '<div class="c x" title="פחות מ־4 סשנים"></div>')).join('')}`).join('');
@@ -111,6 +115,68 @@ function levelSection(model) {
   }).join('');
   const table = `<div class="card tbl-scroll"><table class="tbl"><thead><tr><th>רמה</th><th>סשנים</th><th>תפוסה</th><th>שינוי</th><th>נמכרו עד הסוף</th><th>הכנסה משוערת</th><th>היצע מול ביקוש</th></tr></thead><tbody>${rows}</tbody></table></div>`;
   return section('levels', 'מה נמכר', sub, `${table}<p class="foot">״היצע מול ביקוש״: הפס האפור הוא החלק של הרמה מכל המקומות בפארק, והכהה הוא החלק שלה מכל ההזמנות. כהה ארוך מאפור: הרמה מבוקשת יותר ממה שמוקצה לה.</p>`);
+}
+
+// ---------- 4b. hidden bookings (CMS import) ----------
+
+function countChart(buckets, unit) {
+  const W = 700, H = 180, L = 44, R = 8, T = 12, B = 34;
+  const top = Math.max(1, ...buckets.map(b => b.people));
+  const bw = (W - L - R) / buckets.length;
+  const y = v => T + (1 - v / top) * (H - T - B);
+  const x = i => W - R - (i + 1) * bw; // time runs right to left, like the trend chart
+  const every = Math.ceil(buckets.length / 7);
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="הזמנות סגורות לפי ${unit === 'week' ? 'שבוע' : 'חודש'}">`;
+  for (const g of [0, 0.5, 1]) s += `<line x1="${L}" x2="${W - R}" y1="${y(g * top)}" y2="${y(g * top)}" class="grid"/><text x="${L - 6}" y="${y(g * top) + 4}" text-anchor="end">${int(g * top)}</text>`;
+  buckets.forEach((b, i) => {
+    if (b.people) s += `<rect x="${x(i) + 3}" y="${y(b.people)}" width="${Math.max(1, bw - 6)}" height="${y(0) - y(b.people)}" rx="3" class="bar-cur"><title>${fullDate(b.from)}: ${int(b.people)}</title></rect>`;
+    if (i % every === 0) s += `<text x="${x(i) + bw / 2}" y="${H - 12}" text-anchor="middle">${bucketLabel(b, unit)}</text>`;
+  });
+  return `${s}</svg>`;
+}
+
+function hiddenGrid(grid) {
+  const max = Math.max(1, ...grid.flatMap(r => r.cells));
+  const step = v => HEAT_STEPS.revenue.filter(t => v / max >= t).length; // relative to the busiest cell
+  const rows = grid.map(r => `<div class="hr num">${r.hour}:00</div>${r.cells.map((v, d) => (v
+    ? `<div class="c s${step(v)} num" title="${HE_DAYS[d]} ${r.hour}:00 · ${int(v)} הזמנות">${int(v)}</div>`
+    : '<div class="c"></div>')).join('')}`).join('');
+  return `<div class="heat">${HEAT_HEAD}${rows}</div>`;
+}
+
+const categoryChange = c => {
+  if (c.cmpPeople === null) return '–';
+  if (!c.cmpPeople) return 'חדש';
+  const diff = Math.round((c.people / c.cmpPeople - 1) * 100);
+  return `${diff > 0 ? '▲' : diff < 0 ? '▼' : '='} ${Math.abs(diff)}%`;
+};
+
+function hiddenSection(model) {
+  const h = model.hidden;
+  const cov = model.coverage.cms;
+  const title = 'מה לא בלוח הציבורי';
+  if (!h?.window) {
+    return section('hidden', title, '', empty(cov
+      ? `אין נתוני מערכת ניהול לתקופה הזו – הייצוא מכסה ${dates(cov.from, cov.to)}. בחרו ״הכול״ כדי לראות אותם.`
+      : 'אין נתוני מערכת ניהול.'));
+  }
+  const sub = `הזמנות שלא הופיעו בלוח הציבורי: קבוצות, קייטנות, אירועים, פרטיים וחוגים. לפי ייצוא מערכת הניהול, ${dates(cov.from, cov.to)}. סינון הרמות לא חל כאן.`
+    + (h.partial ? ` בתקופה שנבחרה הנתונים מכסים רק את ${dates(h.window.from, h.window.to)}.` : '');
+  const label = model.range.compare?.kind === 'lastYear' ? 'אשתקד' : 'בתקופה הקודמת';
+  const d = (key, opts) => delta(h[key], h.cmp ? h.cmp[key] : null, { label, ...opts });
+  const tiles = [
+    ['הזמנות סגורות', `<span class="v num">${int(h.people)}</span>`, d('people', { format: int })],
+    ['חלק מכל ההזמנות', `<span class="v num">${pct(h.share)}</span>`, d('share', { ratio: true, format: pct })],
+    ['משבצות ריף שלא היו למכירה', `<span class="v num">${pct(h.reefShare)}</span>`, d('reefShare', { ratio: true, format: pct })],
+  ].map(([k, v, dd]) => `<div class="card kpi"><span class="k">${k}</span>${v}${dd}</div>`).join('');
+  const kpis = `<div class="kpis hid">${tiles}</div>`;
+  if (!h.sessions) return section('hidden', title, sub, kpis + empty('אין הזמנות סגורות בתקופה.'));
+  const rows = h.categories.map(c => `<tr><td>${escapeHtml(c.label)}</td><td class="num">${int(c.people)}</td><td class="num">${pct(c.share)}</td>`
+    + `<td class="num">${int(c.sessions)}</td><td class="num">${c.avgSize.toFixed(1)}</td><td class="num">${pct(c.bayShare)}</td><td class="dlt num">${categoryChange(c)}</td></tr>`).join('');
+  const table = `<div class="card tbl-scroll"><table class="tbl"><thead><tr><th>קטגוריה</th><th>הזמנות</th><th>חלק</th><th>סשנים</th><th>ממוצע לסשן</th><th>ב־Bay</th><th>שינוי</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  const chart = `<div class="card trend">${countChart(h.buckets, h.unit)}<p class="foot">${h.unit === 'week' ? 'לפי שבוע' : 'לפי חודש'}. הזמן זורם מימין לשמאל.</p></div>`;
+  const grid = `<div class="card heat-wrap">${hiddenGrid(h.grid)}<p class="foot">כמה הזמנות סגורות היו בכל יום ושעה בתקופה.</p></div>`;
+  return section('hidden', title, sub, `${kpis}${table}<div class="hid-when">${chart}${grid}</div>`);
 }
 
 // ---------- 5. slots ----------
@@ -148,7 +214,7 @@ function trendChart(buckets, unit, metric) {
     const v = cur(b);
     if (v !== null) s += `<rect x="${x(i) + 3}" y="${y(v)}" width="${Math.max(1, bw - 6)}" height="${y(0) - y(v)}" rx="3" class="bar-cur"><title>${fullDate(b.from)}: ${metric === 'revenue' ? tickLabel(v) : pct(v)}</title></rect>`;
     if (b.closedDays) s += `<line x1="${x(i) + 3}" x2="${x(i) + bw - 3}" y1="${H - B + 5}" y2="${H - B + 5}" class="closed-mark"/>`;
-    if (i % every === 0) s += `<text x="${x(i) + bw / 2}" y="${H - 12}" text-anchor="middle">${unit === 'week' ? shortDate(b.from) : `${Number(b.from.slice(5, 7))}.${b.from.slice(2, 4)}`}</text>`;
+    if (i % every === 0) s += `<text x="${x(i) + bw / 2}" y="${H - 12}" text-anchor="middle">${bucketLabel(b, unit)}</text>`;
   });
   const line = buckets.map((b, i) => (cmp(b) === null ? null : `${x(i) + bw / 2},${y(cmp(b))}`)).filter(Boolean);
   if (line.length > 1) s += `<polyline points="${line.join(' ')}" class="line-cmp"/>`;
@@ -242,12 +308,12 @@ function opsSection(model) {
     card(o.cancelled + o.removed, 'סשנים שבוטלו', `${o.cancelled} עם קיבולת 0 בלוח, ${o.removed} שהוסרו מהלוח לפני שהתקיימו.`),
     card(o.overbooked, 'צדדים עם הזמנת יתר', `${o.overbookedPeople} גולשים מעבר לקיבולת, בדרך כלל אחרי שהקיבולת הוקטנה.`),
   ].join('');
-  const coverage = `היסטוריה ${c.first ? `מ־${fullDate(c.first)}` : 'עוד לא נטענה'} · ${int(c.sessions)} סשנים בתקופה · ${c.snapshotsSince ? `${c.snapshots} צילומי מצב מאז ${shortDate(c.snapshotsSince)}` : 'צילומי המצב יתחילו בעדכון הבא'}${c.updatedAt ? ` · ההיסטוריה עודכנה ${formatAge(c.updatedAt)}` : ''} · מתעדכן בכל ריענון`;
+  const coverage = `היסטוריה ${c.first ? `מ־${fullDate(c.first)}` : 'עוד לא נטענה'} · ${int(c.sessions)} סשנים בתקופה · ${c.snapshotsSince ? `${c.snapshots} צילומי מצב מאז ${shortDate(c.snapshotsSince)}` : 'צילומי המצב יתחילו בעדכון הבא'}${c.updatedAt ? ` · ההיסטוריה עודכנה ${formatAge(c.updatedAt)}` : ''}${c.cms ? ` · נתוני מערכת הניהול ${dates(c.cms.from, c.cms.to)}` : ''} · מתעדכן בכל ריענון`;
   return section('ops', 'תפעול', 'קיבולת שלא הייתה למכירה, ושינויים בלוח.', `<div class="ops">${cards}</div><p class="coverage">${coverage}</p>`);
 }
 
 /** The whole tab. ui: { heatMetric: 'occupancy' | 'soldOutShare' | 'revenue', trendMetric: 'occupancy' | 'revenue' } */
 export function renderAnalysis(model, insightList, ui) {
-  return kpiSection(model) + insightSection(insightList) + heatSection(model, ui.heatMetric) + levelSection(model)
+  return kpiSection(model) + insightSection(insightList) + heatSection(model, ui.heatMetric) + levelSection(model) + hiddenSection(model)
     + slotSection(model) + trendSection(model, ui.trendMetric) + paceSection(model) + upcomingSection(model) + opsSection(model);
 }

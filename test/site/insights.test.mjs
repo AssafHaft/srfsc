@@ -112,3 +112,14 @@ test('at most six insights, the largest impact first', () => {
   assert.equal(list.length, 6);
   assert.deepEqual(list.map(i => i.impact), [7000, 6000, 5000, 4000, 3000, 2000]);
 });
+
+test('hidden-share: 10% of bookings and 20 sessions outside the public schedule', () => {
+  const hid = (over = {}) => ({ window: { from: '2026-06-13', to: '2026-09-10' }, sessions: 40, share: 0.17, categories: [{ label: 'קבוצות וארגונים', share: 0.37 }], ...over });
+  const [i] = insights(model({ hidden: hid() }));
+  assert.deepEqual([i.rule, i.tone, i.link, i.impact], ['hidden-share', 'info', 'hidden', null]);
+  assert.equal(i.text, '17% מההזמנות בתקופה לא עברו בלוח הציבורי, בעיקר קבוצות וארגונים (37%).');
+  assert.equal(insights(model({ hidden: hid({ share: 0.1 }) })).length, 1);
+  assert.deepEqual(insights(model({ hidden: hid({ share: 0.09 }) })), []);
+  assert.deepEqual(insights(model({ hidden: hid({ sessions: 19 }) })), []);
+  assert.deepEqual(insights(model({ hidden: { window: null } })), []);
+});
