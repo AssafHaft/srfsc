@@ -12,7 +12,18 @@
 <script type="module" src="app.js"></script>
 </head>
 <body>
-<div class="wrap">
+<section class="gate" id="gate" aria-labelledby="gate-title">
+  <div class="gate-card">
+    <span class="gate-mark" aria-hidden="true">🌊</span>
+    <h1 id="gate-title">לוח סשנים</h1>
+    <p>SRF Park TLV</p>
+    <label for="gate-input">הזינו קוד</label>
+    <input id="gate-input" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off" autofocus dir="ltr" aria-describedby="gate-error">
+    <p class="gate-error" id="gate-error" role="alert" hidden>קוד שגוי</p>
+  </div>
+</section>
+
+<div class="wrap" hidden>
   <header class="top">
     <div class="brand">
       <h1>לוח סשנים</h1>

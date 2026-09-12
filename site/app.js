@@ -1,5 +1,6 @@
 // Page glue: loads the data, keeps UI state, renders the schedule and analysis tabs, runs the refresh button.
-import { CONFIG, PRICES } from './config.js';
+import { CODE_HASH, CONFIG, PRICES } from './config.js';
+import { CODE_LENGTH, checkCode, codeFrom } from './lib/gate.mjs';
 import { HE_DAYS, addDays, dayOfWeek, formatAge, israelTime, israelToday, monthsBetween, shortDate } from './lib/time.mjs';
 import { isStale } from './lib/stale.mjs';
 import { RefreshError, refresh } from './lib/refresh.mjs';
@@ -360,5 +361,27 @@ function tick() {
   if (scrollLeft !== undefined && scroller) scroller.scrollLeft = scrollLeft;
 }
 
-setInterval(tick, 60000); // keeps "now", finished sessions and "updated N minutes ago" current
-load();
+// ---------- code screen ----------
+
+// Asked on every visit; the page fetches nothing until the code is right.
+function unlock() {
+  $('#gate').remove();
+  $('.wrap').hidden = false;
+  setInterval(tick, 60000); // keeps "now", finished sessions and "updated N minutes ago" current
+  load();
+}
+
+$('#gate-input').addEventListener('input', async event => {
+  const input = event.target;
+  const code = codeFrom(input.value);
+  input.value = code;
+  $('#gate-error').hidden = true;
+  if (code.length < CODE_LENGTH) return;
+  if (await checkCode(code, CODE_HASH)) return unlock();
+  input.value = '';
+  $('#gate-error').hidden = false;
+  input.classList.remove('is-wrong');
+  void input.offsetWidth; // restart the shake on a second wrong code
+  input.classList.add('is-wrong');
+});
+$('#gate-input').focus();
