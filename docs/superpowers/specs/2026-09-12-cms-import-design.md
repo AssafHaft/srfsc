@@ -92,7 +92,9 @@ No new dependency. `readXlsx` walks the zip's central directory, inflates entrie
 `zlib.inflateRawSync` (method 8) or copies them (method 0), finds the first sheet listed in
 `xl/workbook.xml` through `xl/_rels/workbook.xml.rels`, and reads its cells. It supports inline
 strings (`t="inlineStr"`), shared strings (`t="s"`) and plain values, and places cells by their
-column letters so empty cells stay empty.
+column letters so empty cells stay empty. Values in `<v>` tags carrying attributes (such as
+`xml:space="preserve"`) and `t="str"` (formula-string) cells are read too, as the real export
+writes them.
 
 ### 4.3 Parsing and validation
 
@@ -139,7 +141,10 @@ column letters so empty cells stay empty.
 
 - The import refuses to run when `index.json` already has `cms` ("already imported on …"), so hidden
   rows can't be duplicated.
-- It writes nothing until every step has succeeded, and nothing at all with `--dry-run`.
+- It reads and merges everything before writing anything. It writes `index.json` (carrying `cms`
+  and every month it wrote) before the month files, so a retry after a failed write is refused
+  (`index.json` already has `cms`) and the history is restored with git. It writes nothing at all
+  with `--dry-run`.
 - The summary lists: rows read, rows skipped by reason, pairs, booked changes (count and net people),
   our rows not in the export, hidden rows and bookings per category.
 
@@ -178,7 +183,9 @@ already final.
 - **Returned for the window** (and the same totals for the comparison window):
   - `people`: Σ booked of hidden rows; `sessions`: their count;
   - `share`: people ÷ (people + Σ booked of counted public rows in the window);
-  - `reefShare`: hidden reef rows ÷ reef rows of kind surf, event, blocked or hidden in the window;
+  - `reefShare`: distinct reef side-hours (`date|side|hour`, hour rounded up to the whole hour) that
+    hold a hidden row and no counted row, ÷ distinct reef side-hours with any row of kind surf,
+    event, blocked or hidden in the window;
   - `categories`: one entry per category that occurs, sorted by people:
     `{ label, people, sessions, share, avgSize, bayShare, cmpPeople }` (`share` of the window's
     hidden people; `cmpPeople` null without a comparison);
@@ -196,7 +203,7 @@ Placed after "מה נמכר" (id `a-hidden`); `LINKS.hidden = 'לפעילות ה
   מערכת הניהול, 1.5.2025–10.9.2026. סינון הרמות לא חל כאן." When `partial`, it adds "בתקופה שנבחרה
   הנתונים מכסים רק את <window dates>."
 - **Empty state (no window):** "אין נתוני מערכת ניהול לתקופה הזו – הייצוא מכסה 1.5.2025–10.9.2026.
-  בחרו 12 חודשים או הכול."
+  בחרו ״הכול״ כדי לראות אותם."
 - **Tiles:**
   - "הזמנות סגורות": people, change in %;
   - "חלק מכל ההזמנות": share, change in points;
@@ -257,7 +264,9 @@ Rule `hidden-share` in `insights.mjs`:
 1. Implement on `schedule-analysis`, reviewed task by task.
 2. Dry-run on the owner's file. Expected results: about 14,564 pairs, 333 booked changes on counted
    public sessions (−418 people), 3,348 hidden rows (18,325 bookings). A large difference stops the
-   rollout for investigation.
+   rollout for investigation. The real run changed 354 booked counts (−516 people) across all
+   pairs, because the 333/−418 figure counted only surf and lesson sessions; it found exactly
+   14,564 pairs and 3,348 hidden rows (18,325 bookings).
 3. Run it for real, then check that no export name that the public schedule never published appears
    anywhere under `site/data`.
 4. Commit the data on its own. The README documents the one-time import and that it refuses to run
