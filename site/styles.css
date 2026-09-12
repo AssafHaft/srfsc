@@ -366,3 +366,18 @@ svg .closed-mark { stroke: var(--mist-2); stroke-width: 3; stroke-dasharray: 4 3
   .kpis.hid, .hid-when { grid-template-columns: 1fr; }
 }
 .up, .pace { align-items: start; }
+
+/* ---------- code screen (asked on every visit; a curtain, not a lock) ---------- */
+.gate { min-height: 100vh; min-height: 100dvh; display: grid; place-items: center; padding: 24px; }
+.gate-card { width: min(340px, 100%); padding: 32px 28px 28px; background: var(--deck); border: 1px solid var(--line); border-radius: 20px; text-align: center; box-shadow: 0 12px 32px rgb(15 43 53 / .08); }
+.gate-mark { font-size: 34px; line-height: 1; }
+.gate h1 { font-family: var(--display); font-weight: 400; font-size: 32px; line-height: 1; margin: 12px 0 4px; }
+.gate p { margin: 0; color: var(--mist); font-size: 14px; }
+.gate label { display: block; margin: 24px 0 8px; font-size: 14px; font-weight: 500; }
+.gate input { width: 100%; font: inherit; font-size: 26px; letter-spacing: .5em; text-align: center; padding: 10px 12px 10px calc(12px + .5em); border: 1.5px solid var(--line); border-radius: 12px; background: var(--foam); color: var(--deep); }
+.gate input:focus { outline: none; border-color: var(--deep); background: var(--deck); }
+.gate input.is-wrong { border-color: var(--rescue); animation: shake .35s; }
+.gate .gate-error { margin-top: 10px; color: var(--rescue-ink); font-weight: 500; }
+@keyframes shake { 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+.wrap:not([hidden]) { animation: fade-in .3s ease-out; }
+@keyframes fade-in { from { opacity: 0; } }

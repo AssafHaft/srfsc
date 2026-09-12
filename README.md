@@ -17,6 +17,8 @@ The page is static HTML and JavaScript with no build step and no dependencies. T
 
 History from 1.5.2025 to 10.9.2026 also holds a one-time import of the park's management-system (CMS) export. Public sessions carry its booked counts, and bookings the public schedule never showed (groups, camps, events, private lessons, clubs, courses) are stored by category only, never by name. The analysis tab shows them in their own section.
 
+The page opens on a 6-digit code screen, asked on every visit. It's a curtain, not a lock: the site, its code and its data files stay public, so it only keeps out people who open the link. The code is stored only as a SHA-256 hash, `CODE_HASH` in `site/config.js`, which also says how to change it.
+
 ## Working on it
 
 Needs Node 20 or newer. There's nothing to install.
