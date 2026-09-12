@@ -111,11 +111,11 @@ Used everywhere (scraper, analysis, page):
 `scraper/update-history.mjs` runs after every successful scrape:
 
 1. **Upcoming:** for every session in the fresh `schedule.json`, upsert its row by id in its month file. Copy the latest fields (a session can change level, capacity or name) and recompute `kind`. Append a pace entry if booked changed or the row is new. Minutes before start = start time (Israel local) − `fetchedAt`, rounded to the minute.
-2. **Final counts:** fetch one past window starting today − 3, covering the last 3 days. For each of its rows, set capacity, booked, kind and `final: true`. Rows we hold for those dates that the window lacks become `kind: "removed"`. Merge its close days into `closed`. If this fetch fails, skip this step, log a warning, and keep going.
+2. **Final counts:** fetch the past windows from the day after the last day that has the park's final counts — at least the last 3 days (today − 3), at most 30 days back — one 3-day window at a time; normally that is one window. For each of its rows, set capacity, booked, kind and `final: true`. Rows we hold for those dates that the window lacks become `kind: "removed"`. Merge its close days into `closed`. If this fetch fails, skip this step, log a warning, and keep going.
 3. **Fallback:** any row dated before today − 3 that still isn't final gets `final: "snapshot"` with its last known numbers. This covers the park no longer serving past data.
 4. Write the changed month files and `index.json`, with `snapshots` + 1.
 
-Politeness: one extra request per run (about 36 more a day at the new cron).
+Politeness: one extra request per run (about 36 more a day at the new cron). A run after a gap (the time between the backfill and the first run, or an outage) makes one request per missed 3 days.
 
 ### 4.4 Backfill
 

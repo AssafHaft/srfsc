@@ -1,12 +1,12 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { normalize } from '../normalize.mjs';
-import { parseMonth } from '../history.mjs';
+import { formatMonth, parseMonth } from '../history.mjs';
 import { updateHistory } from '../update-history.mjs';
-import { fixtureFetch, fixtureWindow, recordingSleep, scriptedFetch } from '../test-support/fake-park.mjs';
+import { fixtureFetch, fixtureWindow, isoFromUrl, recordingSleep, scriptedFetch } from '../test-support/fake-park.mjs';
 
 const NOW = new Date('2026-09-13T06:17:05Z'); // 09:17 in Israel: final counts cover 10–12/09
 const UPCOMING = ['2026-09-13', '2026-09-16', '2026-09-19', '2026-09-22', '2026-09-25', '2026-09-28'];
@@ -61,4 +61,14 @@ test('a second update appends pace only for changed counts; a failed past window
   assert.ok(sept.sessions.filter(r => r.date < '2026-09-13').every(r => r.final === true)); // from the first run
   assert.ok(lines.some(l => l.startsWith('warning: final counts for 2026-09-10..2026-09-12 skipped')), lines.join('\n'));
   assert.equal(index.snapshots, 2);
+});
+
+test('updateHistory catches up the final counts from the day after the last final day', async () => {
+  const { dir, scheduleFile } = await setup();
+  const lastFinal = { id: 1, date: '2026-09-06', start: '08:00', end: '09:00', level: 3, area: 'reef', side: 'right', kids: false, name: 'L3', kind: 'surf', capacity: 18, booked: 5, final: true, pace: [] };
+  await mkdir(dir, { recursive: true });
+  await writeFile(join(dir, '2026-09.json'), formatMonth({ month: '2026-09', closed: [], sessions: [lastFinal] }));
+  const fetchImpl = fixtureFetch();
+  await updateHistory({ dir, scheduleFile, now: NOW, fetchImpl, log: quiet });
+  assert.deepEqual(fetchImpl.calls.map(c => isoFromUrl(c.url)), ['2026-09-07', '2026-09-10']);
 });

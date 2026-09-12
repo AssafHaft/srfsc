@@ -43,7 +43,7 @@ function schedule() {
 const model = () => analyse({
   rows: history(), closed: [{ date: '2026-07-01', text: 'תחזוקה' }], range: periodRange('90d', '2026-09-11', '2025-04-02'),
   levels: new Set(), prices: PRICES, schedule: schedule(), now: new Date('2026-09-11T13:00:00Z'),
-  index: { first: '2025-04-02', snapshots: 3, snapshotsSince: '2026-09-10' },
+  index: { first: '2025-04-02', snapshots: 3, snapshotsSince: '2026-09-10', updatedAt: '2026-09-10T20:00:00+03:00' },
 });
 
 test('money: millions, thousands, and small amounts', () => {
@@ -76,6 +76,7 @@ test('renderAnalysis: nine sections in order, the numbers, and escaped park text
   assert.ok(html.includes('L4 &lt;x&gt;') && !html.includes('L4 <x>'));
   assert.ok(html.includes('1.7 תחזוקה'));
   assert.ok(html.includes('(ריף L1–L4 360 ₪, L5–L6 390 ₪, Bay מבוגרים 250 ₪, Bay ילדים 195 ₪)'));
+  assert.match(html, /ההיסטוריה עודכנה לפני /);
 });
 
 test('renderAnalysis: collecting card before pace is ready, and the at-risk overflow in a details box', () => {
@@ -84,6 +85,7 @@ test('renderAnalysis: collecting card before pace is ready, and the at-risk over
   assert.equal(count(html, '<div class="rrow">'), 10);
   assert.ok(html.includes('<details class="more"><summary>ועוד 3 סשנים</summary>'));
   assert.ok(html.includes('אין מסקנות בולטות'));
+  assert.ok(html.includes('בעוד שעה') && !html.includes('בעוד 1 שעות'));
 });
 
 test('renderAnalysis: the heat and trend switches change what is drawn', () => {

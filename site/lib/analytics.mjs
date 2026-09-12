@@ -1,6 +1,6 @@
 // The analysis tab's numbers (analysis spec sections 3 and 6). Pure functions over history rows
 // { id, date, start, end, level, area, side, kids, name, kind, capacity, booked, final, pace }.
-import { addDays, dayOfWeek, daysBetween, israelInstant, monthsBetween } from './time.mjs';
+import { addDays, dayOfWeek, daysBetween, israelInstant, israelToday, monthsBetween } from './time.mjs';
 import { classify, isKids } from './history.mjs';
 
 export const LEVEL_KEYS = ['bay-adult', 'bay-kids', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6'];
@@ -237,11 +237,11 @@ export function upcoming(schedule, { now, prices, levels, paceModel = null }) {
   const rows = schedule.days
     .flatMap(d => d.sessions.map(s => ({ ...s, date: d.date, kids: s.area === 'bay' && isKids(s.name), kind: classify(s) })))
     .filter(r => isCounted(r) && matchesLevels(r, levels) && israelInstant(r.date, r.end) > nowMs);
-  const today = schedule.days[0]?.date;
+  const today = israelToday(now);
   const days = [...groupBy(rows, r => r.date)].sort(([a], [b]) => a.localeCompare(b)).map(([date, g]) => {
     const a = aggregate(g, prices);
     const curve = paceModel?.ready ? (isWeekend(date) ? paceModel.weekend : paceModel.weekday) : null;
-    const usual = curve && today ? curveAt(curve, daysBetween(today, date)) : null;
+    const usual = curve ? curveAt(curve, daysBetween(today, date)) : null;
     return { date, occupancy: a.occupancy, capacity: a.capacity, spotsSold: a.spotsSold, usual };
   });
   const startsIn = r => (israelInstant(r.date, r.start) - nowMs) / 3600000;
@@ -298,6 +298,6 @@ export function analyse({ rows, closed, range, levels, prices, schedule, now, in
     pace: paceModel,
     upcoming: upcoming(schedule, { now, prices, levels, paceModel }),
     ops: operations(rows, closed, range, levels),
-    coverage: { first: index?.first ?? null, sessions: cur.length, snapshots: index?.snapshots ?? 0, snapshotsSince: index?.snapshotsSince ?? null },
+    coverage: { first: index?.first ?? null, sessions: cur.length, snapshots: index?.snapshots ?? 0, snapshotsSince: index?.snapshotsSince ?? null, updatedAt: index?.updatedAt ?? null },
   };
 }

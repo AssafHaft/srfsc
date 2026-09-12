@@ -1,12 +1,13 @@
 // CLI: records the fresh site/data/schedule.json into the monthly history files, and takes the
-// park's final counts for the last 3 days (analysis spec section 4.3). Runs after scrape.mjs.
+// park's final counts for the last 3 days, catching up further when needed (analysis spec section
+// 4.3). Runs after scrape.mjs.
 // Usage: node scraper/update-history.mjs
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { addDays, israelToday, monthsBetween } from '../site/lib/time.mjs';
 import { fetchWindow } from './fetch.mjs';
-import { applyFinal, earliestDate, finalizeStale, formatMonth, nextIndex, parseMonth, upsertUpcoming } from './history.mjs';
+import { applyFinal, earliestDate, finalFrom, finalizeStale, formatMonth, nextIndex, parseMonth, upsertUpcoming } from './history.mjs';
 import { DATA_FILE } from './scrape.mjs';
 
 export const HISTORY_DIR = fileURLToPath(new URL('../site/data/history/', import.meta.url));
@@ -53,14 +54,18 @@ export const writeIndex = (dir, index) => writeFile(join(dir, 'index.json'), `${
 export async function updateHistory({ dir = HISTORY_DIR, scheduleFile = DATA_FILE, now = new Date(), log = console.log, ...fetchOptions } = {}) {
   const schedule = JSON.parse(await readFile(scheduleFile, 'utf8'));
   const today = israelToday(now);
-  const from = addDays(today, -3);
-  const to = addDays(today, -1);
+  const yesterday = addDays(today, -1);
   const store = await readMonths(dir, monthsBetween(addDays(today, -31), schedule.publishedThrough ?? today));
   upsertUpcoming(store, schedule);
-  try {
-    applyFinal(store, await fetchWindow(from, { log, ...fetchOptions }), { from, to });
-  } catch (err) {
-    log(`warning: final counts for ${from}..${to} skipped: ${err.message}`);
+  // normally one window (the last 3 days); more to catch up when the last final counts are older
+  for (let from = finalFrom(store, today, addDays(today, -30)); from <= yesterday; from = addDays(from, 3)) {
+    const to = addDays(from, 2) < yesterday ? addDays(from, 2) : yesterday;
+    try {
+      applyFinal(store, await fetchWindow(from, { log, ...fetchOptions }), { from, to });
+    } catch (err) {
+      log(`warning: final counts for ${from}..${to} skipped: ${err.message}`);
+      break;
+    }
   }
   finalizeStale(store, today);
   const months = await writeMonths(dir, store);

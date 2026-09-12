@@ -169,6 +169,14 @@ test('upcoming: booked share per day, and sessions at risk in the next 48 hours'
   assert.deepEqual(upcoming(schedule, { now: new Date('2026-09-11T13:00:00Z'), prices: PRICES, levels: new Set([2]) }).atRisk, []);
 });
 
+test('upcoming: the usual fill counts days from now, even when schedule.json still starts yesterday', () => {
+  const s = { id: 1, start: '18:00', end: '19:00', name: 'L4', level: 4, area: 'reef', side: 'right', capacity: 10, booked: 5, spotsLeft: 5, available: true, blocked: false };
+  const curve = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8];
+  const schedule = { days: [{ date: '2026-09-10', sessions: [] }, { date: '2026-09-13', sessions: [s] }] };
+  const u = upcoming(schedule, { now: new Date('2026-09-11T03:00:00Z'), prices: PRICES, levels: ALL, paceModel: { ready: true, weekday: curve, weekend: curve } });
+  close(u.days[0].usual, curveAt(curve, 2)); // 11.9 → 13.9 is 2 days, not 3
+});
+
 test('operations: closures, blocked events, cancellations, removals and overbooking in the period', () => {
   const rows = [
     row({ id: 1, kind: 'blocked', name: 'אירוע סגור' }), row({ id: 2, kind: 'blocked', name: 'אירוע סגור' }), row({ id: 3, kind: 'blocked', name: 'Private' }),
@@ -188,9 +196,9 @@ test('analyse builds every section and counts the period for the coverage line',
   const rows = ['2026-08-16', '2026-08-23', '2026-08-30', '2026-09-06'].map((date, i) => row({ id: i, date }));
   const model = analyse({
     rows, closed: [], range: periodRange('30d', '2026-09-11', '2025-04-02'), levels: ALL, prices: PRICES,
-    schedule: { days: [] }, now: new Date('2026-09-11T13:00:00Z'), index: { first: '2025-04-02', snapshots: 12, snapshotsSince: '2026-09-12' },
+    schedule: { days: [] }, now: new Date('2026-09-11T13:00:00Z'), index: { first: '2025-04-02', snapshots: 12, snapshotsSince: '2026-09-12', updatedAt: '2026-09-12T06:17:00+03:00' },
   });
   assert.deepEqual(Object.keys(model), ['range', 'prices', 'kpis', 'split', 'heat', 'levels', 'slots', 'trend', 'pace', 'upcoming', 'ops', 'coverage']);
   assert.deepEqual([model.kpis.cur.sessions, model.kpis.cur.daysOpen, model.kpis.cmp.sessions], [4, 4, 0]);
-  assert.deepEqual(model.coverage, { first: '2025-04-02', sessions: 4, snapshots: 12, snapshotsSince: '2026-09-12' });
+  assert.deepEqual(model.coverage, { first: '2025-04-02', sessions: 4, snapshots: 12, snapshotsSince: '2026-09-12', updatedAt: '2026-09-12T06:17:00+03:00' });
 });

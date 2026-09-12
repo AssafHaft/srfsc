@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { normalize } from '../normalize.mjs';
 import {
-  applyFinal, compareRows, finalizeStale, formatMonth, minutesBefore, nextIndex, parseMonth, toRow, upsertUpcoming,
+  applyFinal, compareRows, finalFrom, finalizeStale, formatMonth, minutesBefore, nextIndex, parseMonth, toRow, upsertUpcoming,
 } from '../history.mjs';
 import { fixtureWindow } from '../test-support/fake-park.mjs';
 
@@ -92,6 +92,12 @@ test('applyFinal takes the park counts for its range, keeps pace, and marks unli
   assert.ok(allRows(store).filter(x => x.date >= '2026-09-13').every(x => x.final === false));
 });
 
+test('applyFinal does not mark sessions removed on an empty window with no closures', () => {
+  const store = { '2026-09': { month: '2026-09', closed: [], sessions: [row({ date: '2026-09-11' })] } };
+  applyFinal(store, { scheduler: [], close_days: [] }, { from: '2026-09-11', to: '2026-09-13' });
+  assert.deepEqual([store['2026-09'].sessions[0].kind, store['2026-09'].sessions[0].final], ['surf', false]);
+});
+
 test('applyFinal records close days with tidy text, and marks the sessions of a closed day removed', () => {
   const store = { '2026-09': { month: '2026-09', closed: [], sessions: [row({ date: '2026-09-11' })] } };
   applyFinal(store, { scheduler: [], close_days: [{ date: '2026-09-11', text: 'סגור\n לתחזוקה ' }] }, { from: '2026-09-11', to: '2026-09-13' });
@@ -105,6 +111,15 @@ test('finalizeStale keeps the last snapshot for rows more than 3 days old', () =
   ] } };
   finalizeStale(store, '2026-09-10');
   assert.deepEqual(store['2026-09'].sessions.map(r => r.final), ['snapshot', false, true]);
+});
+
+test('finalFrom: three days back normally, earlier to catch up after a gap, never before the floor', () => {
+  const store = (...rows) => ({ '2026-09': { month: '2026-09', closed: [], sessions: rows } });
+  assert.equal(finalFrom({}, '2026-09-20', '2026-08-21'), '2026-09-17');
+  assert.equal(finalFrom(store(row({ date: '2026-09-18', final: true })), '2026-09-20', '2026-08-21'), '2026-09-17');
+  assert.equal(finalFrom(store(row({ date: '2026-09-10', final: true })), '2026-09-20', '2026-08-21'), '2026-09-11');
+  assert.equal(finalFrom(store(row({ date: '2026-09-10', final: true }), row({ id: 2, date: '2026-09-15', final: 'snapshot' })), '2026-09-20', '2026-08-21'), '2026-09-11');
+  assert.equal(finalFrom({ '2026-08': { month: '2026-08', closed: [], sessions: [row({ date: '2026-08-01', final: true })] } }, '2026-09-20', '2026-08-21'), '2026-08-21');
 });
 
 test('formatMonth writes one sorted session per line with names by index, and parses back', () => {

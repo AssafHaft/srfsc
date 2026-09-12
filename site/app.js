@@ -110,6 +110,7 @@ async function loadHistory() {
 }
 
 function renderAnalysisTab() {
+  $('#compare-note').textContent = '';
   const h = state.history;
   $('#history-error').hidden = h.status !== 'error';
   if (h.status === 'error') {

@@ -1,9 +1,8 @@
 // HTML for the analysis tab (analysis spec section 7). Pure functions returning strings.
 // Park text (session names, closure reasons) is escaped before it reaches the HTML.
-import { HE_DAYS, HE_DAYS_SHORT, addDays, dayOfWeek, shortDate } from './time.mjs';
+import { HE_DAYS, HE_DAYS_SHORT, addDays, dayOfWeek, formatAge, shortDate } from './time.mjs';
 import { PERIODS } from './history.mjs';
 import { PACE } from './analytics.mjs';
-import { levelLabel } from './insights.mjs';
 import { escapeHtml } from './render.mjs';
 
 const PERIOD_LABELS = { '30d': '30 יום', '90d': '90 יום', '12m': '12 חודשים', all: 'הכול' };
@@ -87,7 +86,7 @@ function heatSection(model, metric) {
   const max = Math.max(...heat.flatMap(r => r.cells.filter(Boolean).map(c => c.revenue)), 1);
   const value = c => (metric === 'revenue' ? c.revenue / max : c[metric]);
   const step = c => HEAT_STEPS[metric].filter(t => value(c) >= t).length;
-  const label = c => (metric === 'revenue' ? `${Math.round(c.revenue / 1000)}K` : pct(c[metric]));
+  const label = c => (metric === 'revenue' ? (c.revenue >= 1000 ? `${Math.round(c.revenue / 1000)}K` : int(c.revenue)) : pct(c[metric]));
   const head = `<div></div>${HE_DAYS.map((_, i) => `<div class="hd"><b>${HE_DAYS_SHORT[i]}</b>${i >= 5 ? 'סופ״ש' : ''}</div>`).join('')}`;
   const rows = heat.map(r => `<div class="hr num">${r.hour}:00</div>${r.cells.map((c, d) => (c
     ? `<div class="c s${step(c)} num" title="${HE_DAYS[d]} ${r.hour}:00 · ${c.sessions} סשנים · תפוסה ${pct(c.occupancy)} · נמכרו עד הסוף ${pct(c.soldOutShare)}">${label(c)}</div>`
@@ -206,8 +205,10 @@ function paceSection(model) {
 
 // ---------- 8. upcoming ----------
 
+const startsIn = hours => (hours < 1 ? 'מתחיל בקרוב' : hours === 1 ? 'בעוד שעה' : hours === 2 ? 'בעוד שעתיים' : `בעוד ${hours} שעות`);
+
 function riskRow(r) {
-  return `<div class="rrow"><span class="when"><b>${HE_DAYS_SHORT[dayOfWeek(r.date)]} <span class="ltr num">${r.start}</span></b><span>בעוד ${r.hours} שעות</span></span>${levelChip(r.level)}`
+  return `<div class="rrow"><span class="when"><b>${HE_DAYS_SHORT[dayOfWeek(r.date)]} <span class="ltr num">${r.start}</span></b><span>${startsIn(r.hours)}</span></span>${levelChip(r.level)}`
     + `<span class="nm">${escapeHtml(r.name)}</span><span class="fill num">${r.booked}/${r.capacity}<small>${money(r.emptyValue)} פתוח</small></span></div>`;
 }
 
@@ -241,7 +242,7 @@ function opsSection(model) {
     card(o.cancelled + o.removed, 'סשנים שבוטלו', `${o.cancelled} עם קיבולת 0 בלוח, ${o.removed} שהוסרו מהלוח לפני שהתקיימו.`),
     card(o.overbooked, 'צדדים עם הזמנת יתר', `${o.overbookedPeople} גולשים מעבר לקיבולת, בדרך כלל אחרי שהקיבולת הוקטנה.`),
   ].join('');
-  const coverage = `היסטוריה ${c.first ? `מ־${fullDate(c.first)}` : 'עוד לא נטענה'} · ${int(c.sessions)} סשנים בתקופה · ${c.snapshotsSince ? `${c.snapshots} צילומי מצב מאז ${shortDate(c.snapshotsSince)}` : 'צילומי המצב יתחילו בעדכון הבא'} · מתעדכן בכל ריענון`;
+  const coverage = `היסטוריה ${c.first ? `מ־${fullDate(c.first)}` : 'עוד לא נטענה'} · ${int(c.sessions)} סשנים בתקופה · ${c.snapshotsSince ? `${c.snapshots} צילומי מצב מאז ${shortDate(c.snapshotsSince)}` : 'צילומי המצב יתחילו בעדכון הבא'}${c.updatedAt ? ` · ההיסטוריה עודכנה ${formatAge(c.updatedAt)}` : ''} · מתעדכן בכל ריענון`;
   return section('ops', 'תפעול', 'קיבולת שלא הייתה למכירה, ושינויים בלוח.', `<div class="ops">${cards}</div><p class="coverage">${coverage}</p>`);
 }
 

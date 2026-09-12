@@ -92,6 +92,8 @@ export function applyFinal(store, window, { from, to }) {
   for (const c of window.close_days ?? []) {
     if (c.date >= from && c.date <= to) addClosed(store, c.date, String(c.text ?? '').replace(/\s+/g, ' ').trim() || 'סגור');
   }
+  // An empty window with no closures is more likely a park glitch than 3 days of removed sessions.
+  if (!listed.size && !(window.close_days ?? []).length) return store;
   for (const m of Object.values(store)) {
     for (const r of m.sessions) {
       if (r.date >= from && r.date <= to && !listed.has(r.id)) {
@@ -110,6 +112,23 @@ export function finalizeStale(store, today) {
     for (const r of m.sessions) if (r.final === false && r.date < cutoff) r.final = 'snapshot';
   }
   return store;
+}
+
+/**
+ * The first date whose final counts to fetch: normally today − 3; earlier when the last day with the
+ * park's final counts is older (the time between the backfill and the first run, or an outage),
+ * but never before `floor`.
+ */
+export function finalFrom(store, today, floor) {
+  const normal = addDays(today, -3);
+  const latest = Object.values(store)
+    .flatMap(m => m.sessions)
+    .filter(r => r.final === true && r.date < today)
+    .reduce((max, r) => (r.date > max ? r.date : max), '');
+  if (!latest) return normal;
+  const next = addDays(latest, 1);
+  if (next >= normal) return normal;
+  return next < floor ? floor : next;
 }
 
 /** A month → its file text: names by index, closed days, then one session per line. */
