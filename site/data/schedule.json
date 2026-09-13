@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-09-13T15:19:03+03:00",
+  "fetchedAt": "2026-09-13T16:28:28+03:00",
   "publishedThrough": "2026-09-27",
   "days": [
     {
@@ -311,9 +311,9 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 18,
-          "spotsLeft": 0,
-          "available": false,
+          "booked": 17,
+          "spotsLeft": 1,
+          "available": true,
           "blocked": false
         },
         {
@@ -437,9 +437,9 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 17,
-          "spotsLeft": 1,
-          "available": true,
+          "booked": 18,
+          "spotsLeft": 0,
+          "available": false,
           "blocked": false
         },
         {
@@ -473,8 +473,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 3,
-          "spotsLeft": 12,
+          "booked": 7,
+          "spotsLeft": 8,
           "available": true,
           "blocked": false
         },
@@ -501,8 +501,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 2,
-          "spotsLeft": 16,
+          "booked": 3,
+          "spotsLeft": 15,
           "available": true,
           "blocked": false
         },
@@ -809,8 +809,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 19,
-          "booked": 13,
-          "spotsLeft": 6,
+          "booked": 14,
+          "spotsLeft": 5,
           "available": true,
           "blocked": false
         },
@@ -851,8 +851,8 @@
           "area": "bay",
           "side": "right",
           "capacity": 10,
-          "booked": 0,
-          "spotsLeft": 10,
+          "booked": 1,
+          "spotsLeft": 9,
           "available": true,
           "blocked": false
         },
@@ -921,8 +921,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 12,
-          "booked": 2,
-          "spotsLeft": 10,
+          "booked": 1,
+          "spotsLeft": 11,
           "available": true,
           "blocked": false
         },
@@ -1903,8 +1903,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 4,
-          "spotsLeft": 11,
+          "booked": 5,
+          "spotsLeft": 10,
           "available": true,
           "blocked": false
         },
@@ -2093,8 +2093,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 20,
-          "booked": 0,
-          "spotsLeft": 20,
+          "booked": 2,
+          "spotsLeft": 18,
           "available": true,
           "blocked": false
         },
@@ -2205,8 +2205,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 0,
-          "spotsLeft": 18,
+          "booked": 1,
+          "spotsLeft": 17,
           "available": true,
           "blocked": false
         },
@@ -3145,8 +3145,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 20,
-          "booked": 1,
-          "spotsLeft": 19,
+          "booked": 2,
+          "spotsLeft": 18,
           "available": true,
           "blocked": false
         },
@@ -3159,8 +3159,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 20,
-          "booked": 3,
-          "spotsLeft": 17,
+          "booked": 4,
+          "spotsLeft": 16,
           "available": true,
           "blocked": false
         },
@@ -3173,8 +3173,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 3,
-          "spotsLeft": 15,
+          "booked": 4,
+          "spotsLeft": 14,
           "available": true,
           "blocked": false
         },
@@ -3285,8 +3285,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 2,
-          "spotsLeft": 16,
+          "booked": 1,
+          "spotsLeft": 17,
           "available": true,
           "blocked": false
         },
