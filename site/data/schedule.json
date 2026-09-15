@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-09-15T16:52:42+03:00",
+  "fetchedAt": "2026-09-15T17:02:00+03:00",
   "publishedThrough": "2026-09-29",
   "days": [
     {
@@ -297,8 +297,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 20,
-          "booked": 9,
-          "spotsLeft": 11,
+          "booked": 8,
+          "spotsLeft": 12,
           "available": true,
           "blocked": false
         },
@@ -353,8 +353,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 19,
-          "booked": 9,
-          "spotsLeft": 10,
+          "booked": 10,
+          "spotsLeft": 9,
           "available": true,
           "blocked": false
         },
@@ -451,9 +451,9 @@
           "area": "reef",
           "side": "left",
           "capacity": 12,
-          "booked": 8,
-          "spotsLeft": 4,
-          "available": true,
+          "booked": 12,
+          "spotsLeft": 0,
+          "available": false,
           "blocked": false
         },
         {
@@ -465,8 +465,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 6,
-          "spotsLeft": 9,
+          "booked": 7,
+          "spotsLeft": 8,
           "available": true,
           "blocked": false
         },
@@ -501,8 +501,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 2,
-          "spotsLeft": 13,
+          "booked": 3,
+          "spotsLeft": 12,
           "available": true,
           "blocked": false
         },
@@ -557,8 +557,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 2,
-          "spotsLeft": 13,
+          "booked": 3,
+          "spotsLeft": 12,
           "available": true,
           "blocked": false
         },
@@ -655,8 +655,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 20,
-          "booked": 8,
-          "spotsLeft": 12,
+          "booked": 7,
+          "spotsLeft": 13,
           "available": true,
           "blocked": false
         },
@@ -683,8 +683,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 7,
-          "spotsLeft": 11,
+          "booked": 6,
+          "spotsLeft": 12,
           "available": true,
           "blocked": false
         },
@@ -893,8 +893,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 20,
-          "booked": 4,
-          "spotsLeft": 16,
+          "booked": 5,
+          "spotsLeft": 15,
           "available": true,
           "blocked": false
         },
@@ -999,8 +999,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 2,
-          "spotsLeft": 13,
+          "booked": 1,
+          "spotsLeft": 14,
           "available": true,
           "blocked": false
         },
@@ -1461,8 +1461,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 15,
-          "booked": 1,
-          "spotsLeft": 14,
+          "booked": 2,
+          "spotsLeft": 13,
           "available": true,
           "blocked": false
         }
@@ -1539,8 +1539,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 7,
-          "spotsLeft": 8,
+          "booked": 6,
+          "spotsLeft": 9,
           "available": true,
           "blocked": false
         },
@@ -1595,8 +1595,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 4,
-          "spotsLeft": 14,
+          "booked": 5,
+          "spotsLeft": 13,
           "available": true,
           "blocked": false
         },
@@ -1693,8 +1693,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 20,
-          "booked": 5,
-          "spotsLeft": 15,
+          "booked": 4,
+          "spotsLeft": 16,
           "available": true,
           "blocked": false
         },
