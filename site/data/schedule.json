@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-09-20T19:50:15+03:00",
+  "fetchedAt": "2026-09-20T22:27:30+03:00",
   "publishedThrough": "2026-10-04",
   "days": [
     {
@@ -851,8 +851,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 0,
-          "spotsLeft": 18,
+          "booked": 3,
+          "spotsLeft": 15,
           "available": true,
           "blocked": false
         },
@@ -2051,8 +2051,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 2,
-          "spotsLeft": 16,
+          "booked": 3,
+          "spotsLeft": 15,
           "available": true,
           "blocked": false
         },
