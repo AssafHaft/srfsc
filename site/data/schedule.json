@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-09-20T16:13:47+03:00",
+  "fetchedAt": "2026-09-20T19:50:15+03:00",
   "publishedThrough": "2026-10-04",
   "days": [
     {
@@ -59,8 +59,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 3,
-          "spotsLeft": 15,
+          "booked": 5,
+          "spotsLeft": 13,
           "available": true,
           "blocked": false
         },
@@ -73,8 +73,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 17,
-          "booked": 3,
-          "spotsLeft": 14,
+          "booked": 4,
+          "spotsLeft": 13,
           "available": true,
           "blocked": false
         },
@@ -87,8 +87,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 2,
-          "spotsLeft": 13,
+          "booked": 3,
+          "spotsLeft": 12,
           "available": true,
           "blocked": false
         },
@@ -143,8 +143,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 15,
-          "booked": 3,
-          "spotsLeft": 12,
+          "booked": 4,
+          "spotsLeft": 11,
           "available": true,
           "blocked": false
         },
@@ -171,8 +171,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 4,
-          "spotsLeft": 14,
+          "booked": 3,
+          "spotsLeft": 15,
           "available": true,
           "blocked": false
         },
@@ -949,8 +949,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 20,
-          "booked": 7,
-          "spotsLeft": 13,
+          "booked": 8,
+          "spotsLeft": 12,
           "available": true,
           "blocked": false
         },
@@ -963,8 +963,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 1,
-          "spotsLeft": 17,
+          "booked": 3,
+          "spotsLeft": 15,
           "available": true,
           "blocked": false
         },
@@ -2023,8 +2023,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 20,
-          "booked": 0,
-          "spotsLeft": 20,
+          "booked": 2,
+          "spotsLeft": 18,
           "available": true,
           "blocked": false
         },
