@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-16T00:24:03+03:00",
+  "fetchedAt": "2026-10-16T11:12:21+03:00",
   "publishedThrough": "2026-10-30",
   "days": [
     {
@@ -17,8 +17,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 2,
-          "spotsLeft": 16,
+          "booked": 1,
+          "spotsLeft": 17,
           "available": true,
           "blocked": false
         },
@@ -31,8 +31,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 2,
-          "spotsLeft": 16,
+          "booked": 5,
+          "spotsLeft": 13,
           "available": true,
           "blocked": false
         },
@@ -59,8 +59,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 15,
-          "booked": 4,
-          "spotsLeft": 11,
+          "booked": 6,
+          "spotsLeft": 9,
           "available": true,
           "blocked": false
         },
@@ -73,9 +73,9 @@
           "area": "bay",
           "side": "right",
           "capacity": 17,
-          "booked": 17,
-          "spotsLeft": 0,
-          "available": false,
+          "booked": 15,
+          "spotsLeft": 2,
+          "available": true,
           "blocked": false
         },
         {
@@ -87,8 +87,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 6,
-          "spotsLeft": 12,
+          "booked": 8,
+          "spotsLeft": 10,
           "available": true,
           "blocked": false
         },
@@ -101,8 +101,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 15,
-          "booked": 4,
-          "spotsLeft": 11,
+          "booked": 5,
+          "spotsLeft": 10,
           "available": true,
           "blocked": false
         },
@@ -115,8 +115,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 8,
-          "spotsLeft": 7,
+          "booked": 11,
+          "spotsLeft": 4,
           "available": true,
           "blocked": false
         },
@@ -129,8 +129,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 15,
-          "booked": 4,
-          "spotsLeft": 11,
+          "booked": 9,
+          "spotsLeft": 6,
           "available": true,
           "blocked": false
         },
@@ -143,8 +143,8 @@
           "area": "bay",
           "side": "right",
           "capacity": 15,
-          "booked": 13,
-          "spotsLeft": 2,
+          "booked": 12,
+          "spotsLeft": 3,
           "available": true,
           "blocked": false
         },
@@ -157,8 +157,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 7,
-          "spotsLeft": 8,
+          "booked": 9,
+          "spotsLeft": 6,
           "available": true,
           "blocked": false
         },
@@ -171,8 +171,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 20,
-          "booked": 2,
-          "spotsLeft": 18,
+          "booked": 3,
+          "spotsLeft": 17,
           "available": true,
           "blocked": false
         },
@@ -185,8 +185,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 20,
-          "booked": 7,
-          "spotsLeft": 13,
+          "booked": 8,
+          "spotsLeft": 12,
           "available": true,
           "blocked": false
         },
@@ -199,8 +199,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 7,
-          "spotsLeft": 11,
+          "booked": 11,
+          "spotsLeft": 7,
           "available": true,
           "blocked": false
         },
@@ -213,8 +213,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 11,
-          "booked": 4,
-          "spotsLeft": 7,
+          "booked": 5,
+          "spotsLeft": 6,
           "available": true,
           "blocked": false
         },
@@ -227,8 +227,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 7,
-          "spotsLeft": 11,
+          "booked": 8,
+          "spotsLeft": 10,
           "available": true,
           "blocked": false
         },
@@ -241,8 +241,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 20,
-          "booked": 2,
-          "spotsLeft": 18,
+          "booked": 6,
+          "spotsLeft": 14,
           "available": true,
           "blocked": false
         },
@@ -339,8 +339,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 15,
-          "booked": 2,
-          "spotsLeft": 13,
+          "booked": 3,
+          "spotsLeft": 12,
           "available": true,
           "blocked": false
         },
@@ -529,8 +529,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 12,
-          "booked": 2,
-          "spotsLeft": 10,
+          "booked": 3,
+          "spotsLeft": 9,
           "available": true,
           "blocked": false
         },
@@ -557,8 +557,8 @@
           "area": "bay",
           "side": "left",
           "capacity": 24,
-          "booked": 7,
-          "spotsLeft": 17,
+          "booked": 8,
+          "spotsLeft": 16,
           "available": true,
           "blocked": false
         },
@@ -599,8 +599,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 7,
-          "spotsLeft": 11,
+          "booked": 9,
+          "spotsLeft": 9,
           "available": true,
           "blocked": false
         },
@@ -613,8 +613,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 6,
-          "spotsLeft": 12,
+          "booked": 7,
+          "spotsLeft": 11,
           "available": true,
           "blocked": false
         },
@@ -626,9 +626,9 @@
           "level": 0,
           "area": "bay",
           "side": "right",
-          "capacity": 24,
-          "booked": 6,
-          "spotsLeft": 18,
+          "capacity": 14,
+          "booked": 8,
+          "spotsLeft": 6,
           "available": true,
           "blocked": false
         },
@@ -655,8 +655,8 @@
           "area": "bay",
           "side": "left",
           "capacity": 12,
-          "booked": 1,
-          "spotsLeft": 11,
+          "booked": 2,
+          "spotsLeft": 10,
           "available": true,
           "blocked": false
         },
@@ -697,8 +697,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 4,
-          "spotsLeft": 11,
+          "booked": 5,
+          "spotsLeft": 10,
           "available": true,
           "blocked": false
         },
@@ -971,8 +971,8 @@
           "area": "bay",
           "side": "right",
           "capacity": 24,
-          "booked": 3,
-          "spotsLeft": 21,
+          "booked": 4,
+          "spotsLeft": 20,
           "available": true,
           "blocked": false
         },
@@ -1013,8 +1013,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 17,
-          "booked": 3,
-          "spotsLeft": 14,
+          "booked": 4,
+          "spotsLeft": 13,
           "available": true,
           "blocked": false
         },
@@ -2247,8 +2247,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 0,
-          "spotsLeft": 18,
+          "booked": 1,
+          "spotsLeft": 17,
           "available": true,
           "blocked": false
         },
@@ -2991,8 +2991,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 15,
-          "booked": 1,
-          "spotsLeft": 14,
+          "booked": 2,
+          "spotsLeft": 13,
           "available": true,
           "blocked": false
         },
@@ -3088,10 +3088,10 @@
           "level": 4,
           "area": "reef",
           "side": "right",
-          "capacity": 18,
+          "capacity": 0,
           "booked": 0,
-          "spotsLeft": 18,
-          "available": true,
+          "spotsLeft": 0,
+          "available": false,
           "blocked": false
         },
         {
@@ -3102,10 +3102,10 @@
           "level": 4,
           "area": "reef",
           "side": "left",
-          "capacity": 18,
+          "capacity": 0,
           "booked": 0,
-          "spotsLeft": 18,
-          "available": true,
+          "spotsLeft": 0,
+          "available": false,
           "blocked": false
         },
         {
@@ -3116,10 +3116,10 @@
           "level": 5,
           "area": "reef",
           "side": "right",
-          "capacity": 15,
+          "capacity": 0,
           "booked": 0,
-          "spotsLeft": 15,
-          "available": true,
+          "spotsLeft": 0,
+          "available": false,
           "blocked": false
         },
         {
@@ -3130,10 +3130,10 @@
           "level": 5,
           "area": "reef",
           "side": "left",
-          "capacity": 15,
+          "capacity": 2,
           "booked": 2,
-          "spotsLeft": 13,
-          "available": true,
+          "spotsLeft": 0,
+          "available": false,
           "blocked": false
         },
         {
@@ -3144,10 +3144,10 @@
           "level": 4,
           "area": "reef",
           "side": "right",
-          "capacity": 18,
+          "capacity": 0,
           "booked": 0,
-          "spotsLeft": 18,
-          "available": true,
+          "spotsLeft": 0,
+          "available": false,
           "blocked": false
         },
         {
@@ -3158,10 +3158,10 @@
           "level": 4,
           "area": "reef",
           "side": "left",
-          "capacity": 18,
+          "capacity": 0,
           "booked": 0,
-          "spotsLeft": 18,
-          "available": true,
+          "spotsLeft": 0,
+          "available": false,
           "blocked": false
         },
         {
@@ -3805,8 +3805,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 4,
-          "spotsLeft": 14,
+          "booked": 5,
+          "spotsLeft": 13,
           "available": true,
           "blocked": false
         },
@@ -3889,8 +3889,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 20,
-          "booked": 6,
-          "spotsLeft": 14,
+          "booked": 7,
+          "spotsLeft": 13,
           "available": true,
           "blocked": false
         },
@@ -4249,7 +4249,7 @@
     {
       "date": "2026-10-25",
       "open": "07:00",
-      "close": "22:00",
+      "close": "21:00",
       "closed": null,
       "sessions": [
         {
@@ -4289,8 +4289,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 0,
-          "spotsLeft": 18,
+          "booked": 1,
+          "spotsLeft": 17,
           "available": true,
           "blocked": false
         },
@@ -4685,41 +4685,13 @@
           "spotsLeft": 18,
           "available": true,
           "blocked": false
-        },
-        {
-          "id": 41538,
-          "start": "21:00",
-          "end": "22:00",
-          "name": "L5- T-Time Mega Turns (T1+T2)",
-          "level": 5,
-          "area": "reef",
-          "side": "right",
-          "capacity": 15,
-          "booked": 0,
-          "spotsLeft": 15,
-          "available": true,
-          "blocked": false
-        },
-        {
-          "id": 41537,
-          "start": "21:00",
-          "end": "22:00",
-          "name": "L5- T-Time Mega Turns (T1+T2)",
-          "level": 5,
-          "area": "reef",
-          "side": "left",
-          "capacity": 15,
-          "booked": 0,
-          "spotsLeft": 15,
-          "available": true,
-          "blocked": false
         }
       ]
     },
     {
       "date": "2026-10-26",
       "open": "07:00",
-      "close": "22:00",
+      "close": "21:00",
       "closed": null,
       "sessions": [
         {
@@ -5127,41 +5099,13 @@
           "spotsLeft": 11,
           "available": true,
           "blocked": false
-        },
-        {
-          "id": 41570,
-          "start": "21:00",
-          "end": "22:00",
-          "name": "L5- T-Time Mega Turns (T1+T2)",
-          "level": 5,
-          "area": "reef",
-          "side": "right",
-          "capacity": 15,
-          "booked": 0,
-          "spotsLeft": 15,
-          "available": true,
-          "blocked": false
-        },
-        {
-          "id": 41569,
-          "start": "21:00",
-          "end": "22:00",
-          "name": "L5- T-Time Mega Turns (T1+T2)",
-          "level": 5,
-          "area": "reef",
-          "side": "left",
-          "capacity": 15,
-          "booked": 0,
-          "spotsLeft": 15,
-          "available": true,
-          "blocked": false
         }
       ]
     },
     {
       "date": "2026-10-27",
       "open": "06:00",
-      "close": "22:00",
+      "close": "21:00",
       "closed": null,
       "sessions": [
         {
@@ -5172,10 +5116,10 @@
           "level": 6,
           "area": "reef",
           "side": "right",
-          "capacity": 15,
+          "capacity": 1,
           "booked": 1,
-          "spotsLeft": 14,
-          "available": true,
+          "spotsLeft": 0,
+          "available": false,
           "blocked": false
         },
         {
@@ -5186,10 +5130,10 @@
           "level": 6,
           "area": "reef",
           "side": "left",
-          "capacity": 15,
+          "capacity": 0,
           "booked": 0,
-          "spotsLeft": 15,
-          "available": true,
+          "spotsLeft": 0,
+          "available": false,
           "blocked": false
         },
         {
@@ -5543,30 +5487,30 @@
           "blocked": false
         },
         {
-          "id": 44300,
+          "id": 45439,
           "start": "19:00",
           "end": "20:00",
-          "name": "L4 – Advanced (T1 Only)",
-          "level": 4,
+          "name": "L7 - Turns to Barrels",
+          "level": 7,
           "area": "reef",
           "side": "right",
-          "capacity": 18,
+          "capacity": 12,
           "booked": 0,
-          "spotsLeft": 18,
+          "spotsLeft": 12,
           "available": true,
           "blocked": false
         },
         {
-          "id": 44298,
+          "id": 45438,
           "start": "19:00",
           "end": "20:00",
-          "name": "L4 – Advanced (T1 Only)",
-          "level": 4,
+          "name": "L7 - Turns to Barrels",
+          "level": 7,
           "area": "reef",
           "side": "left",
-          "capacity": 18,
+          "capacity": 12,
           "booked": 0,
-          "spotsLeft": 18,
+          "spotsLeft": 12,
           "available": true,
           "blocked": false
         },
@@ -5597,71 +5541,15 @@
           "spotsLeft": 15,
           "available": true,
           "blocked": false
-        },
-        {
-          "id": 43098,
-          "start": "21:00",
-          "end": "22:00",
-          "name": "L7 - Turns to Barrels",
-          "level": 7,
-          "area": "reef",
-          "side": "right",
-          "capacity": 12,
-          "booked": 0,
-          "spotsLeft": 12,
-          "available": true,
-          "blocked": false
-        },
-        {
-          "id": 43097,
-          "start": "21:00",
-          "end": "22:00",
-          "name": "L7 - Turns to Barrels",
-          "level": 7,
-          "area": "reef",
-          "side": "left",
-          "capacity": 12,
-          "booked": 0,
-          "spotsLeft": 12,
-          "available": true,
-          "blocked": false
         }
       ]
     },
     {
       "date": "2026-10-28",
-      "open": "06:00",
-      "close": "22:00",
+      "open": "07:00",
+      "close": "21:00",
       "closed": null,
       "sessions": [
-        {
-          "id": 40377,
-          "start": "06:00",
-          "end": "07:00",
-          "name": "L5- T-Time Mega Turns (T1+T2)",
-          "level": 5,
-          "area": "reef",
-          "side": "right",
-          "capacity": 15,
-          "booked": 0,
-          "spotsLeft": 15,
-          "available": true,
-          "blocked": false
-        },
-        {
-          "id": 40376,
-          "start": "06:00",
-          "end": "07:00",
-          "name": "L5- T-Time Mega Turns (T1+T2)",
-          "level": 5,
-          "area": "reef",
-          "side": "left",
-          "capacity": 15,
-          "booked": 0,
-          "spotsLeft": 15,
-          "available": true,
-          "blocked": false
-        },
         {
           "id": 40375,
           "start": "07:00",
@@ -6095,71 +5983,15 @@
           "spotsLeft": 12,
           "available": true,
           "blocked": false
-        },
-        {
-          "id": 44441,
-          "start": "21:00",
-          "end": "22:00",
-          "name": "L5 - Expert  (T2 Only)",
-          "level": 5,
-          "area": "reef",
-          "side": "right",
-          "capacity": 15,
-          "booked": 0,
-          "spotsLeft": 15,
-          "available": true,
-          "blocked": false
-        },
-        {
-          "id": 44440,
-          "start": "21:00",
-          "end": "22:00",
-          "name": "L5 - Expert  (T2 Only)",
-          "level": 5,
-          "area": "reef",
-          "side": "left",
-          "capacity": 15,
-          "booked": 0,
-          "spotsLeft": 15,
-          "available": true,
-          "blocked": false
         }
       ]
     },
     {
       "date": "2026-10-29",
-      "open": "06:00",
-      "close": "22:00",
+      "open": "07:00",
+      "close": "21:00",
       "closed": null,
       "sessions": [
-        {
-          "id": 45328,
-          "start": "06:00",
-          "end": "07:00",
-          "name": "L5 - Expert  (T2 Only)",
-          "level": 5,
-          "area": "reef",
-          "side": "right",
-          "capacity": 15,
-          "booked": 0,
-          "spotsLeft": 15,
-          "available": true,
-          "blocked": false
-        },
-        {
-          "id": 45327,
-          "start": "06:00",
-          "end": "07:00",
-          "name": "L5 - Expert  (T2 Only)",
-          "level": 5,
-          "area": "reef",
-          "side": "left",
-          "capacity": 15,
-          "booked": 0,
-          "spotsLeft": 15,
-          "available": true,
-          "blocked": false
-        },
         {
           "id": 45326,
           "start": "07:00",
@@ -6267,8 +6099,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 12,
-          "booked": 0,
-          "spotsLeft": 12,
+          "booked": 1,
+          "spotsLeft": 11,
           "available": true,
           "blocked": false
         },
@@ -6337,8 +6169,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 0,
-          "spotsLeft": 18,
+          "booked": 1,
+          "spotsLeft": 17,
           "available": true,
           "blocked": false
         },
@@ -6379,8 +6211,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 12,
-          "booked": 0,
-          "spotsLeft": 12,
+          "booked": 1,
+          "spotsLeft": 11,
           "available": true,
           "blocked": false
         },
@@ -6551,71 +6383,15 @@
           "spotsLeft": 15,
           "available": true,
           "blocked": false
-        },
-        {
-          "id": 40518,
-          "start": "21:00",
-          "end": "22:00",
-          "name": "L5- T-Time Mega Turns (T1+T2)",
-          "level": 5,
-          "area": "reef",
-          "side": "right",
-          "capacity": 15,
-          "booked": 0,
-          "spotsLeft": 15,
-          "available": true,
-          "blocked": false
-        },
-        {
-          "id": 40517,
-          "start": "21:00",
-          "end": "22:00",
-          "name": "L5- T-Time Mega Turns (T1+T2)",
-          "level": 5,
-          "area": "reef",
-          "side": "left",
-          "capacity": 15,
-          "booked": 0,
-          "spotsLeft": 15,
-          "available": true,
-          "blocked": false
         }
       ]
     },
     {
       "date": "2026-10-30",
-      "open": "06:00",
+      "open": "07:00",
       "close": "19:00",
       "closed": null,
       "sessions": [
-        {
-          "id": 39885,
-          "start": "06:00",
-          "end": "07:00",
-          "name": "L6 - Ocean T (T3)",
-          "level": 6,
-          "area": "reef",
-          "side": "right",
-          "capacity": 12,
-          "booked": 0,
-          "spotsLeft": 12,
-          "available": true,
-          "blocked": false
-        },
-        {
-          "id": 39884,
-          "start": "06:00",
-          "end": "07:00",
-          "name": "L6 - Ocean T (T3)",
-          "level": 6,
-          "area": "reef",
-          "side": "left",
-          "capacity": 12,
-          "booked": 0,
-          "spotsLeft": 12,
-          "available": true,
-          "blocked": false
-        },
         {
           "id": 39887,
           "start": "07:00",
