@@ -19,7 +19,7 @@ History from 1.5.2025 to 3.11.2026 also holds imports of the park's management-s
 
 To add a newer export, start it on or before the day after the last import ended (the coverage is in `site/data/history/index.json` under `cms`), end it yesterday at the latest, and run `npm run import-cms -- <file.xlsx> --dry-run`, then again without `--dry-run`. Days that overlap the last import are re-paired, not added twice. Never commit the .xlsx: it holds customers' names.
 
-L7 is a public wave level since October 2026 ("L7 - Turns to Barrels", "L7 - Ocean T"). Before that, L7 held only internal special events, so an L7 session counts as an event only when its name says so ("Event", "אירוע"). L7 is priced with L5–L6 (`reefHigh` in `site/config.js`).
+L7 is a public wave level since October 2026 ("L7 - Turns to Barrels", "L7 - Ocean T"). Before that, L7 held only internal special events, so an L7 session counts as an event only when its name says so ("Event", "אירוע"). L7 is priced at ₪425 (`reefL7` in `site/config.js`).
 
 The page opens on a 6-digit code screen, asked on every visit. It's a curtain, not a lock: the site, its code and its data files stay public, so it only keeps out people who open the link. The code is stored only as a SHA-256 hash, `CODE_HASH` in `site/config.js`, which also says how to change it.
 

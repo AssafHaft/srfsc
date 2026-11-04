@@ -68,7 +68,7 @@ function kpiSection(model) {
       `<div class="d"><span class="ly">${cur.closedDays ? `${cur.closedDays} ימים סגורים` : 'בלי ימים סגורים'} · ${int(cur.capacity)} מקומות</span></div>`],
   ];
   const body = `<div class="kpis">${tiles.map(([cls, k, v, dd]) => `<div class="card kpi${cls ? ` ${cls}` : ''}"><span class="k">${k}</span>${v}${dd}</div>`).join('')}</div>`
-    + `<p class="foot">הכנסה ושווי מקומות ריקים הם הערכה לפי מחירון (ריף L1–L4 ${p.reef} ₪, L5–L7 ${p.reefHigh} ₪, Bay מבוגרים ${p.bayAdult} ₪, Bay ילדים ${p.bayKids} ₪), בלי כרטיסיות, מנויים והנחות. התפוסה והמקומות כוללים רק את הלוח הציבורי, בלי סשנים שבוטלו. הזמנות שלא עברו בלוח מופיעות ב״מה לא בלוח הציבורי״.</p>`;
+    + `<p class="foot">הכנסה ושווי מקומות ריקים הם הערכה לפי מחירון (ריף L1–L4 ${p.reef} ₪, L5–L6 ${p.reefHigh} ₪, L7 ${p.reefL7} ₪, Bay מבוגרים ${p.bayAdult} ₪, Bay ילדים ${p.bayKids} ₪), בלי כרטיסיות, מנויים והנחות. התפוסה והמקומות כוללים רק את הלוח הציבורי, בלי סשנים שבוטלו. הזמנות שלא עברו בלוח מופיעות ב״מה לא בלוח הציבורי״.</p>`;
   return `<section class="sec" id="a-kpis">${body}</section>`;
 }
 

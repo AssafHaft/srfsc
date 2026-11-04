@@ -333,6 +333,6 @@ Tone: `trend` and level movers follow the direction. `weekend` is neutral. `unde
 From October 2026 the park runs L7 as a regular public level ("L7 - Turns to Barrels", "L7 - Ocean T
 (T3)"). `classify` now returns `event` for level 7 only when the name says so (`/event|אירוע/i`, which
 covers the 2025 "SRF Internal Special Event …" rows); other L7 sessions are `surf`. L7 joins the level
-filter, `LEVEL_KEYS` and the pace chart with its own color (`--l7`), and is priced as `reefHigh`.
+filter, `LEVEL_KEYS` and the pace chart with its own color (`--l7`), and is priced at ₪425 (`PRICES.reefL7`).
 `updateHistory` re-derives every stored `event` row with the current rule (`reclassifyEvents`), so rows
 finalised under the old rule fix themselves; the 142 past rows from 1.10–3.11.2026 were migrated once.
