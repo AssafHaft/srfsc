@@ -4,6 +4,7 @@ import { HE_DAYS, HE_DAYS_SHORT, addDays, dayOfWeek, formatAge, shortDate } from
 import { PERIODS } from './history.mjs';
 import { PACE } from './analytics.mjs';
 import { escapeHtml } from './render.mjs';
+import { displayName } from './schedule.mjs';
 
 const PERIOD_LABELS = { '30d': '30 יום', '90d': '90 יום', '12m': '12 חודשים', all: 'הכול' };
 const HEAT_STEPS = { occupancy: [0.4, 0.55, 0.7, 0.85, 0.95], soldOutShare: [0.1, 0.25, 0.4, 0.6, 0.8], revenue: [0.2, 0.4, 0.6, 0.8, 0.95] };
@@ -144,9 +145,11 @@ function hiddenGrid(grid) {
   return `<div class="heat">${HEAT_HEAD}${rows}</div>`;
 }
 
-const categoryChange = c => {
+/** A category's change against the comparison: a percentage, "פי N" from a tiny base (10 times or more), or "חדש". */
+export const categoryChange = c => {
   if (c.cmpPeople === null) return '–';
   if (!c.cmpPeople) return 'חדש';
+  if (c.people >= c.cmpPeople * 10) return `▲ פי ${Math.round(c.people / c.cmpPeople)}`;
   const diff = Math.round((c.people / c.cmpPeople - 1) * 100);
   return `${diff > 0 ? '▲' : diff < 0 ? '▼' : '='} ${Math.abs(diff)}%`;
 };
@@ -274,8 +277,9 @@ function paceSection(model) {
 const startsIn = hours => (hours < 1 ? 'מתחיל בקרוב' : hours === 1 ? 'בעוד שעה' : hours === 2 ? 'בעוד שעתיים' : `בעוד ${hours} שעות`);
 
 function riskRow(r) {
+  const name = displayName(r.name); // the chip already shows the level, as in the day view
   return `<div class="rrow"><span class="when"><b>${HE_DAYS_SHORT[dayOfWeek(r.date)]} <span class="ltr num">${r.start}</span></b><span>${startsIn(r.hours)}</span></span>${levelChip(r.level)}`
-    + `<span class="nm">${escapeHtml(r.name)}</span><span class="fill num">${r.booked}/${r.capacity}<small>${money(r.emptyValue)} פתוח</small></span></div>`;
+    + `<span class="nm" title="${escapeHtml(r.name)}">${escapeHtml(name.title)}${name.note ? `<small>${escapeHtml(name.note)}</small>` : ''}</span><span class="fill num">${r.booked}/${r.capacity}<small>${money(r.emptyValue)} פתוח</small></span></div>`;
 }
 
 function upcomingSection(model) {
