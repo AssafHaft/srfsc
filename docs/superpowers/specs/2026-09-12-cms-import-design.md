@@ -281,3 +281,31 @@ Rule `hidden-share` in `insights.mjs`:
   people), since the park's own system produced them.
 - **Hidden bookings stop at 10.9.2026.** Periods after that show the section's empty state. The
   headline numbers are unaffected by design.
+
+## 11. Follow-up imports (2026-11-04)
+
+The park sent a second export, 10.9.2026–3.11.2026 (2,231 rows). The one-time rule (§4.6) gave way to
+follow-up imports:
+
+- **Accepted range.** An export must end before today (today isn't final) and must start on or before
+  the day after `index.cms.to` (no gap, so `cms.from..cms.to` stays one contiguous coverage). An
+  export that lies inside the coverage is refused ("already imported").
+- **Overlap.** Overlapping days pair with every row we hold, hidden rows from the earlier import
+  included (they were in the pool all along, §4.4). Re-importing a day re-pairs it; nothing is added
+  twice.
+- **Ids.** New hidden rows take ids below the lowest id in the history: `-(usedIds + n)`, where
+  `usedIds` is the largest `-id` in any month listed in `index.months`.
+- **Index.** `cms` becomes `{ from, to, importedAt, imports: [{ from, to, importedAt }, …] }`: the whole
+  covered range, the latest import time, and every import. The page reads only `from` and `to`.
+- **Daily updates.** `updateHistory` starts the final-count windows at `cms.to + 1` or later, so the
+  park's API never overwrites the export's counts (it used to re-fetch the last 3 days right after an
+  import).
+- **Month files.** `formatMonth` keeps the name indices a file already had (`parseMonth` returns them as
+  `names`) and appends new names, so adding hidden rows to a live month changes only those lines and
+  doesn't conflict with the half-hourly data commits.
+
+Real run on 2026-11-04: 1,769 pairs (10.9 re-paired: 9 hidden rows from the first import), booked changed
+on 75 rows (+186 people; 30 counted public sessions, −66), 463 of ours not in the export (461 removed, 1
+cancelled, 1 blocked), 462 hidden rows with 3,097 bookings: events 879, groups 705, camps 583, clubs 566,
+private lessons 273, internal 91. No export name that the public schedule never published appears under
+`site/data`. Coverage is now 1.5.2025–3.11.2026.

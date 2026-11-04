@@ -1,4 +1,4 @@
-// The one-time import of the park's CMS "wave demand" export (CMS import spec section 4).
+// Imports of the park's CMS "wave demand" export (CMS import spec sections 4 and 11).
 // Pure functions: .xlsx bytes → rows → merged history. The CLI is scraper/import-cms.mjs.
 import { inflateRawSync } from 'node:zlib';
 import { HIDDEN_CATEGORIES, isKids } from '../site/lib/history.mjs';
@@ -170,11 +170,12 @@ export function pairExport(historyRows, exportRows) {
 }
 
 /**
- * The one-time merge (CMS import spec section 4.5), mutating `store`. History rows dated inside the
- * export pair with its rows. Paired rows take the export's booked count and keep everything else.
- * Unpaired export rows become kind "hidden" rows named by category, with ids -1, -2, …
+ * The merge (CMS import spec sections 4.5 and 11), mutating `store`. History rows dated inside the
+ * export, hidden rows from an earlier import included, pair with its rows. Paired rows take the
+ * export's booked count and keep everything else. Unpaired export rows become kind "hidden" rows
+ * named by category, with ids -(usedIds + 1), -(usedIds + 2), … so they never clash with earlier ones.
  */
-export function mergeExport(store, exportRows) {
+export function mergeExport(store, exportRows, { usedIds = 0 } = {}) {
   const dates = exportRows.map(e => e.date).sort();
   const from = dates[0];
   const to = dates.at(-1);
@@ -196,7 +197,7 @@ export function mergeExport(store, exportRows) {
     const month = monthOf(e.date);
     store[month] ??= { month, closed: [], sessions: [] };
     store[month].sessions.push({
-      id: -(i + 1), date: e.date, start: e.hour, end: e.hour === '23:00' ? '23:59' : nextHour(e.hour),
+      id: -(usedIds + i + 1), date: e.date, start: e.hour, end: e.hour === '23:00' ? '23:59' : nextHour(e.hour),
       level: 0, area: e.area, side: e.side, kids: isKids(e.name), name, kind: 'hidden',
       capacity: e.capacity, booked: e.booked, final: true, pace: [],
     });

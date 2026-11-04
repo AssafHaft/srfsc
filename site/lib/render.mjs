@@ -7,7 +7,7 @@ import {
 } from './schedule.mjs';
 
 export const HOUR_PX = 56;
-export const LEVELS = [0, 1, 2, 3, 4, 5, 6];
+export const LEVELS = [0, 1, 2, 3, 4, 5, 6, 7];
 
 export const escapeHtml = value =>
   String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -31,7 +31,7 @@ const pier = (right, left) => `<span class="pier">${spot(right)}<i class="pier-l
 const CHEVRON_RIGHT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
 const CHEVRON_LEFT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>';
 
-/** The level filter buttons (Bay, L1–L6). */
+/** The level filter buttons (Bay, L1–L7). */
 export function renderLevelChips(levels) {
   const buttons = LEVELS.map(l =>
     `<button class="lv-toggle" data-level="${l}" aria-pressed="${levels.has(l)}" aria-label="${l ? `רמה ${l}` : 'Bay'}">${chip(l)}</button>`);

@@ -2,7 +2,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { normalize } from '../normalize.mjs';
 import {
-  applyFinal, compareRows, finalFrom, finalizeStale, formatMonth, minutesBefore, nextIndex, parseMonth, toRow, upsertUpcoming,
+  applyFinal, compareRows, finalFrom, finalizeStale, formatMonth, minutesBefore, nextIndex, parseMonth, reclassifyEvents, toRow,
+  upsertUpcoming,
 } from '../history.mjs';
 import { fixtureWindow } from '../test-support/fake-park.mjs';
 
@@ -135,8 +136,35 @@ test('formatMonth writes one sorted session per line with names by index, and pa
   assert.match(lines[6], /^ {4}\{"id":2,.*"side":"left",.*"name":0,/);
   assert.match(lines[7], /^ {4}\{"id":3,.*"name":1,.*\}$/);
   assert.ok(text.endsWith('\n  ]\n}\n'));
-  assert.deepEqual(parseMonth(text), { ...m, sessions: [...m.sessions].sort(compareRows) });
+  assert.deepEqual(parseMonth(text), { ...m, sessions: [...m.sessions].sort(compareRows), names: ['A', 'B'] });
   assert.equal(formatMonth({ month: '2026-10', closed: [], sessions: [] }), '{\n  "month": "2026-10",\n  "names": [],\n  "closed": [],\n  "sessions": []\n}\n');
+});
+
+test('formatMonth keeps the file\'s name indices: a new name goes last and changes only its own line', () => {
+  const before = formatMonth({ month: '2026-09', closed: [], sessions: [row({ id: 1, start: '08:00', name: 'A' }), row({ id: 2, start: '10:00', name: 'B' })] });
+  const m = parseMonth(before);
+  m.sessions.push(row({ id: 3, start: '07:00', name: 'C' })); // sorts first
+  const after = formatMonth(m);
+  assert.match(after, /"names": \["A","B","C"\]/);
+  const changed = after.split('\n').filter(l => !before.split('\n').includes(l));
+  assert.deepEqual(changed.map(l => l.trim().slice(0, 12)), ['"names": ["A', '{"id":3,"dat']);
+  m.sessions = m.sessions.filter(r => r.name !== 'A'); // a name no row uses is dropped
+  assert.match(formatMonth(m), /"names": \["B","C"\]/);
+});
+
+test('reclassifyEvents: stored L7 rows recorded as events under the old rule become surf, final ones included', () => {
+  const store = {
+    '2026-10': {
+      month: '2026-10', closed: [], sessions: [
+        row({ id: 1, level: 7, kind: 'event', final: true, name: 'L7 - Turns to Barrels' }),
+        row({ id: 2, level: 7, kind: 'event', final: false, name: 'L7 - Ocean T (T3)' }),
+        row({ id: 3, level: 7, kind: 'event', final: true, name: 'SRF Internal Special Event - T-Time' }),
+        row({ id: 4, level: 7, kind: 'blocked', final: true, name: 'L7 - Turns to Barrels (VIP)' }),
+      ],
+    },
+  };
+  reclassifyEvents(store);
+  assert.deepEqual(store['2026-10'].sessions.map(r => r.kind), ['surf', 'surf', 'event', 'blocked']);
 });
 
 test('nextIndex counts snapshots and keeps the earliest date and every month', () => {

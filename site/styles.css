@@ -12,7 +12,7 @@
   --sand-tint: #FBF5E6;
   --sand-line: #EBD9A8;
   --l0: #E2B860; --l1: #91C36B; --l2: #6F9B5C; --l3: #487037;
-  --l4: #81ABCA; --l5: #225A8C; --l6: #8A71B2;
+  --l4: #81ABCA; --l5: #225A8C; --l6: #8A71B2; --l7: #A3366B;
   --display: "Secular One", "IBM Plex Sans Hebrew", system-ui, sans-serif;
   --text: "IBM Plex Sans Hebrew", system-ui, sans-serif;
   --hpx: 56px; /* one hour in the week view; keep in sync with HOUR_PX in lib/render.mjs */
@@ -34,7 +34,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .fresh { display: flex; align-items: center; gap: 14px; }
 .fresh-text { text-align: end; font-size: 13px; color: var(--mist); line-height: 1.45; }
 .fresh-text strong { display: block; color: var(--deep); font-weight: 500; font-size: 14px; }
-.btn-refresh { display: inline-flex; align-items: center; gap: 8px; padding: 9px 18px; border: 1.5px solid var(--deep); border-radius: 999px; font-weight: 500; font-size: 14px; transition: background-color .15s, color .15s; }
+.btn-refresh { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; flex: none; padding: 9px 18px; border: 1.5px solid var(--deep); border-radius: 999px; font-weight: 500; font-size: 14px; transition: background-color .15s, color .15s; }
 .btn-refresh:hover { background: var(--deep); color: var(--foam); }
 .btn-refresh svg { width: 16px; height: 16px; }
 .btn-refresh.is-busy svg { animation: spin .9s linear infinite; }
@@ -58,8 +58,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .chip { display: inline-grid; place-items: center; min-width: 30px; height: 20px; padding: 0 5px; border-radius: 5px; font-size: 12px; font-weight: 600; line-height: 1; color: #fff; direction: ltr; flex: none; }
 .chip.lv0, .chip.lv1, .chip.lv2, .chip.lv4 { color: var(--deep); }
 .lv0 { background: var(--l0); } .lv1 { background: var(--l1); } .lv2 { background: var(--l2); } .lv3 { background: var(--l3); }
-.lv4 { background: var(--l4); } .lv5 { background: var(--l5); } .lv6 { background: var(--l6); }
-.lv7 { background: var(--mist); } /* internal special events (L7) */
+.lv4 { background: var(--l4); } .lv5 { background: var(--l5); } .lv6 { background: var(--l6); } .lv7 { background: var(--l7); }
 .spot { min-width: 20px; text-align: center; font-size: 13px; font-weight: 600; line-height: 20px; }
 .spot.few { background: var(--rescue); color: var(--deep); border-radius: 4px; padding: 0 5px; }
 .spot.full { font-size: 12px; font-weight: 400; color: var(--mist); }
@@ -176,8 +175,10 @@ dialog input { width: 100%; font: inherit; padding: 9px 12px; border: 1px solid 
 
 @media (max-width: 720px) {
   .wrap { padding: 20px 14px 44px; }
+  .seg button { padding: 6px 12px; }
   .brand h1 { font-size: 30px; }
-  .fresh { width: 100%; justify-content: space-between; }
+  .fresh { width: 100%; justify-content: space-between; gap: 10px; }
+  .btn-refresh { padding: 8px 14px; }
   .fresh-text { text-align: start; }
   .row { grid-template-columns: 36px minmax(0, 1fr); gap: 6px 10px; padding: 12px 14px; }
   .row .time { grid-column: 1 / -1; flex-direction: row; align-items: baseline; gap: 8px; }
@@ -332,6 +333,7 @@ svg .closed-mark { stroke: var(--mist-2); stroke-width: 3; stroke-dasharray: 4 3
 .rrow .when b { display: block; font-weight: 600; }
 .rrow .when span { font-size: 12px; color: var(--mist); }
 .rrow .nm { font-size: 13px; color: var(--mist); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rrow .nm small { display: block; font-size: 11.5px; overflow: hidden; text-overflow: ellipsis; }
 .rrow .fill { text-align: end; font-weight: 600; }
 .rrow .fill small { display: block; font-weight: 400; font-size: 12px; color: var(--mist); }
 .more summary { cursor: pointer; padding: 8px 16px 12px; font-size: 13px; font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
@@ -349,21 +351,47 @@ svg .closed-mark { stroke: var(--mist-2); stroke-width: 3; stroke-dasharray: 4 3
 @media (max-width: 720px) {
   .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .kpi .v { font-size: 28px; }
-  .ins, .slots, .pace, .up { grid-template-columns: 1fr; }
+  /* minmax(0, …), not 1fr: a 1fr track grows to its widest content and pushes the page past the screen */
+  .ins, .slots, .pace, .up { grid-template-columns: minmax(0, 1fr); }
   .ops { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* wide tables scroll sideways inside their card; the first column stays put so rows keep their label */
+  .tbl { font-size: 13px; }
+  .tbl th, .tbl td { padding-inline: 8px; }
+  .tbl th:first-child, .tbl td:first-child { position: sticky; inset-inline-start: 0; z-index: 1; background: var(--deck); box-shadow: inset -1px 0 0 var(--line); }
+  .occ { min-width: 110px; }
+  .sd { min-width: 80px; }
   .heat { grid-template-columns: 34px repeat(7, minmax(0, 1fr)); gap: 2px; min-width: 0; }
   .heat .c { font-size: 10.5px; height: 26px; }
-  .slot { grid-template-columns: 18px 88px 70px minmax(0, 1fr) 56px; gap: 6px; padding: 7px 12px; }
-  .rrow { grid-template-columns: 78px 40px minmax(0, 1fr) 70px; gap: 8px; padding: 7px 12px; }
+  /* phones: the slot's occupancy shows as a number only, so the level and its note never overlap the bar */
+  .slot { grid-template-columns: 16px minmax(0, 1fr) auto 36px 64px; gap: 6px; padding: 7px 12px; font-size: 13.5px; }
+  .slot .occ .bar { display: none; }
+  .slot .occ span { min-width: 0; }
+  /* phones: when on top, level and name under it, so the name gets the whole width */
+  .rrow { grid-template-columns: 36px minmax(0, 1fr) auto; grid-template-areas: "when when fill" "chip nm fill"; gap: 3px 8px; padding: 8px 12px; }
+  .rrow .when { grid-area: when; }
+  .rrow .when b { display: inline; margin-inline-end: 6px; }
+  .rrow .chip { grid-area: chip; }
+  .rrow .nm { grid-area: nm; }
+  .rrow .fill { grid-area: fill; }
+  .rrow .nm, .rrow .nm small { white-space: normal; }
+  /* charts scale down to the screen; keep their labels readable (sizes are in chart units) */
+  .trend svg text { font-size: 24px; }
+  .example svg text { font-size: 15px; }
+  .trend svg, .example svg { overflow: visible; }
+  /* 15 days don't fit a phone: bars keep a readable width and the card scrolls, nearest days first */
+  .days { padding-inline: 10px; overflow-x: auto; }
+  .days .bars, .days .lbl { gap: 3px; }
+  .days .b, .days .lbl span { flex: 1 0 26px; }
+  .days .foot { position: sticky; inset-inline-start: 0; max-width: calc(100vw - 50px); }
   .days .lbl span { font-size: 10px; }
-  .days .b em { font-size: 10px; }
+  .days .b em { font-size: 10px; letter-spacing: -.02em; }
 }
 
 /* hidden bookings (CMS import) */
 .kpis.hid { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-bottom: 8px; }
 .hid-when { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
 @media (max-width: 720px) {
-  .kpis.hid, .hid-when { grid-template-columns: 1fr; }
+  .kpis.hid, .hid-when { grid-template-columns: minmax(0, 1fr); }
 }
 .up, .pace { align-items: start; }
 

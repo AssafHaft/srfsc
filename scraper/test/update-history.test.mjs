@@ -72,3 +72,18 @@ test('updateHistory catches up the final counts from the day after the last fina
   await updateHistory({ dir, scheduleFile, now: NOW, fetchImpl, log: quiet });
   assert.deepEqual(fetchImpl.calls.map(c => isoFromUrl(c.url)), ['2026-09-07', '2026-09-10']);
 });
+
+test('updateHistory never re-fetches days the CMS import covers, and reclassifies stored L7 events', async () => {
+  const { dir, scheduleFile } = await setup();
+  const l7 = { id: 2, date: '2026-09-11', start: '08:00', end: '09:00', level: 7, area: 'reef', side: 'right', kids: false, name: 'L7 - Turns to Barrels', kind: 'event', capacity: 12, booked: 9, final: true, pace: [] };
+  await mkdir(dir, { recursive: true });
+  await writeFile(join(dir, '2026-09.json'), formatMonth({ month: '2026-09', closed: [], sessions: [l7] }));
+  const cms = { from: '2025-05-01', to: '2026-09-11', importedAt: '2026-09-12T12:00:00+03:00' };
+  await writeFile(join(dir, 'index.json'), JSON.stringify({ updatedAt: 'x', first: '2025-04-02', months: ['2026-09'], snapshots: 0, snapshotsSince: null, cms }));
+  const fetchImpl = fixtureFetch();
+  const index = await updateHistory({ dir, scheduleFile, now: NOW, fetchImpl, log: quiet });
+  assert.deepEqual(fetchImpl.calls.map(c => isoFromUrl(c.url)), ['2026-09-12']); // not 10–11.9
+  const row = (await readMonth(dir, '2026-09')).sessions.find(r => r.id === 2);
+  assert.deepEqual([row.kind, row.booked], ['surf', 9]);
+  assert.deepEqual(index.cms, cms);
+});

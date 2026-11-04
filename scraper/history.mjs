@@ -105,6 +105,17 @@ export function applyFinal(store, window, { from, to }) {
   return store;
 }
 
+/**
+ * Stored "event" rows take the current classify rule, final ones included: L7 became a public level
+ * in October 2026, and rows recorded under the old rule would otherwise stay events for good.
+ */
+export function reclassifyEvents(store) {
+  for (const m of Object.values(store)) {
+    for (const r of m.sessions) if (r.kind === 'event') r.kind = classify({ ...r, blocked: false });
+  }
+  return store;
+}
+
 /** Rows more than 3 days old that never got the park's final count keep their last snapshot as final. */
 export function finalizeStale(store, today) {
   const cutoff = addDays(today, -3);
@@ -131,26 +142,37 @@ export function finalFrom(store, today, floor) {
   return next < floor ? floor : next;
 }
 
-/** A month → its file text: names by index, closed days, then one session per line. */
+/**
+ * A month → its file text: names by index, closed days, then one session per line. Names the file
+ * already held (`m.names`, from parseMonth) keep their index and new names go last, so a new name
+ * changes one line instead of renumbering every row after it.
+ */
 export function formatMonth(m) {
-  const names = [];
-  const index = new Map();
-  const line = r => {
+  const sorted = [...m.sessions].sort(compareRows);
+  const used = new Set(sorted.map(r => r.name));
+  const names = (m.names ?? []).filter(n => used.has(n));
+  const index = new Map(names.map((n, i) => [n, i]));
+  for (const r of sorted) {
     if (!index.has(r.name)) {
       index.set(r.name, names.length);
       names.push(r.name);
     }
+  }
+  const line = r => {
     const { id, date, start, end, level, area, side, kids, kind, capacity, booked, final, pace } = r;
     return `    ${JSON.stringify({ id, date, start, end, level, area, side, kids, name: index.get(r.name), kind, capacity, booked, final, pace })}`;
   };
-  const lines = [...m.sessions].sort(compareRows).map(line);
+  const lines = sorted.map(line);
   const closed = [...m.closed].sort((a, b) => a.date.localeCompare(b.date));
   const sessions = lines.length ? `[\n${lines.join(',\n')}\n  ]` : '[]';
   return `{\n  "month": ${JSON.stringify(m.month)},\n  "names": ${JSON.stringify(names)},\n  "closed": ${JSON.stringify(closed)},\n  "sessions": ${sessions}\n}\n`;
 }
 
-/** File text → month with names as strings. */
-export const parseMonth = text => expandMonth(JSON.parse(text));
+/** File text → month with names as strings, plus the file's `names` order for formatMonth. */
+export function parseMonth(text) {
+  const file = JSON.parse(text);
+  return { ...expandMonth(file), names: file.names ?? [] };
+}
 
 /** The first session date held in a store, or null. */
 export const earliestDate = store =>

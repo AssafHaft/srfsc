@@ -18,6 +18,7 @@ export const CODE_HASH = '223d5abca6b9aa166a82aa2b17f5415d82c238907bd29a52f4b29d
 export const PRICES = {
   reef: 360, // reef L1–L4
   reefHigh: 390, // reef L5–L6
+  reefL7: 425, // reef L7, a public level since October 2026
   bayAdult: 250,
   bayKids: 195,
 };

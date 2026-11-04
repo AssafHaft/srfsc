@@ -7,7 +7,7 @@ import { join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { addDays, israelToday, monthsBetween } from '../site/lib/time.mjs';
 import { fetchWindow } from './fetch.mjs';
-import { applyFinal, earliestDate, finalFrom, finalizeStale, formatMonth, nextIndex, parseMonth, upsertUpcoming } from './history.mjs';
+import { applyFinal, earliestDate, finalFrom, finalizeStale, formatMonth, nextIndex, parseMonth, reclassifyEvents, upsertUpcoming } from './history.mjs';
 import { DATA_FILE } from './scrape.mjs';
 
 export const HISTORY_DIR = fileURLToPath(new URL('../site/data/history/', import.meta.url));
@@ -55,10 +55,15 @@ export async function updateHistory({ dir = HISTORY_DIR, scheduleFile = DATA_FIL
   const schedule = JSON.parse(await readFile(scheduleFile, 'utf8'));
   const today = israelToday(now);
   const yesterday = addDays(today, -1);
+  const prev = await readIndex(dir);
   const store = await readMonths(dir, monthsBetween(addDays(today, -31), schedule.publishedThrough ?? today));
+  reclassifyEvents(store);
   upsertUpcoming(store, schedule);
-  // normally one window (the last 3 days); more to catch up when the last final counts are older
-  for (let from = finalFrom(store, today, addDays(today, -30)); from <= yesterday; from = addDays(from, 3)) {
+  // normally one window (the last 3 days); more to catch up when the last final counts are older.
+  // Days the CMS import covers already hold the park's own counts, so they're never fetched again.
+  let start = finalFrom(store, today, addDays(today, -30));
+  if (prev?.cms && start <= prev.cms.to) start = addDays(prev.cms.to, 1);
+  for (let from = start; from <= yesterday; from = addDays(from, 3)) {
     const to = addDays(from, 2) < yesterday ? addDays(from, 2) : yesterday;
     try {
       applyFinal(store, await fetchWindow(from, { log, ...fetchOptions }), { from, to });
@@ -69,7 +74,7 @@ export async function updateHistory({ dir = HISTORY_DIR, scheduleFile = DATA_FIL
   }
   finalizeStale(store, today);
   const months = await writeMonths(dir, store);
-  const index = nextIndex(await readIndex(dir), { months, updatedAt: schedule.fetchedAt, first: earliestDate(store), snapshot: true });
+  const index = nextIndex(prev, { months, updatedAt: schedule.fetchedAt, first: earliestDate(store), snapshot: true });
   await writeIndex(dir, index);
   log(`history: wrote ${months.join(', ')}; ${index.snapshots} snapshots since ${index.snapshotsSince}`);
   return index;

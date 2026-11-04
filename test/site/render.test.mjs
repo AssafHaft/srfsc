@@ -102,6 +102,7 @@ test('level chips show the saved filter', () => {
   const html = renderLevelChips(new Set([2]));
   assert.ok(html.includes('data-level="2" aria-pressed="true"'));
   assert.ok(html.includes('data-level="0" aria-pressed="false" aria-label="Bay"'));
+  assert.ok(html.includes('data-level="7" aria-pressed="false" aria-label="רמה 7"><span class="chip lv7">L7</span>'));
 });
 
 test('month: the level filter fades other levels in the day strips', () => {

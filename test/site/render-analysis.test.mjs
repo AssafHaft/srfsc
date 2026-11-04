@@ -3,10 +3,10 @@ import assert from 'node:assert/strict';
 import { analyse } from '../../site/lib/analytics.mjs';
 import { periodRange } from '../../site/lib/history.mjs';
 import { insights } from '../../site/lib/insights.mjs';
-import { compareNote, money, renderAnalysis, renderPeriods } from '../../site/lib/render-analysis.mjs';
+import { categoryChange, compareNote, money, renderAnalysis, renderPeriods } from '../../site/lib/render-analysis.mjs';
 import { addDays } from '../../site/lib/time.mjs';
 
-const PRICES = { reef: 360, reefHigh: 390, bayAdult: 250, bayKids: 195 };
+const PRICES = { reef: 360, reefHigh: 390, reefL7: 425, bayAdult: 250, bayKids: 195 };
 const UI = { heatMetric: 'occupancy', trendMetric: 'occupancy' };
 const count = (html, needle) => html.split(needle).length - 1;
 const row = (over = {}) => ({
@@ -75,7 +75,7 @@ test('renderAnalysis: ten sections in order, the numbers, and escaped park text'
   assert.ok(html.includes('&lt;b&gt;אירוע&lt;/b&gt; ×1') && !html.includes('<b>אירוע'));
   assert.ok(html.includes('L4 &lt;x&gt;') && !html.includes('L4 <x>'));
   assert.ok(html.includes('1.7 תחזוקה'));
-  assert.ok(html.includes('(ריף L1–L4 360 ₪, L5–L6 390 ₪, Bay מבוגרים 250 ₪, Bay ילדים 195 ₪)'));
+  assert.ok(html.includes('(ריף L1–L4 360 ₪, L5–L6 390 ₪, L7 425 ₪, Bay מבוגרים 250 ₪, Bay ילדים 195 ₪)'));
   assert.match(html, /ההיסטוריה עודכנה לפני /);
   assert.ok(html.includes('הזמנות שלא עברו בלוח מופיעות ב״מה לא בלוח הציבורי״.'));
   assert.ok(html.includes('<p class="empty">אין נתוני מערכת ניהול.</p>')); // this model has no import
@@ -85,6 +85,7 @@ test('renderAnalysis: collecting card before pace is ready, and the at-risk over
   const html = renderAnalysis(model(), [], UI);
   assert.ok(html.includes('אוספים נתונים') && html.includes('3 צילומי מצב') && html.includes('בערך ב־24.9'));
   assert.equal(count(html, '<div class="rrow">'), 10);
+  assert.ok(html.includes('<span class="nm" title="L4 &lt;x&gt;">&lt;x&gt;</span>')); // the chip shows the level; names stay escaped
   assert.ok(html.includes('<details class="more"><summary>ועוד 3 סשנים</summary>'));
   assert.ok(html.includes('אין מסקנות בולטות'));
   assert.ok(html.includes('בעוד שעה') && !html.includes('בעוד 1 שעות'));
@@ -135,4 +136,12 @@ test('renderAnalysis: a covered period without hidden bookings shows the tiles a
   }), [], UI);
   assert.ok(html.includes('<span class="k">הזמנות סגורות</span><span class="v num">0</span>'));
   assert.ok(html.includes('<p class="empty">אין הזמנות סגורות בתקופה.</p>'));
+});
+
+test('categoryChange: percent, "פי N" from a tiny base, new, or no comparison', () => {
+  assert.equal(categoryChange({ people: 150, cmpPeople: 100 }), '▲ 50%');
+  assert.equal(categoryChange({ people: 80, cmpPeople: 100 }), '▼ 20%');
+  assert.equal(categoryChange({ people: 820, cmpPeople: 1 }), '▲ פי 820'); // not "▲ 81900%"
+  assert.equal(categoryChange({ people: 6, cmpPeople: 0 }), 'חדש');
+  assert.equal(categoryChange({ people: 6, cmpPeople: null }), '–');
 });

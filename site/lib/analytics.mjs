@@ -3,7 +3,7 @@
 import { addDays, dayOfWeek, daysBetween, israelInstant, israelToday, monthsBetween } from './time.mjs';
 import { classify, isKids } from './history.mjs';
 
-export const LEVEL_KEYS = ['bay-adult', 'bay-kids', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6'];
+export const LEVEL_KEYS = ['bay-adult', 'bay-kids', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7'];
 export const HEAT_MIN_SESSIONS = 4;
 export const SLOT_MIN_DATES = 4;
 export const WEEKLY_MAX_DAYS = 92;
@@ -14,7 +14,8 @@ export const levelKey = r => (r.area === 'bay' ? (r.kids ? 'bay-kids' : 'bay-adu
 export const isCounted = r => r.kind === 'surf' || r.kind === 'lesson';
 export const isWeekend = date => dayOfWeek(date) >= 5; // Friday, Saturday
 export const priceOf = (r, prices) =>
-  r.area === 'bay' ? (r.kids ? prices.bayKids : prices.bayAdult) : r.level >= 5 ? prices.reefHigh : prices.reef;
+  r.area === 'bay' ? (r.kids ? prices.bayKids : prices.bayAdult)
+    : r.level === 7 ? prices.reefL7 : r.level >= 5 ? prices.reefHigh : prices.reef;
 /** The level filter: an empty set means every level; 0 selects both Bay groups. */
 export const matchesLevels = (r, levels) => levels.size === 0 || levels.has(r.area === 'bay' ? 0 : r.level);
 const inRange = (r, from, to) => r.date >= from && r.date <= to;
