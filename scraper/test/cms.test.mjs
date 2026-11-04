@@ -137,3 +137,21 @@ test('mergeExport: paired rows take only the export count; the rest become hidde
   const hidden = Object.values(store).flatMap(m => m.sessions).filter(r => r.kind === 'hidden');
   assert.ok(hidden.every(r => HIDDEN_CATEGORIES.includes(r.name)));
 });
+
+test('mergeExport: a follow-up export re-pairs the overlap day with hidden rows instead of adding them twice; new ids continue', () => {
+  const earlierHidden = ours({ id: -3348, area: 'bay', level: 0, start: '09:00', end: '10:00', name: 'שיעורים פרטיים', kind: 'hidden', capacity: 1, booked: 1, pace: [] });
+  const store = { '2025-07': { month: '2025-07', closed: [], sessions: [ours(), earlierHidden] } };
+  const exportRows = [
+    theirs({ booked: 11 }),
+    theirs({ hour: '09:00', area: 'bay', name: 'פרטי - לקוח לדוגמה', level: null, capacity: 1, booked: 1 }), // the overlap day's hidden row
+    theirs({ date: '2025-07-09', hour: '10:00', area: 'bay', name: 'חוג ילדים Beginners', level: null, capacity: 10, booked: 6 }),
+  ];
+  const { summary } = mergeExport(store, exportRows, { usedIds: 3348 });
+  assert.deepEqual([summary.pairs, summary.hidden, summary.changed], [2, 1, 1]);
+  const rows = store['2025-07'].sessions;
+  assert.equal(rows.filter(r => r.kind === 'hidden').length, 2);
+  assert.deepEqual(rows.at(-1), {
+    id: -3349, date: '2025-07-09', start: '10:00', end: '11:00', level: 0, area: 'bay', side: 'right', kids: true,
+    name: 'חוגים', kind: 'hidden', capacity: 10, booked: 6, final: true, pace: [],
+  });
+});
