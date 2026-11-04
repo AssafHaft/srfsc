@@ -17,7 +17,7 @@ export const CODE_HASH = '223d5abca6b9aa166a82aa2b17f5415d82c238907bd29a52f4b29d
 // From the park's single-session prices on 11.9.2026; edit here and all history is re-priced.
 export const PRICES = {
   reef: 360, // reef L1–L4
-  reefHigh: 390, // reef L5–L6
+  reefHigh: 390, // reef L5–L7 (L7 became a public level in October 2026)
   bayAdult: 250,
   bayKids: 195,
 };

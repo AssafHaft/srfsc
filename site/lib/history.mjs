@@ -10,11 +10,18 @@ export const HIDDEN_CATEGORIES = [
   'חוגים', 'קורסי Bay', 'שימוש פנימי ושריונים', 'שיעורי Bay קבוצתיים',
 ];
 
+/**
+ * Level 7 held only internal special events ("SRF Internal Special Event - T-Time") until October 2026,
+ * when the park made it a public level ("L7 - Turns to Barrels", "L7 - Ocean T"). An L7 session is an
+ * event only when its name says so.
+ */
+export const isEventName = name => /event|אירוע/i.test(String(name));
+
 /** A session's kind, first match wins. ("removed" is only ever set by the history update.) */
-export function classify({ area, level, capacity, blocked }) {
+export function classify({ area, level, capacity, blocked, name = '' }) {
   if (capacity === 0) return 'cancelled';
   if (blocked) return 'blocked';
-  if (level === 7) return 'event';
+  if (level === 7 && isEventName(name)) return 'event';
   return area === 'bay' ? 'lesson' : 'surf';
 }
 

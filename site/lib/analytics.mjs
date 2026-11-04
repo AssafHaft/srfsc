@@ -3,7 +3,7 @@
 import { addDays, dayOfWeek, daysBetween, israelInstant, israelToday, monthsBetween } from './time.mjs';
 import { classify, isKids } from './history.mjs';
 
-export const LEVEL_KEYS = ['bay-adult', 'bay-kids', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6'];
+export const LEVEL_KEYS = ['bay-adult', 'bay-kids', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7'];
 export const HEAT_MIN_SESSIONS = 4;
 export const SLOT_MIN_DATES = 4;
 export const WEEKLY_MAX_DAYS = 92;

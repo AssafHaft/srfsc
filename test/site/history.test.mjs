@@ -5,7 +5,7 @@ import { classify, expandMonth, isKids, monthsNeeded, periodRange } from '../../
 test('classify: cancelled, blocked, event, lesson, surf (first match wins)', () => {
   assert.equal(classify({ area: 'reef', level: 4, capacity: 0, blocked: true }), 'cancelled');
   assert.equal(classify({ area: 'reef', level: 4, capacity: 18, blocked: true }), 'blocked');
-  assert.equal(classify({ area: 'reef', level: 7, capacity: 16, blocked: false }), 'event');
+  assert.equal(classify({ area: 'reef', level: 7, capacity: 16, blocked: false, name: 'SRF Internal Special Event - T-Time' }), 'event');
   assert.equal(classify({ area: 'bay', level: 0, capacity: 18, blocked: false }), 'lesson');
   assert.equal(classify({ area: 'reef', level: 5, capacity: 15, blocked: false }), 'surf');
 });
@@ -41,4 +41,13 @@ test('periodRange falls back to the previous period, then to no comparison', () 
 
 test('monthsNeeded covers the range and its comparison', () => {
   assert.deepEqual(monthsNeeded(periodRange('30d', '2026-09-11', '2025-04-02')), ['2025-08', '2025-09', '2026-08', '2026-09']);
+});
+
+test('classify: L7 is a public level since October 2026; only L7 sessions named as events are events', () => {
+  assert.equal(classify({ area: 'reef', level: 7, capacity: 12, blocked: false, name: 'L7 - Turns to Barrels' }), 'surf');
+  assert.equal(classify({ area: 'reef', level: 7, capacity: 15, blocked: false, name: 'L7 - Ocean T (T3)' }), 'surf');
+  assert.equal(classify({ area: 'reef', level: 7, capacity: 16, blocked: false, name: 'Special Private Event' }), 'event');
+  assert.equal(classify({ area: 'reef', level: 7, capacity: 16, blocked: false, name: 'אירוע סגור' }), 'event');
+  assert.equal(classify({ area: 'reef', level: 7, capacity: 16, blocked: false }), 'surf');
+  assert.equal(classify({ area: 'reef', level: 6, capacity: 16, blocked: false, name: 'Event night' }), 'surf');
 });

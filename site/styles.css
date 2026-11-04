@@ -12,7 +12,7 @@
   --sand-tint: #FBF5E6;
   --sand-line: #EBD9A8;
   --l0: #E2B860; --l1: #91C36B; --l2: #6F9B5C; --l3: #487037;
-  --l4: #81ABCA; --l5: #225A8C; --l6: #8A71B2;
+  --l4: #81ABCA; --l5: #225A8C; --l6: #8A71B2; --l7: #A3366B;
   --display: "Secular One", "IBM Plex Sans Hebrew", system-ui, sans-serif;
   --text: "IBM Plex Sans Hebrew", system-ui, sans-serif;
   --hpx: 56px; /* one hour in the week view; keep in sync with HOUR_PX in lib/render.mjs */
@@ -58,8 +58,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .chip { display: inline-grid; place-items: center; min-width: 30px; height: 20px; padding: 0 5px; border-radius: 5px; font-size: 12px; font-weight: 600; line-height: 1; color: #fff; direction: ltr; flex: none; }
 .chip.lv0, .chip.lv1, .chip.lv2, .chip.lv4 { color: var(--deep); }
 .lv0 { background: var(--l0); } .lv1 { background: var(--l1); } .lv2 { background: var(--l2); } .lv3 { background: var(--l3); }
-.lv4 { background: var(--l4); } .lv5 { background: var(--l5); } .lv6 { background: var(--l6); }
-.lv7 { background: var(--mist); } /* internal special events (L7) */
+.lv4 { background: var(--l4); } .lv5 { background: var(--l5); } .lv6 { background: var(--l6); } .lv7 { background: var(--l7); }
 .spot { min-width: 20px; text-align: center; font-size: 13px; font-weight: 600; line-height: 20px; }
 .spot.few { background: var(--rescue); color: var(--deep); border-radius: 4px; padding: 0 5px; }
 .spot.full { font-size: 12px; font-weight: 400; color: var(--mist); }

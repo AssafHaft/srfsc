@@ -19,6 +19,7 @@ const close = (a, b) => assert.ok(Math.abs(a - b) < 1e-9, `${a} ≠ ${b}`);
 test('prices and level keys by area, level and age group', () => {
   assert.equal(priceOf(row(), PRICES), 360);
   assert.equal(priceOf(row({ level: 5 }), PRICES), 390);
+  assert.equal(priceOf(row({ level: 7 }), PRICES), 390);
   assert.equal(priceOf(row({ area: 'bay', level: 0 }), PRICES), 250);
   assert.equal(priceOf(row({ area: 'bay', level: 0, kids: true }), PRICES), 195);
   assert.deepEqual([levelKey(row()), levelKey(row({ area: 'bay', kids: true })), levelKey(row({ area: 'bay' }))], ['L3', 'bay-kids', 'bay-adult']);
@@ -70,6 +71,12 @@ test('levelTable: shares of the whole, in level order, with the comparison when 
   assert.equal(l4.cmp.sessions, 1);
   assert.equal(bay.cmp, null);
   assert.equal(levelTable(cur, null, PRICES)[1].cmp, null);
+});
+
+test('levelTable lists L7, the public level since October 2026, after L6', () => {
+  const t = levelTable([row({ level: 7, booked: 9 }), row({ level: 6, booked: 4 })], null, PRICES);
+  assert.deepEqual(t.map(l => l.key), ['L6', 'L7']);
+  assert.equal(t[1].revenue, 9 * 390);
 });
 
 test('slotRanking needs 4 dates per slot and never lists a slot twice', () => {

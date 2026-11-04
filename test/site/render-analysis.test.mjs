@@ -75,7 +75,7 @@ test('renderAnalysis: ten sections in order, the numbers, and escaped park text'
   assert.ok(html.includes('&lt;b&gt;אירוע&lt;/b&gt; ×1') && !html.includes('<b>אירוע'));
   assert.ok(html.includes('L4 &lt;x&gt;') && !html.includes('L4 <x>'));
   assert.ok(html.includes('1.7 תחזוקה'));
-  assert.ok(html.includes('(ריף L1–L4 360 ₪, L5–L6 390 ₪, Bay מבוגרים 250 ₪, Bay ילדים 195 ₪)'));
+  assert.ok(html.includes('(ריף L1–L4 360 ₪, L5–L7 390 ₪, Bay מבוגרים 250 ₪, Bay ילדים 195 ₪)'));
   assert.match(html, /ההיסטוריה עודכנה לפני /);
   assert.ok(html.includes('הזמנות שלא עברו בלוח מופיעות ב״מה לא בלוח הציבורי״.'));
   assert.ok(html.includes('<p class="empty">אין נתוני מערכת ניהול.</p>')); // this model has no import
