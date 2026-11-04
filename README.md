@@ -15,7 +15,11 @@ GitHub Actions runs every half hour (06:17–23:47 Israel time) and whenever som
 
 The page is static HTML and JavaScript with no build step and no dependencies. The analysis tab computes everything in the browser from the history files, and revenue figures are estimates at the list prices in `site/config.js`.
 
-History from 1.5.2025 to 10.9.2026 also holds a one-time import of the park's management-system (CMS) export. Public sessions carry its booked counts, and bookings the public schedule never showed (groups, camps, events, private lessons, clubs, courses) are stored by category only, never by name. The analysis tab shows them in their own section.
+History from 1.5.2025 to 3.11.2026 also holds imports of the park's management-system (CMS) export. Public sessions carry its booked counts, and bookings the public schedule never showed (groups, camps, events, private lessons, clubs, courses) are stored by category only, never by name. The analysis tab shows them in their own section.
+
+To add a newer export, start it on or before the day after the last import ended (the coverage is in `site/data/history/index.json` under `cms`), end it yesterday at the latest, and run `npm run import-cms -- <file.xlsx> --dry-run`, then again without `--dry-run`. Days that overlap the last import are re-paired, not added twice. Never commit the .xlsx: it holds customers' names.
+
+L7 is a public wave level since October 2026 ("L7 - Turns to Barrels", "L7 - Ocean T"). Before that, L7 held only internal special events, so an L7 session counts as an event only when its name says so ("Event", "אירוע"). L7 is priced with L5–L6 (`reefHigh` in `site/config.js`).
 
 The page opens on a 6-digit code screen, asked on every visit. It's a curtain, not a lock: the site, its code and its data files stay public, so it only keeps out people who open the link. The code is stored only as a SHA-256 hash, `CODE_HASH` in `site/config.js`, which also says how to change it.
 
@@ -29,7 +33,7 @@ npm run scrape         # fetch the live schedule into site/data/schedule.json
 npm run update-history # record it into site/data/history/
 npm run update         # both of the above
 npm run backfill       # one-time: import every past session the park still serves (about 5 minutes)
-npm run import-cms -- <file.xlsx> [--dry-run]  # one-time: merge the park's CMS export (refuses to run twice)
+npm run import-cms -- <file.xlsx> [--dry-run]  # merge a CMS export that continues the last one (refuses one it already holds)
 npm run serve          # preview the site at http://localhost:8000/
 ```
 
