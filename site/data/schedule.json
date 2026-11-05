@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-05T19:57:32+02:00",
+  "fetchedAt": "2026-11-05T20:46:12+02:00",
   "publishedThrough": "2026-11-19",
   "days": [
     {
@@ -613,8 +613,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 3,
-          "spotsLeft": 15,
+          "booked": 4,
+          "spotsLeft": 14,
           "available": true,
           "blocked": false
         },
@@ -725,8 +725,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 4,
-          "spotsLeft": 11,
+          "booked": 5,
+          "spotsLeft": 10,
           "available": true,
           "blocked": false
         },
@@ -887,8 +887,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 3,
-          "spotsLeft": 15,
+          "booked": 4,
+          "spotsLeft": 14,
           "available": true,
           "blocked": false
         },
@@ -971,8 +971,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 20,
-          "booked": 2,
-          "spotsLeft": 18,
+          "booked": 3,
+          "spotsLeft": 17,
           "available": true,
           "blocked": false
         },
@@ -985,8 +985,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 20,
-          "booked": 3,
-          "spotsLeft": 17,
+          "booked": 4,
+          "spotsLeft": 16,
           "available": true,
           "blocked": false
         },
@@ -2185,8 +2185,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 1,
-          "spotsLeft": 17,
+          "booked": 2,
+          "spotsLeft": 16,
           "available": true,
           "blocked": false
         },
@@ -3083,8 +3083,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 15,
-          "booked": 1,
-          "spotsLeft": 14,
+          "booked": 0,
+          "spotsLeft": 15,
           "available": true,
           "blocked": false
         },
