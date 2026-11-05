@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-05T11:29:39+02:00",
+  "fetchedAt": "2026-11-05T12:57:49+02:00",
   "publishedThrough": "2026-11-19",
   "days": [
     {
@@ -185,8 +185,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 6,
-          "spotsLeft": 12,
+          "booked": 7,
+          "spotsLeft": 11,
           "available": true,
           "blocked": false
         },
@@ -199,8 +199,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 3,
-          "spotsLeft": 12,
+          "booked": 11,
+          "spotsLeft": 4,
           "available": true,
           "blocked": false
         },
@@ -213,8 +213,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 15,
-          "booked": 6,
-          "spotsLeft": 9,
+          "booked": 10,
+          "spotsLeft": 5,
           "available": true,
           "blocked": false
         },
@@ -241,8 +241,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 12,
-          "booked": 2,
-          "spotsLeft": 10,
+          "booked": 5,
+          "spotsLeft": 7,
           "available": true,
           "blocked": false
         },
@@ -655,8 +655,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 3,
-          "spotsLeft": 15,
+          "booked": 4,
+          "spotsLeft": 14,
           "available": true,
           "blocked": false
         },
@@ -669,8 +669,8 @@
           "area": "bay",
           "side": "right",
           "capacity": 12,
-          "booked": 3,
-          "spotsLeft": 9,
+          "booked": 5,
+          "spotsLeft": 7,
           "available": true,
           "blocked": false
         },
@@ -697,8 +697,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 15,
-          "booked": 6,
-          "spotsLeft": 9,
+          "booked": 7,
+          "spotsLeft": 8,
           "available": true,
           "blocked": false
         },
@@ -887,8 +887,8 @@
           "area": "reef",
           "side": "right",
           "capacity": 18,
-          "booked": 4,
-          "spotsLeft": 14,
+          "booked": 3,
+          "spotsLeft": 15,
           "available": true,
           "blocked": false
         },
@@ -901,8 +901,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 18,
-          "booked": 5,
-          "spotsLeft": 13,
+          "booked": 4,
+          "spotsLeft": 14,
           "available": true,
           "blocked": false
         },
@@ -2261,10 +2261,10 @@
           "blocked": false
         },
         {
-          "id": 45666,
+          "id": 47413,
           "start": "14:00",
           "end": "15:00",
-          "name": "L6 Pro (T2+B2)",
+          "name": "L6- 2B Or Not 2B (B2+B3) - Barrel Fest",
           "level": 6,
           "area": "reef",
           "side": "right",
@@ -2275,10 +2275,10 @@
           "blocked": false
         },
         {
-          "id": 45665,
+          "id": 47412,
           "start": "14:00",
           "end": "15:00",
-          "name": "L6 Pro (T2+B2)",
+          "name": "L6- 2B Or Not 2B (B2+B3) - Barrel Fest",
           "level": 6,
           "area": "reef",
           "side": "left",
@@ -2971,8 +2971,8 @@
           "area": "reef",
           "side": "left",
           "capacity": 19,
-          "booked": 2,
-          "spotsLeft": 17,
+          "booked": 3,
+          "spotsLeft": 16,
           "available": true,
           "blocked": false
         },
@@ -5089,30 +5089,30 @@
           "blocked": false
         },
         {
-          "id": 45678,
+          "id": 47409,
           "start": "12:00",
           "end": "13:00",
-          "name": "L7 - Ocean T (T3)",
-          "level": 7,
+          "name": "L3 - Intermediate (M3)",
+          "level": 3,
           "area": "reef",
           "side": "right",
-          "capacity": 12,
+          "capacity": 18,
           "booked": 0,
-          "spotsLeft": 12,
+          "spotsLeft": 18,
           "available": true,
           "blocked": false
         },
         {
-          "id": 45677,
+          "id": 47408,
           "start": "12:00",
           "end": "13:00",
-          "name": "L7 - Ocean T (T3)",
-          "level": 7,
+          "name": "L3 - Intermediate (M3)",
+          "level": 3,
           "area": "reef",
           "side": "left",
-          "capacity": 12,
+          "capacity": 18,
           "booked": 0,
-          "spotsLeft": 12,
+          "spotsLeft": 18,
           "available": true,
           "blocked": false
         },
@@ -5145,10 +5145,10 @@
           "blocked": false
         },
         {
-          "id": 45682,
+          "id": 47411,
           "start": "14:00",
           "end": "15:00",
-          "name": "L6 Pro (T2+B2)",
+          "name": "L6- 2B Or Not 2B (B2+B3) - Barrel Fest",
           "level": 6,
           "area": "reef",
           "side": "right",
@@ -5159,10 +5159,10 @@
           "blocked": false
         },
         {
-          "id": 45681,
+          "id": 47410,
           "start": "14:00",
           "end": "15:00",
-          "name": "L6 Pro (T2+B2)",
+          "name": "L6- 2B Or Not 2B (B2+B3) - Barrel Fest",
           "level": 6,
           "area": "reef",
           "side": "left",
