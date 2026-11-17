@@ -10,7 +10,7 @@
     {"id":47829,"date":"2026-12-01","start":"08:00","end":"09:00","level":5,"area":"reef","side":"right","kids":false,"name":2,"kind":"surf","capacity":15,"booked":0,"final":false,"pace":[[19806,0]]},
     {"id":47830,"date":"2026-12-01","start":"08:00","end":"09:00","level":5,"area":"reef","side":"left","kids":false,"name":2,"kind":"surf","capacity":15,"booked":0,"final":false,"pace":[[19806,0]]},
     {"id":47831,"date":"2026-12-01","start":"09:00","end":"10:00","level":2,"area":"reef","side":"right","kids":false,"name":3,"kind":"surf","capacity":13,"booked":0,"final":false,"pace":[[19866,0]]},
-    {"id":47832,"date":"2026-12-01","start":"09:00","end":"10:00","level":2,"area":"reef","side":"left","kids":false,"name":3,"kind":"surf","capacity":20,"booked":0,"final":false,"pace":[[19866,0]]},
+    {"id":47832,"date":"2026-12-01","start":"09:00","end":"10:00","level":2,"area":"reef","side":"left","kids":false,"name":3,"kind":"surf","capacity":14,"booked":0,"final":false,"pace":[[19866,0]]},
     {"id":47833,"date":"2026-12-01","start":"10:00","end":"11:00","level":5,"area":"reef","side":"right","kids":false,"name":4,"kind":"surf","capacity":15,"booked":0,"final":false,"pace":[[19926,0]]},
     {"id":47834,"date":"2026-12-01","start":"10:00","end":"11:00","level":5,"area":"reef","side":"left","kids":false,"name":4,"kind":"surf","capacity":15,"booked":0,"final":false,"pace":[[19926,0]]},
     {"id":47835,"date":"2026-12-01","start":"11:00","end":"12:00","level":4,"area":"reef","side":"right","kids":false,"name":5,"kind":"surf","capacity":18,"booked":0,"final":false,"pace":[[19986,0]]},
@@ -25,11 +25,11 @@
     {"id":47844,"date":"2026-12-01","start":"15:00","end":"16:00","level":3,"area":"reef","side":"left","kids":false,"name":9,"kind":"surf","capacity":18,"booked":0,"final":false,"pace":[[20226,0]]},
     {"id":47845,"date":"2026-12-01","start":"16:00","end":"17:00","level":5,"area":"reef","side":"right","kids":false,"name":4,"kind":"surf","capacity":15,"booked":0,"final":false,"pace":[[20286,0]]},
     {"id":47846,"date":"2026-12-01","start":"16:00","end":"17:00","level":5,"area":"reef","side":"left","kids":false,"name":4,"kind":"surf","capacity":15,"booked":0,"final":false,"pace":[[20286,0]]},
-    {"id":47847,"date":"2026-12-01","start":"17:00","end":"18:00","level":1,"area":"reef","side":"right","kids":false,"name":10,"kind":"surf","capacity":15,"booked":0,"final":false,"pace":[[20346,0]]},
+    {"id":47847,"date":"2026-12-01","start":"17:00","end":"18:00","level":1,"area":"reef","side":"right","kids":false,"name":10,"kind":"surf","capacity":14,"booked":0,"final":false,"pace":[[20346,0]]},
     {"id":47848,"date":"2026-12-01","start":"17:00","end":"18:00","level":1,"area":"reef","side":"left","kids":false,"name":10,"kind":"surf","capacity":14,"booked":0,"final":false,"pace":[[20346,0]]},
     {"id":47849,"date":"2026-12-01","start":"18:00","end":"19:00","level":7,"area":"reef","side":"right","kids":false,"name":1,"kind":"surf","capacity":12,"booked":0,"final":false,"pace":[[20406,0]]},
     {"id":47850,"date":"2026-12-01","start":"18:00","end":"19:00","level":7,"area":"reef","side":"left","kids":false,"name":1,"kind":"surf","capacity":12,"booked":0,"final":false,"pace":[[20406,0]]},
     {"id":47851,"date":"2026-12-01","start":"19:00","end":"20:00","level":4,"area":"reef","side":"right","kids":false,"name":7,"kind":"surf","capacity":11,"booked":0,"final":false,"pace":[[20466,0]]},
-    {"id":47852,"date":"2026-12-01","start":"19:00","end":"20:00","level":4,"area":"reef","side":"left","kids":false,"name":7,"kind":"surf","capacity":18,"booked":0,"final":false,"pace":[[20466,0]]}
+    {"id":47852,"date":"2026-12-01","start":"19:00","end":"20:00","level":4,"area":"reef","side":"left","kids":false,"name":7,"kind":"surf","capacity":12,"booked":0,"final":false,"pace":[[20466,0]]}
   ]
 }
